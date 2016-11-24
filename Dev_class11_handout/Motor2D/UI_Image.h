@@ -8,9 +8,10 @@ class UI_Image : public UI_element
 {
 public:
 	SDL_Rect Image;
+	int id;
 
 public:
-	UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size);
+	UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size, int id);
 	bool Update_Draw();
 };
 

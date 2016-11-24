@@ -40,15 +40,17 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	UI_element* CreateElement(iPoint pos, UI_TYPE type, SDL_Rect img_size);
+	UI_element* CreateElement(iPoint pos, UI_TYPE type, SDL_Rect img_size, int id = -1);
 	UI_element* CreateElement(iPoint pos, UI_TYPE type, const char* text);
 
 	const SDL_Texture* GetAtlas() const;
+	const SDL_Texture* Get_Other_Textures(uint id) const;
 
 private:
 
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
+	p2List<SDL_Texture*> Other_images;
 	p2List<UI_element*> UI_elements_List;
 
 };

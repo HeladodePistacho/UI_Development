@@ -33,6 +33,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+	Other_images.add(App->tex->Load("gui/login_background.png"));
 
 	return true;
 }
@@ -71,16 +72,24 @@ const SDL_Texture* j1Gui::GetAtlas() const
 	return atlas;
 }
 
+const SDL_Texture* j1Gui::Get_Other_Textures(uint id) const
+{
+	if(id < Other_images.count())
+		return Other_images[id];
+
+	return nullptr;	
+}
+
 // class Gui ---------------------------------------------------
 
-UI_element* j1Gui::CreateElement(iPoint pos, UI_TYPE type, SDL_Rect img_size)
+UI_element* j1Gui::CreateElement(iPoint pos, UI_TYPE type, SDL_Rect img_size, int id)
 {
 	UI_element* ret = nullptr;
 
 	switch (type)
 	{
-	case UI_TYPE::IMAGE: ret = new UI_Image(pos, type, img_size); break;
-
+	case UI_TYPE::IMAGE: ret = new UI_Image(pos, type, img_size, id); break;
+	case UI_TYPE::IMAGE_NOT_IN_ATLAS: ret = new UI_Image(pos, type, img_size, id); break;
 	}
 
 	if (ret != nullptr)
