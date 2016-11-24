@@ -46,6 +46,8 @@ bool j1Scene::Start()
 
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
 
+	App->gui->CreateElement({ 30,30 }, UI_TYPE::IMAGE, { 485, 829, 328, 103 });
+	App->gui->CreateElement({ 30,120 }, UI_TYPE::STRING, "Pray for harambe");
 
 	return true;
 }
