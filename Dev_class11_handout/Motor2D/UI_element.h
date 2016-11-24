@@ -26,6 +26,6 @@ public:
 	void Set_Position(const iPoint& new_pos);
 };
 
-};
+
 
 #endif // !_UI_ELEMENT_H_
