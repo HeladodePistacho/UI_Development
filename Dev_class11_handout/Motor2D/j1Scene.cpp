@@ -45,8 +45,8 @@ bool j1Scene::Start()
 	debug_tex = App->tex->Load("maps/path2.png");
 
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
-
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
+
 	App->gui->CreateElement({ 30,30 }, UI_TYPE::IMAGE, { 485, 829, 328, 103 });
 	App->gui->CreateElement({ 30,120 }, UI_TYPE::STRING, "Pray for harambe");
 
@@ -136,6 +136,18 @@ bool j1Scene::Update(float dt)
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
+
+
+
+	/*
+	dyn_array<uielements*> scene_elements;
+
+	for(int i = 0; i < scene_elements.count(); i++)
+	{
+		
+	}
+	
+	*/
 
 	return true;
 }
