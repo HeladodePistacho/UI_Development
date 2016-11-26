@@ -13,7 +13,7 @@ public:
 
 public:
 
-	UI_interactive(SDL_Rect set_box);
+	UI_interactive(iPoint pos, UI_TYPE type, SDL_Rect set_box);
 	bool Mouse_is_in(const iPoint& mouse_pos);
 
 };
