@@ -12,6 +12,7 @@ public:
 
 public:
 	UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size, int id);
+	UI_Image(const UI_Image* other);
 	bool Update_Draw();
 };
 

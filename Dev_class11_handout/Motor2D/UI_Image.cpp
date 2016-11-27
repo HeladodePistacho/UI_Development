@@ -5,6 +5,8 @@
 
 UI_Image::UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size, int new_id) : UI_element(pos, type), Image(img_size), id(new_id) {}
 
+UI_Image::UI_Image(const UI_Image* other) : UI_element(other->position, other->element_type), Image(other->Image), id(other->id) {}
+
 bool UI_Image::Update_Draw()
 {
 
