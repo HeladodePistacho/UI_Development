@@ -8,6 +8,7 @@
 #include "j1Gui.h"
 #include "UI_Image.h"
 #include "UI_String.h"
+#include "UI_Button.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -111,4 +112,26 @@ UI_element* j1Gui::CreateElement(iPoint pos, UI_TYPE type, const char* text)
 		UI_elements_List.add(ret);
 
 	return ret;
+}
+
+UI_element* j1Gui::CreateElement(UI_element* new_element)
+{
+	UI_element* ret = new_element;
+
+	if (ret == nullptr)
+		return ret;
+
+	switch (new_element->element_type)
+	{
+	case UI_TYPE::IMAGE:					ret = new UI_Image((UI_Image*)new_element); break;
+	case UI_TYPE::IMAGE_NOT_IN_ATLAS:		ret = new UI_Image((UI_Image*)new_element); break;
+	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_element); break;
+	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_element); break;
+	}
+
+	if (ret != nullptr)
+		UI_elements_List.add(ret);
+
+	return ret;
+
 }
