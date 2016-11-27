@@ -7,7 +7,8 @@ enum UI_TYPE
 {
 	IMAGE,
 	IMAGE_NOT_IN_ATLAS,
-	STRING
+	STRING,
+	BUTTON
 };
 
 class UI_element
