@@ -105,7 +105,7 @@ UI_element* j1Gui::CreateElement(iPoint pos, UI_TYPE type, const char* text)
 
 	switch (type)
 	{
-	case UI_TYPE::STRING: ret = new UI_String(pos, type, text); break;
+	//case UI_TYPE::STRING: ret = new UI_String(pos, type, text); break;
 	}
 
 	if (ret != nullptr)
