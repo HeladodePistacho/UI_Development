@@ -9,9 +9,10 @@ class UI_Image : public UI_element
 public:
 	SDL_Rect Image;
 	int id;
+	bool printable;
 
 public:
-	UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size, int id);
+	UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size, bool print, int id = -1);
 	UI_Image(const UI_Image* other);
 	bool Update_Draw();
 };

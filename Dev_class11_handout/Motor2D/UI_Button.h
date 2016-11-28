@@ -13,6 +13,7 @@ public:
 	UI_Button(iPoint pos, UI_TYPE type, SDL_Rect set_box, const UI_Image& start_image);
 	UI_Button(const UI_Button* other);
 
+	void Change_image_to(const UI_Image& new_image);
 	bool Update_Draw();
 
 };

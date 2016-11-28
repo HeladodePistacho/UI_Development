@@ -11,6 +11,7 @@
 #include "j1Gui.h"
 #include "UI_element.h"
 #include "UI_Image.h"
+#include "UI_Button.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -52,11 +53,18 @@ bool j1Scene::Start()
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
 	
-	UI_Image lol({ 30,30 }, UI_TYPE::IMAGE, { 485, 829, 328, 103 }, -1);
+	UI_Image lol({ 30,30 }, UI_TYPE::IMAGE, { 485, 829, 328, 103 }, true);
 
 	banner = (UI_Image*)App->gui->CreateElement((UI_element*)&lol);
 
+
+	button_image = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 2,112,228,67 }, false)));
+	button_over = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 413,168,228,67 }, false)));
+	clicked_Button = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 644,168,228,67 }, false)));
 	
+	Button = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,100 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
+	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 200, 228, 67 }, button_image)));
+	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
 
 	return true;
 }
@@ -128,32 +136,40 @@ bool j1Scene::Update(float dt)
 
 	//App->win->SetTitle(title.GetString());
 
-	// Debug pathfinding ------------------------------
-	//int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	// UI FUNCIONALITY ------------------------------
+	
 
-	App->render->Blit(debug_tex, p.x, p.y);
+	 App->input->GetMousePosition(x, y);
 
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+		 if (Button->Mouse_is_in({ x,y }))
+		 {
+			 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+				 Button->Change_image_to(clicked_Button);
+			 
+			 else  Button->Change_image_to(button_over); 
+		 }
+		 else Button->Change_image_to(button_image); 
+	 
+	 if (Button_1->Mouse_is_in({ x,y }))
+	 {
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			 Button_1->Change_image_to(clicked_Button);
+		 else  Button_1->Change_image_to(button_over);
+	 }
+	 else  Button_1->Change_image_to(button_image);
 
-	for(uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(debug_tex, pos.x, pos.y);
-	}
+	 if (Button_2->Mouse_is_in({ x,y }))
+	 {
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			 Button_2->Change_image_to(clicked_Button);
+		 else  Button_2->Change_image_to(button_over);
+	 }
+	 else  Button_2->Change_image_to(button_image);
 
 
 
 	/*
-	dyn_array<uielements*> scene_elements;
-
-	for(int i = 0; i < scene_elements.count(); i++)
-	{
-		
-	}
+	
 	
 	*/
 

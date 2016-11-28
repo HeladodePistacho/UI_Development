@@ -8,7 +8,7 @@
 
 #define CURSOR_WIDTH 2
 
-
+struct SDL_Texture;
 
 // TODO 1: Create your structure of classes
 

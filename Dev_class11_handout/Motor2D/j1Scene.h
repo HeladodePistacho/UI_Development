@@ -5,6 +5,7 @@
 
 struct SDL_Texture;
 class UI_Image;
+class UI_Button;
 class GuiText;
 
 class j1Scene : public j1Module
@@ -39,7 +40,12 @@ private:
 	UI_Image* banner;
 	GuiText* text;
 
-
+	UI_Image* button_image;
+	UI_Image* button_over;
+	UI_Image* clicked_Button;
+	UI_Button* Button;
+	UI_Button* Button_1;
+	UI_Button* Button_2;
 	
 };
 
