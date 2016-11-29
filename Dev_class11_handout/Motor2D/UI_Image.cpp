@@ -9,7 +9,6 @@ UI_Image::UI_Image(const UI_Image* other) : UI_element(other->position, other->e
 
 bool UI_Image::Update_Draw()
 {
-
 	if (printable)
 	{
 		if (element_type == IMAGE)

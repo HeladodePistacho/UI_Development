@@ -63,8 +63,8 @@ bool j1Scene::Start()
 	clicked_Button = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 644,168,228,67 }, false)));
 	
 	Button = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,100 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
-	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 200, 228, 67 }, button_image)));
-	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
+	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
+	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
 
 	return true;
 }

@@ -20,5 +20,6 @@ void UI_Button::Change_image_to(const UI_Image& new_image)
 bool UI_Button::Update_Draw()
 {
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), position.x - App->render->camera.x, position.y - App->render->camera.y, &Button_image.Image);
+	Button_image.Update_Draw();
 	return true;
 }
