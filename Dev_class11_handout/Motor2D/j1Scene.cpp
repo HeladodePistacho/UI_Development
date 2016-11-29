@@ -150,7 +150,6 @@ bool j1Scene::Update(float dt)
 	 if (Button_1->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_1->Change_image_to(button_over);
 	 if (Button_1->state == INTERACTIVE_STATE::NOTHING) Button_1->Change_image_to(button_image);
 
-
 	 if (Button_2->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_2->Change_image_to(clicked_Button);
 	 if (Button_2->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_2->Change_image_to(button_over);
 	 if (Button_2->state == INTERACTIVE_STATE::NOTHING) Button_2->Change_image_to(button_image);
