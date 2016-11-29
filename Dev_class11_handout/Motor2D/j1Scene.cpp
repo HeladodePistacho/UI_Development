@@ -12,6 +12,7 @@
 #include "UI_element.h"
 #include "UI_Image.h"
 #include "UI_Button.h"
+#include "UI_Interactive_String.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -65,6 +66,8 @@ bool j1Scene::Start()
 	Button = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,100 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
 	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 200, 228, 67 }, button_image)));
 	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
+
+	texto_de_ejemplo = (UI_Interactive_String*)App->gui->CreateElement((UI_element*)&(UI_Interactive_String({ 270, 400 }, UI_TYPE::INTERACTIVE_STRING, "texto de ejemplo", { 270, 400, 100, 20 })));
 
 	return true;
 }
@@ -154,7 +157,9 @@ bool j1Scene::Update(float dt)
 	 if (Button_2->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_2->Change_image_to(button_over);
 	 if (Button_2->state == INTERACTIVE_STATE::NOTHING) Button_2->Change_image_to(button_image);
 	
-
+	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::CLICK_ELEMENT) texto_de_ejemplo->Set_String("wow me pulsan");
+	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
+	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("texto de ejemplo");
 
 	/*
 	

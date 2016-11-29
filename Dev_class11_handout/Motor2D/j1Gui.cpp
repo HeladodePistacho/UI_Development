@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 #include "UI_Image.h"
+#include "UI_Interactive_String.h"
 #include "UI_String.h"
 #include "UI_Button.h"
 
@@ -86,37 +87,6 @@ const SDL_Texture* j1Gui::Get_Other_Textures(uint id) const
 
 // class Gui ---------------------------------------------------
 
-UI_element* j1Gui::CreateElement(iPoint pos, UI_TYPE type, SDL_Rect img_size, int id)
-{
-	UI_element* ret = nullptr;
-
-	switch (type)
-	{
-	case UI_TYPE::IMAGE: ret = new UI_Image(pos, type, img_size, id); break;
-	case UI_TYPE::IMAGE_NOT_IN_ATLAS: ret = new UI_Image(pos, type, img_size, id); break;
-	}
-
-	if (ret != nullptr)
-		UI_elements_List.add(ret);
-
-	return ret;
-}
-
-UI_element* j1Gui::CreateElement(iPoint pos, UI_TYPE type, const char* text)
-{
-	UI_element* ret = nullptr;
-
-	switch (type)
-	{
-	//case UI_TYPE::STRING: ret = new UI_String(pos, type, text); break;
-	}
-
-	if (ret != nullptr)
-		UI_elements_List.add(ret);
-
-	return ret;
-}
-
 UI_element* j1Gui::CreateElement(UI_element* new_element)
 {
 	UI_element* ret = new_element;
@@ -130,6 +100,7 @@ UI_element* j1Gui::CreateElement(UI_element* new_element)
 	case UI_TYPE::IMAGE_NOT_IN_ATLAS:		ret = new UI_Image((UI_Image*)new_element); break;
 	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_element); break;
 	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_element); break;
+	case UI_TYPE::INTERACTIVE_STRING:		ret = new UI_Interactive_String((UI_Interactive_String*)new_element); break;
 	}
 
 	if (ret != nullptr)

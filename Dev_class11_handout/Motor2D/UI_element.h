@@ -8,7 +8,8 @@ enum UI_TYPE
 	IMAGE,
 	IMAGE_NOT_IN_ATLAS,
 	STRING,
-	BUTTON
+	BUTTON,
+	INTERACTIVE_STRING
 };
 
 class UI_element

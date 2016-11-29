@@ -6,6 +6,7 @@
 struct SDL_Texture;
 class UI_Image;
 class UI_Button;
+class UI_Interactive_String;
 class GuiText;
 
 class j1Scene : public j1Module
@@ -47,6 +48,8 @@ private:
 	UI_Button* Button;
 	UI_Button* Button_1;
 	UI_Button* Button_2;
+
+	UI_Interactive_String* texto_de_ejemplo;
 	
 };
 
