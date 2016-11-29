@@ -14,6 +14,7 @@ public:
 	UI_Button(const UI_Button* other);
 
 	void Change_image_to(const UI_Image& new_image);
+	bool Update();
 	bool Update_Draw();
 
 };

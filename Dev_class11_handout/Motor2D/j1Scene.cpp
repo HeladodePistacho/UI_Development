@@ -63,8 +63,8 @@ bool j1Scene::Start()
 	clicked_Button = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 644,168,228,67 }, false)));
 	
 	Button = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,100 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
-	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
-	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
+	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 200, 228, 67 }, button_image)));
+	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
 
 	return true;
 }
@@ -141,31 +141,20 @@ bool j1Scene::Update(float dt)
 
 	 App->input->GetMousePosition(x, y);
 
-		 if (Button->Mouse_is_in({ x,y }))
-		 {
-			 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-				 Button->Change_image_to(clicked_Button);
-			 
-			 else  Button->Change_image_to(button_over); 
-		 }
-		 else Button->Change_image_to(button_image); 
-	 
-	 if (Button_1->Mouse_is_in({ x,y }))
-	 {
-		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-			 Button_1->Change_image_to(clicked_Button);
-		 else  Button_1->Change_image_to(button_over);
-	 }
-	 else  Button_1->Change_image_to(button_image);
 
-	 if (Button_2->Mouse_is_in({ x,y }))
-	 {
-		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-			 Button_2->Change_image_to(clicked_Button);
-		 else  Button_2->Change_image_to(button_over);
-	 }
-	 else  Button_2->Change_image_to(button_image);
+	 if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
+	 if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
+	 if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
 
+	 if (Button_1->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_1->Change_image_to(clicked_Button);
+	 if (Button_1->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_1->Change_image_to(button_over);
+	 if (Button_1->state == INTERACTIVE_STATE::NOTHING) Button_1->Change_image_to(button_image);
+
+
+	 if (Button_2->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_2->Change_image_to(clicked_Button);
+	 if (Button_2->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_2->Change_image_to(button_over);
+	 if (Button_2->state == INTERACTIVE_STATE::NOTHING) Button_2->Change_image_to(button_image);
+	
 
 
 	/*

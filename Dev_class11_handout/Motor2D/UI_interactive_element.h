@@ -3,13 +3,22 @@
 
 
 #include "UI_element.h"
+#include "j1Input.h"
 #include "SDL\include\SDL_rect.h"
+
+enum INTERACTIVE_STATE
+{
+	NOTHING,
+	OVER_ELEMENT,
+	CLICK_ELEMENT
+};
 
 class UI_interactive : public UI_element
 {
 public:
 	SDL_Rect Interactive_box;
 	bool Mouse_in = false;
+	INTERACTIVE_STATE state = NOTHING;
 
 public:
 

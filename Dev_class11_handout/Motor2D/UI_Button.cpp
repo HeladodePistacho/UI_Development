@@ -20,6 +20,21 @@ void UI_Button::Change_image_to(const UI_Image& new_image)
 bool UI_Button::Update_Draw()
 {
 	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), position.x - App->render->camera.x, position.y - App->render->camera.y, &Button_image.Image);
-	Button_image.Update_Draw();
+	return true;
+}
+
+bool UI_Button::Update()
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	if (Mouse_is_in({ x, y }))
+	{
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			state = CLICK_ELEMENT;
+		else state = OVER_ELEMENT;
+	}
+	else state = NOTHING;
+
 	return true;
 }

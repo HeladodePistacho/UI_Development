@@ -43,7 +43,7 @@ bool j1Gui::Start()
 bool j1Gui::PreUpdate()
 {
 	for (int i = 0; i < UI_elements_List.count(); i++)
-		UI_elements_List[i]->Update_Draw();
+		UI_elements_List[i]->Update();
 
 	return true;
 }
