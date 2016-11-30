@@ -12,8 +12,7 @@ enum UI_TYPE
 	IMAGE,
 	IMAGE_NOT_IN_ATLAS,
 	STRING,
-	BUTTON,
-	INTERACTIVE_STRING
+	BUTTON
 };
 
 enum INTERACTIVE_STATE
@@ -46,6 +45,7 @@ public:
 
 	UI_element* AddChild(const UI_element* new_child);
 	UI_element* Set_Parent(const UI_element& parent);
+	void Child_Update_Draw();
 
 	bool Mouse_is_in(const iPoint& mouse_pos);
 

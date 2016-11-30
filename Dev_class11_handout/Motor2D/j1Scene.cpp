@@ -12,7 +12,7 @@
 #include "UI_element.h"
 #include "UI_Image.h"
 #include "UI_Button.h"
-#include "UI_Interactive_String.h"
+#include "UI_String.h"
 #include "j1Scene.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -72,6 +72,8 @@ bool j1Scene::Start()
 
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
+	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 100,100, 228,67 }, { 2,112,228,67 }, true));
+	vaya_vaya = (UI_String*)button_image->AddChild((UI_element*)&UI_String(STRING, { 100, 0, 100, 100 }, "aqui no hay playa"));
 
 	return true;
 }

@@ -19,7 +19,6 @@ UI_element* UI_element::AddChild(const UI_element* new_child)
 	case UI_TYPE::IMAGE_NOT_IN_ATLAS:		ret = new UI_Image((UI_Image*)new_child); break;
 	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_child); break;
 	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_child); break;
-	case UI_TYPE::INTERACTIVE_STRING:		ret = new UI_Interactive_String((UI_Interactive_String*)new_child); break;
 	}
 
 	ret->Set_Parent(*this);
@@ -47,4 +46,11 @@ bool UI_element::Update_Draw()
 bool UI_element::Mouse_is_in(const iPoint& mouse_pos)
 {
 	return ((mouse_pos.x > Interactive_box.x) && (mouse_pos.x <= (Interactive_box.x + Interactive_box.w)) && (mouse_pos.y > Interactive_box.y) && (mouse_pos.y <= (Interactive_box.y + Interactive_box.h)));
+}
+
+void UI_element::Child_Update_Draw()
+{
+	int childs_number = Childs.count();
+	for (int i = 0; i < childs_number; i++)
+		Childs[i]->Update_Draw();
 }

@@ -14,11 +14,35 @@ const char* UI_String::Get_String() const
 
 bool UI_String::Update_Draw()
 {
-	/*
+	
 	if(Parent)
-		App->render->Blit(App->font->Print(text), position.x - App->render->camera.x, position.y - App->render->camera.y);
+		App->render->Blit(App->font->Print(text), Parent->Interactive_box.x + (Interactive_box.x - App->render->camera.x), Parent->Interactive_box.y + (Interactive_box.y - App->render->camera.y));
 
-	else App->render->Blit(App->font->Print(text), Parent->position.x + (position.x - App->render->camera.x), Parent->position.y + (position.y - App->render->camera.y));
-	*/
+	else App->render->Blit(App->font->Print(text), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
+	
+	Child_Update_Draw();
+
 	return true;
+}
+
+bool UI_String::Update()
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	if (Mouse_is_in({ x, y }))
+	{
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			state = CLICK_ELEMENT;
+		else state = OVER_ELEMENT;
+	}
+	else state = NOTHING;
+
+	return true;
+}
+
+bool UI_String::Set_String(const char* new_text)
+{
+	text = new_text;
+	return (text != nullptr) ? true : false;
 }
