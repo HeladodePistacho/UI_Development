@@ -1,10 +1,10 @@
 #ifndef _UI_BUTTON_H_
 #define _UI_BUTTON_H_
 
-#include "UI_interactive_element.h"
+#include "UI_element.h"
 #include "UI_Image.h"
 
-class UI_Button : public UI_interactive
+class UI_Button : public UI_element
 {
 public:
 	UI_Image Button_image;

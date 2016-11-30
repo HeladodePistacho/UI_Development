@@ -1,11 +1,12 @@
-#include "UI_Button.h"
 #include "j1App.h"
 #include "j1Gui.h"
 #include "j1Render.h"
+#include "UI_Button.h"
 
-UI_Button::UI_Button(iPoint pos, UI_TYPE type, SDL_Rect set_box, const UI_Image& start_image) : UI_interactive(pos, type, set_box), Button_image(start_image) {}
 
-UI_Button::UI_Button(const UI_Button* other) : UI_interactive(other->position, other->element_type, other->Interactive_box), Button_image(other->Button_image) 
+UI_Button::UI_Button(iPoint pos, UI_TYPE type, SDL_Rect set_box, const UI_Image& start_image) : UI_element(pos, type, set_box), Button_image(start_image) {}
+
+UI_Button::UI_Button(const UI_Button* other) : UI_element(other->position, other->element_type, other->Interactive_box), Button_image(other->Button_image)
 {
 	Button_image.printable = true;
 }

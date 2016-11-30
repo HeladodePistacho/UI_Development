@@ -61,9 +61,6 @@
     <ClCompile Include="UI_String.cpp">
       <Filter>Desenvolupament  ========\Modules\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UI_Interactive_element.cpp">
-      <Filter>Desenvolupament  ========\Modules\UI</Filter>
-    </ClCompile>
     <ClCompile Include="UI_Button.cpp">
       <Filter>Desenvolupament  ========\Modules\UI</Filter>
     </ClCompile>
@@ -148,9 +145,6 @@
       <Filter>Desenvolupament  ========\Modules\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI_String.h">
-      <Filter>Desenvolupament  ========\Modules\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_interactive_element.h">
       <Filter>Desenvolupament  ========\Modules\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI_Button.h">
