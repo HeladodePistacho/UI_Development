@@ -17,7 +17,6 @@ class UI_interactive : public UI_element
 {
 public:
 	SDL_Rect Interactive_box;
-	bool Mouse_in = false;
 	INTERACTIVE_STATE state = NOTHING;
 
 public:

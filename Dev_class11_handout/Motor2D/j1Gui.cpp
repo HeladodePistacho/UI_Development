@@ -43,8 +43,7 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
-	for (int i = 0; i < UI_elements_List.count(); i++)
-		UI_elements_List[i]->Update();
+	Elemento_padre->Update();
 
 	return true;
 }
@@ -52,8 +51,7 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	for (int i = 0; i < UI_elements_List.count(); i++)
-		UI_elements_List[i]->Update_Draw();
+	Elemento_padre->Update_Draw();
 
 	return true;
 }
@@ -69,6 +67,12 @@ bool j1Gui::CleanUp()
 	UI_elements_List.clear();
 
 	return true;
+}
+
+UI_element * j1Gui::CreateScreen(UI_element * new_element)
+{
+	Elemento_padre = new UI_element(*new_element);
+	return nullptr;
 }
 
 // const getter for atlas
@@ -87,6 +91,8 @@ const SDL_Texture* j1Gui::Get_Other_Textures(uint id) const
 
 // class Gui ---------------------------------------------------
 
+
+//old factory
 UI_element* j1Gui::CreateElement(UI_element* new_element)
 {
 	UI_element* ret = new_element;
