@@ -8,6 +8,7 @@ class UI_element;
 class UI_Image;
 class UI_Button;
 class UI_Interactive_String;
+class UI_String;
 class GuiText;
 
 class j1Scene : public j1Module
@@ -54,6 +55,7 @@ private:
 
 	UI_element* screen;
 	UI_Image* banner;
+	UI_String* vaya_vaya;
 	
 };
 

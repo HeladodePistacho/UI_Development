@@ -17,6 +17,8 @@ public:
 	UI_String(const UI_String* other);
 
 	const char* Get_String() const;
+	bool Set_String(const char* new_text);
+	bool Update();
 	bool Update_Draw();
 };
 

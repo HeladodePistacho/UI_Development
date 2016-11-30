@@ -29,9 +29,7 @@ bool UI_Image::Update_Draw()
 
 	}
 
-	int childs_number = Childs.count();
-	for (int i = 0; i < childs_number; i++)
-		Childs[i]->Update_Draw();
+	Child_Update_Draw();
 
 	return true;
 }

@@ -107,12 +107,12 @@ UI_element* j1Gui::CreateElement(UI_element* new_element)
 	case UI_TYPE::IMAGE_NOT_IN_ATLAS:		ret = new UI_Image((UI_Image*)new_element); break;
 	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_element); break;
 	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_element); break;
-	case UI_TYPE::INTERACTIVE_STRING:		ret = new UI_Interactive_String((UI_Interactive_String*)new_element); break;
 	}
 
-	if (ret != nullptr)
-		UI_elements_List.add(ret);
+		if (ret != nullptr)
+			UI_elements_List.add(ret);
 
-	return ret;
+		return ret;
 
+	
 }
