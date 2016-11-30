@@ -40,7 +40,10 @@ public:
 
 private:
 	SDL_Texture* debug_tex;
-	GuiText* text;
+	
+	UI_element* screen;
+	UI_Image* banner;
+	UI_String* vaya_vaya;
 
 	UI_Image* button_image;
 	UI_Image* button_over;
@@ -49,13 +52,6 @@ private:
 	UI_Button* Button;
 	UI_Button* Button_1;
 	UI_Button* Button_2;
-
-	UI_Interactive_String* texto_de_ejemplo;
-
-
-	UI_element* screen;
-	UI_Image* banner;
-	UI_String* vaya_vaya;
 	
 };
 

@@ -71,9 +71,19 @@ bool j1Scene::Start()
 	*/
 
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
+
 	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
-	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 100,100, 228,67 }, { 2,112,228,67 }, true));
-	vaya_vaya = (UI_String*)button_image->AddChild((UI_element*)&UI_String(STRING, { 100, 0, 100, 100 }, "aqui no hay playa"));
+	
+
+	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
+	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));
+	clicked_Button = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false)));
+
+	Button = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 100, 228, 67 }, button_image)));
+	Button_1 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 200, 228, 67 }, button_image)));
+	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
+
+	vaya_vaya = (UI_String*)Button->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa"));
 
 	return true;
 }
@@ -150,11 +160,12 @@ bool j1Scene::Update(float dt)
 
 	 App->input->GetMousePosition(x, y);
 
-	 /*
+	
 	 if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
 	 if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
 	 if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
 
+	 
 	 if (Button_1->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_1->Change_image_to(clicked_Button);
 	 if (Button_1->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_1->Change_image_to(button_over);
 	 if (Button_1->state == INTERACTIVE_STATE::NOTHING) Button_1->Change_image_to(button_image);
@@ -163,10 +174,10 @@ bool j1Scene::Update(float dt)
 	 if (Button_2->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_2->Change_image_to(button_over);
 	 if (Button_2->state == INTERACTIVE_STATE::NOTHING) Button_2->Change_image_to(button_image);
 	
+	 /*
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::CLICK_ELEMENT) texto_de_ejemplo->Set_String("wow me pulsan");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("texto de ejemplo");
-
 	/*
 	
 	

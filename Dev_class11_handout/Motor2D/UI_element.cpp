@@ -1,12 +1,11 @@
 #include "UI_element.h"
 #include "UI_String.h"
 #include "UI_Button.h"
-#include "UI_Interactive_String.h"
+#include "j1App.h"
 
 UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box) : element_type(type), Interactive_box(detection_box) {}
 
 UI_element::UI_element(const UI_element* other) : element_type(other->element_type), Interactive_box(other->Interactive_box){}
-
 
 UI_element* UI_element::AddChild(const UI_element* new_child)
 {
@@ -33,6 +32,16 @@ UI_element* UI_element::Set_Parent(const UI_element& new_Parent)
 	return Parent = ((UI_element*)&new_Parent);
 }
 
+bool UI_element::Update()
+{
+	int number_of_childs = Childs.count();
+
+	for (int i = 0; i < number_of_childs; i++)
+		Childs[i]->Update();
+
+	return true;
+}
+
 bool UI_element::Update_Draw()
 {
 	int number_of_childs = Childs.count();
@@ -53,4 +62,18 @@ void UI_element::Child_Update_Draw()
 	int childs_number = Childs.count();
 	for (int i = 0; i < childs_number; i++)
 		Childs[i]->Update_Draw();
+}
+
+void UI_element::Check_state()
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	if (Mouse_is_in({ x, y }))
+	{
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			state = CLICK_ELEMENT;
+		else state = OVER_ELEMENT;
+	}
+	else state = NOTHING;
 }

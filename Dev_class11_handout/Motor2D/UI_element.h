@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "p2List.h"
 #include "j1Input.h"
+#include "SDL\include\SDL.h"
 #include "SDL\include\SDL_rect.h"
 
 enum UI_TYPE
@@ -39,7 +40,7 @@ public:
 	UI_element(UI_TYPE type, SDL_Rect detection_box);
 	UI_element(const UI_element* other_element);
 	
-	virtual bool Update() { return true; };
+	virtual bool Update();
 	virtual bool Update_Draw();
 	virtual bool Handle_input() { return true; };
 
@@ -48,6 +49,7 @@ public:
 	void Child_Update_Draw();
 
 	bool Mouse_is_in(const iPoint& mouse_pos);
+	void Check_state();
 
 };
 

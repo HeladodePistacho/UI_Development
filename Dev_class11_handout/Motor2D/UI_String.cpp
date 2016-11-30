@@ -27,16 +27,7 @@ bool UI_String::Update_Draw()
 
 bool UI_String::Update()
 {
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
-	if (Mouse_is_in({ x, y }))
-	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-			state = CLICK_ELEMENT;
-		else state = OVER_ELEMENT;
-	}
-	else state = NOTHING;
+	Check_state();
 
 	return true;
 }

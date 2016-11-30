@@ -26,21 +26,14 @@ bool UI_Button::Update_Draw()
 	else
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(),(Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &Button_image.Image);
 
+	Child_Update_Draw();
+
 	return true;
 }
 
 bool UI_Button::Update()
 {
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
-	if (Mouse_is_in({ x, y }))
-	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-			state = CLICK_ELEMENT;
-		else state = OVER_ELEMENT;
-	}
-	else state = NOTHING;
+	Check_state();
 
 	return true;
 }
