@@ -77,3 +77,14 @@ void UI_element::Check_state()
 	}
 	else state = NOTHING;
 }
+
+void UI_element::Drag_element()
+{
+	int x = 0, y = 0;
+
+	
+		App->input->GetMouseMotion(x, y);
+
+	Interactive_box.x += x;
+	Interactive_box.y += y;
+}

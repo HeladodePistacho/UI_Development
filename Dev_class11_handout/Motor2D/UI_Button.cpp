@@ -35,5 +35,8 @@ bool UI_Button::Update()
 {
 	Check_state();
 
+	if (state == CLICK_ELEMENT)
+		Drag_element();
+
 	return true;
 }
