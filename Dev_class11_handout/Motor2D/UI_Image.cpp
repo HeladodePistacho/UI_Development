@@ -3,9 +3,9 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-UI_Image::UI_Image(iPoint pos, UI_TYPE type, SDL_Rect img_size,bool print, int new_id) : UI_element(pos, type), Image(img_size), printable(print), id(new_id) {}
+UI_Image::UI_Image(iPoint pos, UI_TYPE type, SDL_Rect set_box, SDL_Rect img_size,bool print, int new_id) : UI_element(pos, type, set_box), Image(img_size), printable(print), id(new_id) {}
 
-UI_Image::UI_Image(const UI_Image* other) : UI_element(other->position, other->element_type), Image(other->Image), printable(other->printable), id(other->id) {}
+UI_Image::UI_Image(const UI_Image* other) : UI_element(other->position, other->element_type, other->Interactive_box), Image(other->Image), printable(other->printable), id(other->id) {}
 
 bool UI_Image::Update_Draw()
 {

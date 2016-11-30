@@ -53,7 +53,7 @@ bool j1Scene::Start()
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
-	
+	/*
 	UI_Image lol({ 30,30 }, UI_TYPE::IMAGE, { 485, 829, 328, 103 }, true);
 
 	banner = (UI_Image*)App->gui->CreateElement((UI_element*)&lol);
@@ -68,6 +68,7 @@ bool j1Scene::Start()
 	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
 
 	texto_de_ejemplo = (UI_Interactive_String*)App->gui->CreateElement((UI_element*)&(UI_Interactive_String({ 270, 400 }, UI_TYPE::INTERACTIVE_STRING, "texto de ejemplo", { 270, 400, 100, 20 })));
+	*/
 
 	return true;
 }
@@ -144,7 +145,7 @@ bool j1Scene::Update(float dt)
 
 	 App->input->GetMousePosition(x, y);
 
-
+	 /*
 	 if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
 	 if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
 	 if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);

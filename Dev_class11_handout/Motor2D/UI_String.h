@@ -13,7 +13,7 @@ public:
 	_TTF_Font* text_font;
 
 public:
-	UI_String(iPoint pos, UI_TYPE type, const char* new_text);
+	UI_String(iPoint pos, UI_TYPE type, SDL_Rect set_box, const char* new_text);
 	UI_String(const UI_String* other);
 
 	const char* Get_String() const;

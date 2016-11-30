@@ -43,7 +43,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
-	Elemento_padre->Update();
+	if(Elemento_padre)
+		Elemento_padre->Update();
 
 	return true;
 }
@@ -51,7 +52,8 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	Elemento_padre->Update_Draw();
+	if (Elemento_padre)
+		Elemento_padre->Update_Draw();
 
 	return true;
 }
