@@ -4,6 +4,7 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
+class UI_element;
 class UI_Image;
 class UI_Button;
 class UI_Interactive_String;
@@ -38,7 +39,6 @@ public:
 
 private:
 	SDL_Texture* debug_tex;
-	UI_Image* banner;
 	GuiText* text;
 
 	UI_Image* button_image;
@@ -50,6 +50,10 @@ private:
 	UI_Button* Button_2;
 
 	UI_Interactive_String* texto_de_ejemplo;
+
+
+	UI_element* screen;
+	UI_Image* banner;
 	
 };
 

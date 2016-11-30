@@ -3,9 +3,9 @@
 #include "UI_Button.h"
 #include "UI_Interactive_String.h"
 
-UI_element::UI_element(iPoint pos, UI_TYPE type, SDL_Rect set_box) : position(pos), element_type(type), Interactive_box(set_box) {}
+UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box) : element_type(type), Interactive_box(detection_box) {}
 
-UI_element::UI_element(const UI_element* other) : position(other->position), element_type(other->element_type), Interactive_box(other->Interactive_box){}
+UI_element::UI_element(const UI_element* other) : element_type(other->element_type), Interactive_box(other->Interactive_box){}
 
 
 UI_element* UI_element::AddChild(const UI_element* new_child)

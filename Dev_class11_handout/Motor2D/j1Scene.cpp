@@ -70,6 +70,9 @@ bool j1Scene::Start()
 	texto_de_ejemplo = (UI_Interactive_String*)App->gui->CreateElement((UI_element*)&(UI_Interactive_String({ 270, 400 }, UI_TYPE::INTERACTIVE_STRING, "texto de ejemplo", { 270, 400, 100, 20 })));
 	*/
 
+	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
+	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
+
 	return true;
 }
 

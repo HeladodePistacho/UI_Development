@@ -73,8 +73,7 @@ bool j1Gui::CleanUp()
 
 UI_element * j1Gui::CreateScreen(UI_element * new_element)
 {
-	Elemento_padre = new UI_element(*new_element);
-	return nullptr;
+	return Elemento_padre = new UI_element(*new_element);
 }
 
 // const getter for atlas

@@ -3,9 +3,9 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
-UI_String::UI_String(iPoint pos, UI_TYPE type, SDL_Rect set_box, const char* new_text) : UI_element(pos, type, set_box), text(new_text) {}
+UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text) : UI_element(type, detection_box), text(new_text) {}
 
-UI_String::UI_String(const UI_String* other) : UI_element(other->position, other->element_type, other->Interactive_box), text(other->text) {}
+UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box), text(other->text) {}
 
 const char* UI_String::Get_String() const
 {
@@ -14,6 +14,11 @@ const char* UI_String::Get_String() const
 
 bool UI_String::Update_Draw()
 {
-	App->render->Blit(App->font->Print(text), position.x - App->render->camera.x, position.y - App->render->camera.y);
+	/*
+	if(Parent)
+		App->render->Blit(App->font->Print(text), position.x - App->render->camera.x, position.y - App->render->camera.y);
+
+	else App->render->Blit(App->font->Print(text), Parent->position.x + (position.x - App->render->camera.x), Parent->position.y + (position.y - App->render->camera.y));
+	*/
 	return true;
 }

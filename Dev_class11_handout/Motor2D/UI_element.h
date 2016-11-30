@@ -29,7 +29,6 @@ class UI_element
 public:
 
 	UI_TYPE element_type;
-	iPoint position;
 	SDL_Rect Interactive_box;
 
 	INTERACTIVE_STATE state = INTERACTIVE_STATE::NOTHING;
@@ -38,7 +37,7 @@ public:
 
 public:
 
-	UI_element(iPoint position, UI_TYPE type, SDL_Rect set_box);
+	UI_element(UI_TYPE type, SDL_Rect detection_box);
 	UI_element(const UI_element* other_element);
 	
 	virtual bool Update() { return true; };
