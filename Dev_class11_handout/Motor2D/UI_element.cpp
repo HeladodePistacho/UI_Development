@@ -3,14 +3,10 @@
 #include "UI_Button.h"
 #include "UI_Interactive_String.h"
 
-UI_element::UI_element(iPoint pos, UI_TYPE type) : position(pos), element_type(type) {}
+UI_element::UI_element(iPoint pos, UI_TYPE type, SDL_Rect set_box) : position(pos), element_type(type), Interactive_box(set_box) {}
 
-UI_element::UI_element(const UI_element* other) : position(other->position), element_type(other->element_type) {}
+UI_element::UI_element(const UI_element* other) : position(other->position), element_type(other->element_type), Interactive_box(other->Interactive_box){}
 
-void UI_element::Set_Position(const iPoint& new_pos)
-{
-	position = new_pos;
-}
 
 UI_element* UI_element::AddChild(const UI_element* new_child)
 {
@@ -46,4 +42,9 @@ bool UI_element::Update_Draw()
 		Childs[i]->Update_Draw();
 
 	return true;
+}
+
+bool UI_element::Mouse_is_in(const iPoint& mouse_pos)
+{
+	return ((mouse_pos.x > Interactive_box.x) && (mouse_pos.x <= (Interactive_box.x + Interactive_box.w)) && (mouse_pos.y > Interactive_box.y) && (mouse_pos.y <= (Interactive_box.y + Interactive_box.h)));
 }

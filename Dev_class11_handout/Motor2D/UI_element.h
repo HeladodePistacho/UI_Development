@@ -3,9 +3,12 @@
 
 #include "p2Point.h"
 #include "p2List.h"
+#include "j1Input.h"
+#include "SDL\include\SDL_rect.h"
 
 enum UI_TYPE
 {
+	SCREEN,
 	IMAGE,
 	IMAGE_NOT_IN_ATLAS,
 	STRING,
@@ -13,18 +16,29 @@ enum UI_TYPE
 	INTERACTIVE_STRING
 };
 
+enum INTERACTIVE_STATE
+{
+	NOTHING,
+	OVER_ELEMENT,
+	CLICK_ELEMENT
+};
+
+
 class UI_element
 {
 public:
 
 	UI_TYPE element_type;
 	iPoint position;
+	SDL_Rect Interactive_box;
+
+	INTERACTIVE_STATE state = INTERACTIVE_STATE::NOTHING;
 	p2List<UI_element*> Childs;
 	UI_element* Parent;
 
 public:
 
-	UI_element(iPoint position, UI_TYPE type);
+	UI_element(iPoint position, UI_TYPE type, SDL_Rect set_box);
 	UI_element(const UI_element* other_element);
 	
 	virtual bool Update() { return true; };
@@ -34,7 +48,8 @@ public:
 	UI_element* AddChild(const UI_element* new_child);
 	UI_element* Set_Parent(const UI_element& parent);
 
-	void Set_Position(const iPoint& new_pos);
+	bool Mouse_is_in(const iPoint& mouse_pos);
+
 };
 
 
