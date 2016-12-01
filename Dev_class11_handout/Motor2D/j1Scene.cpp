@@ -79,11 +79,15 @@ bool j1Scene::Start()
 	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));
 	clicked_Button = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false)));
 
-	Button = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 100, 228, 67 }, button_image)));
+	window = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 300, 100, 455, 497 }, { 15,512,455,497 }, true)));
+	title = (UI_String*)window->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "TEXTO DE EJEMPLO"));
+	Button = (UI_Button*)window->AddChild((UI_element*)&(UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image)));
+	vaya_vaya = (UI_String*)Button->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa"));
+	
 	Button_1 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 200, 228, 67 }, button_image)));
 	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
 
-	vaya_vaya = (UI_String*)Button->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa"));
+	
 
 	return true;
 }

@@ -64,6 +64,13 @@ void UI_element::Child_Update_Draw()
 		Childs[i]->Update_Draw();
 }
 
+void UI_element::Child_Update()
+{
+	int childs_number = Childs.count();
+	for (int i = 0; i < childs_number; i++)
+		Childs[i]->Update();
+}
+
 void UI_element::Check_state()
 {
 	int x, y;

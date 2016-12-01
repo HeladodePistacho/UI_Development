@@ -33,3 +33,15 @@ bool UI_Image::Update_Draw()
 
 	return true;
 }
+
+bool UI_Image::Update()
+{
+	Check_state();
+
+	if (state == CLICK_ELEMENT)
+		Drag_element();
+
+	Child_Update();
+
+	return true;
+}

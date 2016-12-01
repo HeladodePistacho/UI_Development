@@ -47,6 +47,7 @@ public:
 	UI_element* AddChild(const UI_element* new_child);
 	UI_element* Set_Parent(const UI_element& parent);
 	void Child_Update_Draw();
+	void Child_Update();
 
 	bool Mouse_is_in(const iPoint& mouse_pos);
 	void Check_state();

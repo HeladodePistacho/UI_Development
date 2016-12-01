@@ -43,15 +43,20 @@ private:
 	
 	UI_element* screen;
 	UI_Image* banner;
-	UI_String* vaya_vaya;
+	
 
 	UI_Image* button_image;
 	UI_Image* button_over;
 	UI_Image* clicked_Button;
 
-	UI_Button* Button;
+
 	UI_Button* Button_1;
 	UI_Button* Button_2;
+
+	UI_Image* window;
+	UI_String* title;
+	UI_Button* Button;
+	UI_String* vaya_vaya;
 	
 };
 
