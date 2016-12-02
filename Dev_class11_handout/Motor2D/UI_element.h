@@ -33,7 +33,7 @@ public:
 
 	INTERACTIVE_STATE state = INTERACTIVE_STATE::NOTHING;
 	p2List<UI_element*> Childs;
-	UI_element* Parent;
+	const UI_element* Parent = nullptr;
 
 public:
 
@@ -45,7 +45,7 @@ public:
 	virtual bool Handle_input() { return true; };
 
 	UI_element* AddChild(const UI_element* new_child);
-	UI_element* Set_Parent(const UI_element& parent);
+	const UI_element* Set_Parent(const UI_element* parent);
 	void Child_Update_Draw();
 	void Child_Update();
 

@@ -3,7 +3,10 @@
 #include "UI_Button.h"
 #include "j1App.h"
 
-UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box) : element_type(type), Interactive_box(detection_box) {}
+UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box) : element_type(type), Interactive_box(detection_box) 
+{
+
+}
 
 UI_element::UI_element(const UI_element* other) : element_type(other->element_type), Interactive_box(other->Interactive_box){}
 
@@ -20,16 +23,23 @@ UI_element* UI_element::AddChild(const UI_element* new_child)
 	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_child); break;
 	}
 
-	ret->Set_Parent(*this);
+	
+
+	ret->Set_Parent(this);
+
 	if (ret != nullptr)
 		Childs.add(ret);
 
 	return ret;
 }
 
-UI_element* UI_element::Set_Parent(const UI_element& new_Parent)
+const UI_element* UI_element::Set_Parent(const UI_element* new_Parent)
 {
-	return Parent = ((UI_element*)&new_Parent);
+	Parent = new_Parent;
+	Interactive_box.x += Parent->Interactive_box.x;
+	Interactive_box.y += Parent->Interactive_box.y;
+
+	return Parent;
 }
 
 bool UI_element::Update()
@@ -88,10 +98,16 @@ void UI_element::Check_state()
 void UI_element::Drag_element()
 {
 	int x = 0, y = 0;
-
-	
-		App->input->GetMouseMotion(x, y);
+	App->input->GetMouseMotion(x, y);
 
 	Interactive_box.x += x;
 	Interactive_box.y += y;
+
+	int childs_number = Childs.count();
+
+	for (int i = 0; i < childs_number; i++)
+		Childs[i]->Drag_element();
+	
 }
+
+

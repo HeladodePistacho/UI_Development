@@ -11,22 +11,10 @@ bool UI_Image::Update_Draw()
 {
 	if (printable)
 	{
+		if (element_type == IMAGE)
+			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Image);
 
-		if (Parent != nullptr)
-		{
-			if (element_type == IMAGE)
-				App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Parent->Interactive_box.x + (Interactive_box.x - App->render->camera.x), Parent->Interactive_box.y + (Interactive_box.y - App->render->camera.y), &Image);
-
-			else App->render->Blit((SDL_Texture*)App->gui->Get_Other_Textures(id), Parent->Interactive_box.x + (Interactive_box.x - App->render->camera.x), Parent->Interactive_box.y + (Interactive_box.y - App->render->camera.y), &Image);
-		}
-		else
-		{
-			if (element_type == IMAGE)
-				App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Image);
-
-			else App->render->Blit((SDL_Texture*)App->gui->Get_Other_Textures(id), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Image);
-		}
-
+		else App->render->Blit((SDL_Texture*)App->gui->Get_Other_Textures(id), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Image);
 	}
 
 	Child_Update_Draw();

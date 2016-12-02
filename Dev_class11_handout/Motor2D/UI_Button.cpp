@@ -21,11 +21,8 @@ void UI_Button::Change_image_to(const UI_Image& new_image)
 bool UI_Button::Update_Draw()
 {
 
-	if(Parent)
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Parent->Interactive_box.x + (Interactive_box.x - App->render->camera.x), Parent->Interactive_box.y + (Interactive_box.y - App->render->camera.y), &Button_image.Image);
-	else
-		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(),(Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &Button_image.Image);
-
+	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(),(Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &Button_image.Image);
+	
 	Child_Update_Draw();
 
 	return true;

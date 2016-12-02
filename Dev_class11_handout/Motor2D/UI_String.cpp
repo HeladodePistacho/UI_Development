@@ -14,11 +14,7 @@ const char* UI_String::Get_String() const
 
 bool UI_String::Update_Draw()
 {
-	
-	if(Parent)
-		App->render->Blit(App->font->Print(text), Parent->Interactive_box.x + (Interactive_box.x - App->render->camera.x), Parent->Interactive_box.y + (Interactive_box.y - App->render->camera.y));
-
-	else App->render->Blit(App->font->Print(text), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
+	 App->render->Blit(App->font->Print(text), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
 	
 	Child_Update_Draw();
 
