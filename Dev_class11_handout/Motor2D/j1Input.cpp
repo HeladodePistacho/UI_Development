@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Gui.h"
 #include "SDL/include/SDL.h"
 
 #define MAX_KEYS 300
@@ -129,6 +130,14 @@ bool j1Input::PreUpdate()
 				LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 
+			/*case SDL_TEXTINPUT:
+				
+				if (App->gui->element_selected->element_type == UI_TYPE::TEXT_BOX)
+				{
+					strcat()
+				}
+				break;
+				*/
 
 		}
 	}
