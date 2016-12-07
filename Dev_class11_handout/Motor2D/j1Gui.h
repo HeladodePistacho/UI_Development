@@ -45,13 +45,16 @@ public:
 	UI_element* CreateScreen(UI_element* new_element);
 	const SDL_Texture* GetAtlas() const;
 	const SDL_Texture* Get_Other_Textures(uint id) const;
+	UI_element* element_selected;
 
 private:
 
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 	p2List<SDL_Texture*> Other_images;
+
 	UI_element* Elemento_padre;
+	
 
 	p2List<UI_element*> UI_elements_List; //old
 

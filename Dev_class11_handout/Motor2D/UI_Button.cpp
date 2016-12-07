@@ -32,7 +32,7 @@ bool UI_Button::Update()
 {
 	Check_state();
 
-	if (state == CLICK_ELEMENT)
+	if (App->gui->element_selected == this)
 		Drag_element();
 
 	return true;

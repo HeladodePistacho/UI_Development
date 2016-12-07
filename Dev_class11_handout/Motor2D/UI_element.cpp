@@ -1,6 +1,7 @@
 #include "UI_element.h"
 #include "UI_String.h"
 #include "UI_Button.h"
+#include "j1Gui.h"
 #include "j1App.h"
 
 UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box) : element_type(type), Interactive_box(detection_box) 
@@ -82,37 +83,38 @@ void UI_element::Child_Update()
 		Childs[i]->Update();
 }
 
-int UI_element::Check_state()
+void UI_element::Check_state()
 {
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-
-	
-		if (!clicked)
+	if (App->gui->element_selected == nullptr)
+	{
+		if (Mouse_is_in({ x, y }))
 		{
-			if (Mouse_is_in({ x, y }))
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+				if(get_higher_child() != nullptr)
+					state = OVER_ELEMENT;
+
+				else
 				{
-					App->input->layer = layer;
+					App->gui->element_selected = this;
 					state = CLICK_ELEMENT;
-					clicked = true;
 				}
-				else state = OVER_ELEMENT;
-			}
-			else state = NOTHING;
-		}
-		else
-		{
-			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-			{
-				clicked = false;
-				App->input->layer = 0;
-			}
-	}
 
-	return layer;
+			}
+			else state = OVER_ELEMENT;
+		}
+		else state = NOTHING;
+	}
+	else 
+	{
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+			App->gui->element_selected = nullptr;
+	}
+	
+
 }
 
 void UI_element::Drag_element()
@@ -131,3 +133,25 @@ void UI_element::Drag_element()
 }
 
 
+UI_element* UI_element::get_higher_child()
+{
+	UI_element* temp = nullptr;
+	int childs_number = Childs.count();
+
+	if (childs_number)
+	{
+
+		for (int i = 0; i < childs_number; i++)
+		{
+			if (Childs[i]->state == OVER_ELEMENT && Childs[i]->layer >= this->layer)
+			{
+				temp = Childs[i];
+				App->gui->element_selected = temp;
+			}
+		}
+
+		
+	}
+
+	return temp;
+}

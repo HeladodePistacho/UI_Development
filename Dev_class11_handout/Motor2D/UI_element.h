@@ -34,6 +34,7 @@ public:
 	INTERACTIVE_STATE state = INTERACTIVE_STATE::NOTHING;
 	p2List<UI_element*> Childs;
 	const UI_element* Parent = nullptr;
+	uint layer = 1;
 
 public:
 
@@ -52,6 +53,8 @@ public:
 	bool Mouse_is_in(const iPoint& mouse_pos);
 	void Check_state();
 	void Drag_element();
+
+	UI_element* get_higher_child();
 
 };
 

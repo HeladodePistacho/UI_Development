@@ -26,7 +26,7 @@ bool UI_Image::Update()
 {
 	Check_state();
 
-	if (state == CLICK_ELEMENT)
+	if (App->gui->element_selected == this)
 		Drag_element();
 
 	Child_Update();
