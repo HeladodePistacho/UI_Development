@@ -38,6 +38,7 @@ const UI_element* UI_element::Set_Parent(const UI_element* new_Parent)
 	Parent = new_Parent;
 	Interactive_box.x += Parent->Interactive_box.x;
 	Interactive_box.y += Parent->Interactive_box.y;
+	layer += Parent->layer;
 
 	return Parent;
 }
@@ -81,22 +82,42 @@ void UI_element::Child_Update()
 		Childs[i]->Update();
 }
 
-void UI_element::Check_state()
+int UI_element::Check_state()
 {
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	if (Mouse_is_in({ x, y }))
-	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-			state = CLICK_ELEMENT;
-		else state = OVER_ELEMENT;
+
+	
+		if (!clicked)
+		{
+			if (Mouse_is_in({ x, y }))
+			{
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+				{
+					App->input->layer = layer;
+					state = CLICK_ELEMENT;
+					clicked = true;
+				}
+				else state = OVER_ELEMENT;
+			}
+			else state = NOTHING;
+		}
+		else
+		{
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+			{
+				clicked = false;
+				App->input->layer = 0;
+			}
 	}
-	else state = NOTHING;
+
+	return layer;
 }
 
 void UI_element::Drag_element()
 {
+
 	int x = 0, y = 0;
 	App->input->GetMouseMotion(x, y);
 
@@ -107,7 +128,6 @@ void UI_element::Drag_element()
 
 	for (int i = 0; i < childs_number; i++)
 		Childs[i]->Drag_element();
-	
 }
 
 
