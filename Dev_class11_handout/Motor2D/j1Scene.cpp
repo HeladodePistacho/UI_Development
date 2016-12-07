@@ -11,6 +11,7 @@
 #include "j1Gui.h"
 #include "UI_element.h"
 #include "UI_Image.h"
+#include "UI_Text_Box.h"
 #include "UI_Button.h"
 #include "UI_String.h"
 #include "j1Scene.h"
@@ -87,7 +88,8 @@ bool j1Scene::Start()
 	Button_1 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 200, 228, 67 }, button_image)));
 	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
 
-	
+	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
+	insertar = (UI_Text_Box*)screen->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,50, 342, 58 }, "Inserte algo", text_box_image)));
 
 	return true;
 }
@@ -183,7 +185,8 @@ bool j1Scene::Update(float dt)
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("tocame_wapo");
 	
-	
+	 if (insertar->state == CLICK_ELEMENT) insertar->background = button_image;
+	 else insertar->background = text_box_image;
 	
 	
 	return true;

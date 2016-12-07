@@ -9,6 +9,7 @@ class UI_Image;
 class UI_Button;
 class UI_Interactive_String;
 class UI_String;
+class UI_Text_Box;
 class GuiText;
 
 class j1Scene : public j1Module
@@ -58,6 +59,9 @@ private:
 	UI_String* title;
 	UI_Button* Button;
 	UI_String* vaya_vaya;
+
+	UI_Image* text_box_image;
+	UI_Text_Box* insertar;
 	
 };
 

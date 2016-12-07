@@ -1,5 +1,6 @@
 #include "UI_element.h"
 #include "UI_String.h"
+#include "UI_Text_Box.h"
 #include "UI_Button.h"
 #include "j1Gui.h"
 #include "j1App.h"
@@ -15,16 +16,14 @@ UI_element* UI_element::AddChild(const UI_element* new_child)
 {
 	UI_element* ret = nullptr;
 
-
 	switch (new_child->element_type)
 	{
 	case UI_TYPE::IMAGE:					ret = new UI_Image((UI_Image*)new_child); break;
 	case UI_TYPE::IMAGE_NOT_IN_ATLAS:		ret = new UI_Image((UI_Image*)new_child); break;
 	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_child); break;
 	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_child); break;
+	case UI_TYPE::TEXT_BOX:					ret = new UI_Text_Box((UI_Text_Box*)new_child); break;
 	}
-
-	
 
 	ret->Set_Parent(this);
 
