@@ -16,8 +16,8 @@ public:
 	UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text, bool active = true, bool draggable = true);
 	UI_String(const UI_String* other);
 
-	const char* Get_String() const;
-	bool Set_String(const char* new_text);
+	
+	bool Set_String(char* new_text);
 	bool Update();
 	bool Update_Draw();
 };

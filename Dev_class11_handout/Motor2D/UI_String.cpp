@@ -7,10 +7,6 @@ UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text,
 
 UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text) {}
 
-const char* UI_String::Get_String() const
-{
-	return text;
-}
 
 bool UI_String::Update_Draw()
 {
@@ -30,7 +26,7 @@ bool UI_String::Update()
 	return true;
 }
 
-bool UI_String::Set_String(const char* new_text)
+bool UI_String::Set_String(char* new_text)
 {
 	text = new_text;
 	return (text != nullptr) ? true : false;

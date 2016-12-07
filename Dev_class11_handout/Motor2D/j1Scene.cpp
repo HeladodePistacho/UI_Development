@@ -73,7 +73,7 @@ bool j1Scene::Start()
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
 	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
-	
+	texto_de_ejemplo = (UI_String*)screen->AddChild((UI_element*)&UI_String(STRING, { 0, 30, 10, 10 }, nullptr, true, true));
 
 	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
 	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));
@@ -178,15 +178,14 @@ bool j1Scene::Update(float dt)
 	 if (Button_2->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_2->Change_image_to(button_over);
 	 if (Button_2->state == INTERACTIVE_STATE::NOTHING) Button_2->Change_image_to(button_image);
 	
-	 /*
+	 
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::CLICK_ELEMENT) texto_de_ejemplo->Set_String("wow me pulsan");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
-	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("texto de ejemplo");
-	/*
+	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("tocame_wapo");
 	
 	
-	*/
-
+	
+	
 	return true;
 }
 

@@ -43,6 +43,7 @@ private:
 	
 	UI_element* screen;
 	UI_Image* banner;
+	UI_String* texto_de_ejemplo;
 	
 
 	UI_Image* button_image;
