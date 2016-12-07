@@ -4,27 +4,28 @@
 #include "UI_Button.h"
 
 
-UI_Button::UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image) : UI_element(type, detection_box), Button_image(start_image) {}
+UI_Button::UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image, bool act, bool drag) : UI_element(type, detection_box, act, drag), Button_image(start_image) {}
 
-UI_Button::UI_Button(const UI_Button* other) : UI_element(other->element_type, other->Interactive_box), Button_image(other->Button_image)
+UI_Button::UI_Button(const UI_Button* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), Button_image(other->Button_image)
 {
-	Button_image.printable = true;
+	Button_image.active = true;
 }
 
 void UI_Button::Change_image_to(const UI_Image& new_image)
 {
-	Button_image.printable = false;
+	Button_image.active = false;
 	Button_image = new_image;
-	Button_image.printable = true;
+	Button_image.active = true;
 }
 
 bool UI_Button::Update_Draw()
 {
 
-	App->render->Blit((SDL_Texture*)App->gui->GetAtlas(),(Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &Button_image.Image);
-	
-	Child_Update_Draw();
-
+	if (active)
+	{
+		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), (Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &Button_image.Image);
+		Child_Update_Draw();
+	}
 	return true;
 }
 
@@ -32,7 +33,7 @@ bool UI_Button::Update()
 {
 	Check_state();
 
-	if (App->gui->element_selected == this)
+	if (App->gui->element_selected == this && draggable)
 		Drag_element();
 
 	return true;

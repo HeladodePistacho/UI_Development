@@ -9,10 +9,10 @@ class UI_Image : public UI_element
 public:
 	SDL_Rect Image;
 	int id;
-	bool printable;
+	
 
 public:
-	UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool print, int id = -1);
+	UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool active = true, bool draggable = true, int id = -1);
 	UI_Image(const UI_Image* other);
 
 	bool Update();

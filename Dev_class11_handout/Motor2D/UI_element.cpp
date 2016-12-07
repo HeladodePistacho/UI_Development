@@ -4,12 +4,12 @@
 #include "j1Gui.h"
 #include "j1App.h"
 
-UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box) : element_type(type), Interactive_box(detection_box) 
+UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box, bool act, bool drag) : element_type(type), Interactive_box(detection_box), active(act), draggable(drag)
 {
 
 }
 
-UI_element::UI_element(const UI_element* other) : element_type(other->element_type), Interactive_box(other->Interactive_box){}
+UI_element::UI_element(const UI_element* other) : element_type(other->element_type), Interactive_box(other->Interactive_box), active(other->active), draggable(other->draggable){}
 
 UI_element* UI_element::AddChild(const UI_element* new_child)
 {

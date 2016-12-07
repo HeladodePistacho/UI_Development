@@ -13,7 +13,7 @@ public:
 	_TTF_Font* text_font;
 
 public:
-	UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text);
+	UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text, bool active = true, bool draggable = true);
 	UI_String(const UI_String* other);
 
 	const char* Get_String() const;

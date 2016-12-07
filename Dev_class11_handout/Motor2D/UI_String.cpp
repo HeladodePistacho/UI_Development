@@ -3,9 +3,9 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
-UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text) : UI_element(type, detection_box), text(new_text) {}
+UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text, bool act, bool drag) : UI_element(type, detection_box, act, drag), text(new_text) {}
 
-UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box), text(other->text) {}
+UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text) {}
 
 const char* UI_String::Get_String() const
 {
@@ -14,8 +14,10 @@ const char* UI_String::Get_String() const
 
 bool UI_String::Update_Draw()
 {
-	 App->render->Blit(App->font->Print(text), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
-	
+	if (active)
+	{
+		App->render->Blit(App->font->Print(text), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
+	}
 	Child_Update_Draw();
 
 	return true;

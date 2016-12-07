@@ -3,13 +3,13 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-UI_Image::UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size,bool print, int new_id) : UI_element(type, detection_box), Image(img_size), printable(print), id(new_id) {}
+UI_Image::UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool act, bool drag, int new_id) : UI_element(type, detection_box, act, drag), Image(img_size), id(new_id) {}
 
-UI_Image::UI_Image(const UI_Image* other) : UI_element(other->element_type, other->Interactive_box), Image(other->Image), printable(other->printable), id(other->id) {}
+UI_Image::UI_Image(const UI_Image* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), Image(other->Image), id(other->id) {}
 
 bool UI_Image::Update_Draw()
 {
-	if (printable)
+	if (active)
 	{
 		if (element_type == IMAGE)
 			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Image);
@@ -26,7 +26,7 @@ bool UI_Image::Update()
 {
 	Check_state();
 
-	if (App->gui->element_selected == this)
+	if (App->gui->element_selected == this && draggable)
 		Drag_element();
 
 	Child_Update();

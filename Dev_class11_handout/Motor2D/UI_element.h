@@ -32,13 +32,18 @@ public:
 	SDL_Rect Interactive_box;
 
 	INTERACTIVE_STATE state = INTERACTIVE_STATE::NOTHING;
+
 	p2List<UI_element*> Childs;
 	const UI_element* Parent = nullptr;
+
 	uint layer = 1;
+
+	bool active;
+	bool draggable;
 
 public:
 
-	UI_element(UI_TYPE type, SDL_Rect detection_box);
+	UI_element(UI_TYPE type, SDL_Rect detection_box, bool active = true, bool draggable = true);
 	UI_element(const UI_element* other_element);
 	
 	virtual bool Update();
