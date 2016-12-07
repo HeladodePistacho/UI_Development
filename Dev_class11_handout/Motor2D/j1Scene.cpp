@@ -185,8 +185,7 @@ bool j1Scene::Update(float dt)
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("tocame_wapo");
 	
-	 if (insertar->state == CLICK_ELEMENT) insertar->background = button_image;
-	 else insertar->background = text_box_image;
+	
 	
 	
 	return true;

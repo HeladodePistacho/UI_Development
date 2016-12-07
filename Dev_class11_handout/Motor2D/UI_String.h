@@ -2,22 +2,24 @@
 #define _UI_STRING_H_
 
 #include "UI_element.h"
+#include "p2SString.h"
 
 struct _TTF_Font;
 
 class UI_String : public UI_element
 {
 public:
-	const char* text;
+	p2SString text;
 	int text_size;
 	_TTF_Font* text_font;
 
 public:
-	UI_String(UI_TYPE type, SDL_Rect detection_box, const char* new_text, bool active = true, bool draggable = true);
+	UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool active = true, bool draggable = true);
 	UI_String(const UI_String* other);
 
 	
 	bool Set_String(char* new_text);
+	
 	bool Update();
 	bool Update_Draw();
 };

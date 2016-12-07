@@ -109,7 +109,7 @@ void UI_element::Check_state()
 	}
 	else 
 	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && App->gui->element_selected->element_type != TEXT_BOX)
 			App->gui->element_selected = nullptr;
 	}
 	
