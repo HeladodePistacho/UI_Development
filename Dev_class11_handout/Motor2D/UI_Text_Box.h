@@ -11,7 +11,9 @@ public:
 
 	UI_String text;
 	UI_Image background;
-	uint cursor_pos = 0;
+	int font_width;
+	int cursor_pos, height;
+	int cursor_virtual_pos;
 
 public:
 
@@ -21,6 +23,7 @@ public:
 	void text_box_state();
 
 	bool Update();
+	bool Handle_input();
 	bool Update_Draw();
 
 };

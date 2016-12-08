@@ -49,10 +49,11 @@ public:
 	
 	virtual bool Update();
 	virtual bool Update_Draw();
-	virtual bool Handle_input() { return true; };
+	virtual bool Handle_input();
 
 	UI_element* AddChild(const UI_element* new_child);
 	const UI_element* Set_Parent(const UI_element* parent);
+
 	void Child_Update_Draw();
 	void Child_Update();
 

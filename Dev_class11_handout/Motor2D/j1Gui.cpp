@@ -43,8 +43,13 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
-	if(Elemento_padre)
+	if (Elemento_padre)
+	{
 		Elemento_padre->Update();
+		Elemento_padre->Handle_input();
+	}
+
+
 
 	return true;
 }

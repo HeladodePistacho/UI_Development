@@ -14,6 +14,7 @@ bool UI_String::Update_Draw()
 	if (active)
 	{
 		App->render->Blit(App->font->Print(text.GetString()), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
+
 	}
 	Child_Update_Draw();
 

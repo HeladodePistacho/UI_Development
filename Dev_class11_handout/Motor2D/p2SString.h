@@ -235,7 +235,7 @@ public:
 		uint len = Length();
 
 		if(end >= len || end == 0)
-			end = len - 1;
+			end = len; //lol, marc is love
 
 		if(begin > len || end <= begin)
 			return false;

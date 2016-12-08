@@ -63,6 +63,16 @@ bool UI_element::Update_Draw()
 	return true;
 }
 
+bool UI_element::Handle_input()
+{
+	int number_of_childs = Childs.count();
+
+	for (int i = 0; i < number_of_childs; i++)
+		Childs[i]->Handle_input();
+
+	return true;
+}
+
 bool UI_element::Mouse_is_in(const iPoint& mouse_pos)
 {
 	return ((mouse_pos.x > Interactive_box.x) && (mouse_pos.x <= (Interactive_box.x + Interactive_box.w)) && (mouse_pos.y > Interactive_box.y) && (mouse_pos.y <= (Interactive_box.y + Interactive_box.h)));

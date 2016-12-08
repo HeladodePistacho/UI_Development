@@ -1,6 +1,7 @@
 
 #include "p2Defs.h"
 #include "p2Log.h"
+#include "j1Fonts.h"
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
@@ -136,23 +137,21 @@ bool j1Input::PreUpdate()
 			}
 			case SDL_TEXTINPUT:
 			
-				LOG("estoy escribiendo");
+				//LOG("estoy escribiendo");
 				if (App->gui->element_selected && App->gui->element_selected->element_type == UI_TYPE::TEXT_BOX)
 				{
-					UI_Text_Box* temp = (UI_Text_Box*)App->gui->element_selected;
-					temp->text.text += event.text.text;			
+						UI_Text_Box* temp = (UI_Text_Box*)App->gui->element_selected;
+						temp->text.text += event.text.text;
+
+						App->font->CalcSize(event.text.text, temp->font_width, temp->height);
+						temp->cursor_virtual_pos++;
+						temp->cursor_pos += temp->font_width;
+						
 				}
 				
 				break;
 
-			case SDL_TEXTEDITING:
-				/*
-				if (App->gui->element_selected && App->gui->element_selected->element_type == UI_TYPE::TEXT_BOX)
-				{
-					SDL_SetTextInputRect(&App->gui->element_selected->Interactive_box);
-				}
-				*/
-				break;
+
 			
 
 		}
