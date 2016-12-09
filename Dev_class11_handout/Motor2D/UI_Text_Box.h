@@ -11,7 +11,6 @@ public:
 
 	UI_String text;
 	UI_Image background;
-	int font_width;
 	int cursor_pos, height;
 	int cursor_virtual_pos;
 
@@ -26,6 +25,7 @@ public:
 	bool Handle_input();
 	bool Update_Draw();
 
+	const char* get_string_pos(int cursor_pos);
 };
 
 

@@ -35,6 +35,14 @@ bool UI_Text_Box::Update_Draw()
 	return true;
 }
 
+const char * UI_Text_Box::get_string_pos(int cursor)
+{
+	const char* lol = text.text.Get_Char(cursor, cursor);
+	
+
+	return lol;
+}
+
 bool UI_Text_Box::Handle_input()
 {
 	if (SDL_IsTextInputActive())
@@ -44,16 +52,40 @@ bool UI_Text_Box::Handle_input()
 
 			if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 			{
-				App->font->CalcSize((text.text.GetString() + cursor_virtual_pos), font_width, height);
+				int width;
+				App->font->CalcSize((text.text.GetString() + cursor_virtual_pos), width, height);
 				text.text.Cut(text.text.Length() - 1);
 
 				if (cursor_virtual_pos >= 0)
 				{
-					cursor_pos -= font_width;
+					cursor_pos -= width;
 					cursor_virtual_pos--;
 				}
 			}
 
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+			{
+				int width;
+				App->font->CalcSize(get_string_pos(cursor_virtual_pos), width, height);
+				if (cursor_virtual_pos >= 0)
+				{
+
+					cursor_pos -= width;
+					cursor_virtual_pos--;
+				}
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+			{
+				int width;
+				App->font->CalcSize(get_string_pos(cursor_virtual_pos + 1), width, height);
+				if (cursor_virtual_pos < text.text.Length() - 1)
+				{
+
+					cursor_pos += width;
+					cursor_virtual_pos++;
+				}
+			}
 
 		}
 	}
@@ -75,8 +107,9 @@ void UI_Text_Box::text_box_state()
 			SDL_StartTextInput();
 
 			cursor_virtual_pos = text.text.Length() - 1;
-			App->font->CalcSize(text.text.GetString(), font_width, height);
-			cursor_pos = font_width + Interactive_box.x;
+			int width;
+			App->font->CalcSize(text.text.GetString(), width, height);
+			cursor_pos = width + Interactive_box.x;
 
 			state = CLICK_ELEMENT;
 		}

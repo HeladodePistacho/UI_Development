@@ -141,11 +141,13 @@ bool j1Input::PreUpdate()
 				if (App->gui->element_selected && App->gui->element_selected->element_type == UI_TYPE::TEXT_BOX)
 				{
 						UI_Text_Box* temp = (UI_Text_Box*)App->gui->element_selected;
-						temp->text.text += event.text.text;
+						//temp->text.text += event.text.text;
+						temp->text.text.Insert_Char(temp->cursor_virtual_pos, event.text.text);
 
-						App->font->CalcSize(event.text.text, temp->font_width, temp->height);
+						int width;
+						App->font->CalcSize(event.text.text, width, temp->height);
 						temp->cursor_virtual_pos++;
-						temp->cursor_pos += temp->font_width;
+						temp->cursor_pos += width;
 						
 				}
 				

@@ -355,6 +355,52 @@ public:
 			return 0;
 	}
 
+	const char* Get_Char(unsigned int begin, unsigned int end)
+	{
+		begin = MIN(begin, Length());
+		end = MIN(end, Length());
+
+		char* temp = new char[end - begin];
+		int count = 0;
+
+		for (int i = begin; i <= end; i++)
+		{
+			*(temp + count) = *(str + i);
+		}
+		
+		return temp;
+
+
+	}
+
+	void Insert_Char(unsigned int position, const char* new_text)
+	{
+		int len = Length();
+		position = MIN(position, len - 1);
+
+		unsigned int need_size = strlen(new_text) + len + 1;
+		if (need_size > size)
+		{
+			char* tmp = str;
+			Alloc(need_size);
+			//strcpy_s(str, size, tmp);
+
+			for (int i = 0; i < size; i++)
+			{
+				if (i == position)
+				{
+					*(str + i) = *new_text;
+					i++;
+				}
+				else *(str + i) = *(tmp + i);
+
+			}
+
+			delete[] tmp;
+		}
+
+	}
+
 private:
 
 	void Alloc(unsigned int requiered_memory)
