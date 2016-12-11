@@ -69,7 +69,6 @@ bool UI_Text_Box::Handle_input()
 				App->font->CalcSize(get_string_pos(cursor_virtual_pos), width, height);
 				if (cursor_virtual_pos >= 0)
 				{
-
 					cursor_pos -= width;
 					cursor_virtual_pos--;
 				}

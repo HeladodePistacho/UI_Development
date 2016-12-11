@@ -387,7 +387,7 @@ public:
 
 			for (int i = 0; i < size; i++)
 			{
-				if (i == position)
+				if (i == position + 1)
 				{
 					*(str + i) = *new_text;
 					i++;

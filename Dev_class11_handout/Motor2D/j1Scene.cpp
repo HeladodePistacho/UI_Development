@@ -89,7 +89,7 @@ bool j1Scene::Start()
 	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
 
 	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
-	insertar = (UI_Text_Box*)screen->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,50, 342, 58 }, "Inserte algo", text_box_image)));
+	insertar = (UI_Text_Box*)screen->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
 
 	return true;
 }
