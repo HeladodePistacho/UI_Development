@@ -366,8 +366,9 @@ public:
 		for (int i = begin; i <= end; i++)
 		{
 			*(temp + count) = *(str + i);
+			count++;
 		}
-		
+		*(temp + count) = '\0';
 		return temp;
 
 

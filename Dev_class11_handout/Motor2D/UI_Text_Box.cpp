@@ -78,9 +78,8 @@ bool UI_Text_Box::Handle_input()
 			{
 				int width;
 				App->font->CalcSize(get_string_pos(cursor_virtual_pos + 1), width, height);
-				if (cursor_virtual_pos < text.text.Length() - 1)
+				if (cursor_virtual_pos < (int)(text.text.Length() - 1))
 				{
-
 					cursor_pos += width;
 					cursor_virtual_pos++;
 				}
