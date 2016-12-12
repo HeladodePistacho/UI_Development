@@ -65,7 +65,7 @@ bool UI_Text_Box::Handle_input()
 			if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 			{
 				int width;
-				App->font->CalcSize((text.text.GetString() + cursor_virtual_pos), width, height);
+				App->font->CalcSize(get_string_pos(cursor_virtual_pos), width, height);
 
 				Delete_Char(cursor_virtual_pos);
 
