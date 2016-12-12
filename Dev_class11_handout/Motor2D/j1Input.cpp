@@ -143,6 +143,7 @@ bool j1Input::PreUpdate()
 						UI_Text_Box* temp = (UI_Text_Box*)App->gui->element_selected;
 						//temp->text.text += event.text.text;
 						temp->text.text.Insert_Char(temp->cursor_virtual_pos, event.text.text);
+						temp->text.text_texture = App->font->Print(temp->text.text.GetString());
 
 						int width;
 						App->font->CalcSize(event.text.text, width, temp->height);

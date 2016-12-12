@@ -374,7 +374,7 @@ public:
 
 	}
 
-	void Insert_Char(unsigned int position, const char* new_text)
+	void Insert_Char(int position, const char* new_text)
 	{
 		int len = Length();
 		position = MIN(position, len - 1);
@@ -384,19 +384,26 @@ public:
 		{
 			char* tmp = str;
 			Alloc(need_size);
-			//strcpy_s(str, size, tmp);
+			
 
-			for (int i = 0; i < size; i++)
+			if (position == (len - 1))
 			{
-				if (i == position + 1)
-				{
-					*(str + i) = *new_text;
-					i++;
-				}
-				else *(str + i) = *(tmp + i);
-
+				strcpy_s(str, size, tmp);
+				*(str + len) = *new_text;
 			}
+			else
+			{
+				for (int i = 0; i < len; i++)
+				{
+					if (i == position)
+					{
+						*(str + i) = *new_text;
+						i++;
+					}
+					else *(str + i) = *(tmp + i);
 
+				}
+			}
 			delete[] tmp;
 		}
 

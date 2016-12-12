@@ -74,7 +74,7 @@ bool j1Scene::Start()
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
 	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
-	texto_de_ejemplo = (UI_String*)screen->AddChild((UI_element*)&UI_String(STRING, { 0, 30, 10, 10 }, nullptr, true, true));
+	texto_de_ejemplo = (UI_String*)screen->AddChild((UI_element*)&UI_String(STRING, { 30, 30, 10, 10 }, nullptr, true, true));
 
 	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
 	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));

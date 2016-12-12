@@ -4,16 +4,22 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
-UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, bool drag) : UI_element(type, detection_box, act, drag), text(new_text) {}
+UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, bool drag) : UI_element(type, detection_box, act, drag), text(new_text)
+{
+	text_texture = App->font->Print(new_text);
+}
 
-UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text) {}
+UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text) 
+{
+	text_texture = App->font->Print(other->text.GetString());
+}
 
 
 bool UI_String::Update_Draw()
 {
 	if (active)
 	{
-		App->render->Blit(App->font->Print(text.GetString()), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
+		App->render->Blit(text_texture, Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
 
 	}
 	Child_Update_Draw();

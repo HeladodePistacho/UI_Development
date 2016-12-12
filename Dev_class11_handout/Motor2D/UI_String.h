@@ -5,6 +5,7 @@
 #include "p2SString.h"
 
 struct _TTF_Font;
+struct SDL_Texture;
 
 class UI_String : public UI_element
 {
@@ -12,6 +13,7 @@ public:
 	p2SString text;
 	int text_size;
 	_TTF_Font* text_font;
+	SDL_Texture* text_texture;
 
 public:
 	UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool active = true, bool draggable = true);
