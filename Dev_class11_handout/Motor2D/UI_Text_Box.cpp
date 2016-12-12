@@ -43,6 +43,18 @@ const char * UI_Text_Box::get_string_pos(int cursor)
 	return lol;
 }
 
+void UI_Text_Box::Insert_Char(int position, const char * new_char)
+{
+	text.text.Insert_Char(position, new_char);
+	text.text_texture = App->font->Print(text.text.GetString());
+}
+
+void UI_Text_Box::Delete_Char(int position)
+{
+	text.text.Erase_Char(position);
+	text.text_texture = App->font->Print(text.text.GetString());
+}
+
 bool UI_Text_Box::Handle_input()
 {
 	if (SDL_IsTextInputActive())
@@ -54,7 +66,8 @@ bool UI_Text_Box::Handle_input()
 			{
 				int width;
 				App->font->CalcSize((text.text.GetString() + cursor_virtual_pos), width, height);
-				text.text.Cut(text.text.Length() - 1);
+
+				Delete_Char(cursor_virtual_pos);
 
 				if (cursor_virtual_pos >= 0)
 				{

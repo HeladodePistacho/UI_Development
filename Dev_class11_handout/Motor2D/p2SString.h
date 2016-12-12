@@ -243,7 +243,7 @@ public:
 		char* p1 = str + begin;
 		char* p2 = str + end + 1;
 
-		while(*p1++ = *p2++);
+		while (*p1++ = *p2++);
 
 		return true;
 	}
@@ -378,35 +378,29 @@ public:
 	{
 		int len = Length();
 		position = MIN(position, len - 1);
-
 		unsigned int need_size = strlen(new_text) + len + 1;
+
 		if (need_size > size)
 		{
 			char* tmp = str;
 			Alloc(need_size);
-			
-
-			if (position == (len - 1))
-			{
-				strcpy_s(str, size, tmp);
-				*(str + len) = *new_text;
-			}
-			else
-			{
-				for (int i = 0; i < len; i++)
-				{
-					if (i == position)
-					{
-						*(str + i) = *new_text;
-						i++;
-					}
-					else *(str + i) = *(tmp + i);
-
-				}
-			}
+			strcpy_s(str, size, tmp);
 			delete[] tmp;
 		}
+		for (int i = len; i > position; i--)
+			*(str + i + 1) = *(str + i);
 
+		*(str + position + 1) = *new_text;
+	}
+
+	void Erase_Char(int position)
+	{
+		int len = Length();
+		if (position >= 0)
+		{
+			for (int i = position; i < len; i++)
+				*(str + i) = *(str + i + 1);
+		}
 	}
 
 private:

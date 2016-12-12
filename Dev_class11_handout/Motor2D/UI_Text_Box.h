@@ -26,6 +26,9 @@ public:
 	bool Update_Draw();
 
 	const char* get_string_pos(int cursor_pos);
+	void Insert_Char(int cursor_pos, const char* new_char);
+	void Delete_Char(int cursor_pos);
+	
 };
 
 
