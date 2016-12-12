@@ -125,6 +125,7 @@
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_element.h" />
     <ClInclude Include="UI_Image.h" />
+    <ClInclude Include="UI_scroll.h" />
     <ClInclude Include="UI_String.h" />
     <ClInclude Include="UI_Text_Box.h" />
   </ItemGroup>
