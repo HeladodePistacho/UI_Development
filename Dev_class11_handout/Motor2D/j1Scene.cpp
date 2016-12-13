@@ -92,7 +92,7 @@ bool j1Scene::Start()
 	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
 	insertar = (UI_Text_Box*)Button_1->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
 
-	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,17,17 }, { 1001,882,17,17 }, false));
+	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,17,17 }, { 1001,882,17,17 }, false, Y_SCROLL));
 	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
 	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50, 50, 11, 148 }, slider, scroll_image, true, NO_SCROLL));
 

@@ -136,8 +136,22 @@ void UI_element::Drag_element()
 	int x = 0, y = 0;
 	App->input->GetMouseMotion(x, y);
 
-	Interactive_box.x += x;
-	Interactive_box.y += y;
+	switch (draggable)
+	{
+	case FREE_SCROLL:
+		Interactive_box.x += x;
+		Interactive_box.y += y;
+		break;
+
+	case Y_SCROLL:
+		Interactive_box.y += y;
+		break;
+
+	case X_SCROLL:
+		Interactive_box.x += x;
+		break;
+	}
+	
 
 	int childs_number = Childs.count();
 
