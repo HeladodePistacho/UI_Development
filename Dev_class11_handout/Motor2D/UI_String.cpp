@@ -4,7 +4,7 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
-UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, bool drag) : UI_element(type, detection_box, act, drag), text(new_text)
+UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag), text(new_text)
 {
 	text_texture = App->font->Print(new_text);
 }

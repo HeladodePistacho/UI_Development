@@ -75,7 +75,7 @@ bool j1Scene::Start()
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
 	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
-	texto_de_ejemplo = (UI_String*)screen->AddChild((UI_element*)&UI_String(STRING, { 30, 30, 10, 10 }, nullptr, true, true));
+	texto_de_ejemplo = (UI_String*)screen->AddChild((UI_element*)&UI_String(STRING, { 30, 30, 10, 10 }, nullptr, true, NO_SCROLL));
 
 	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
 	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));
@@ -83,7 +83,7 @@ bool j1Scene::Start()
 
 	window = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 300, 100, 455, 497 }, { 15,512,455,497 }, true)));
 	title = (UI_String*)window->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "TEXTO DE EJEMPLO"));
-	Button = (UI_Button*)window->AddChild((UI_element*)&(UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image, true, false)));
+	Button = (UI_Button*)window->AddChild((UI_element*)&(UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image, true, NO_SCROLL)));
 	vaya_vaya = (UI_String*)Button->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa"));
 	
 	Button_1 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 200, 228, 67 }, button_image)));
@@ -92,11 +92,11 @@ bool j1Scene::Start()
 	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
 	insertar = (UI_Text_Box*)Button_1->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
 
-	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
-	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,17,17 }, { 1001,882,17,17}, false));
-	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50,50, 11, 148 }, slider, scroll_image, Y_SCROLL, true, false));
+	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,17,17 }, { 1001,882,17,17 }, false));
+	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
+	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50, 50, 11, 148 }, slider, scroll_image, true, NO_SCROLL));
 
-	bool lol = scroll_image->active;
+	bool lol = slider->active;
 
 	return true;
 }

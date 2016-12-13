@@ -16,7 +16,7 @@ public:
 
 public:
 
-	UI_Text_Box(UI_TYPE type, SDL_Rect detection_box, char* new_text, const UI_Image& start_image, bool active = true, bool draggable = true);
+	UI_Text_Box(UI_TYPE type, SDL_Rect detection_box, char* new_text, const UI_Image& start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Text_Box(const UI_Text_Box* other);
 
 	void text_box_state();

@@ -4,7 +4,7 @@
 #include "UI_Button.h"
 
 
-UI_Button::UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image, bool act, bool drag) : UI_element(type, detection_box, act, drag), Button_image(start_image)
+UI_Button::UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag), Button_image(start_image)
 {
 	Button_image.active = true;
 }

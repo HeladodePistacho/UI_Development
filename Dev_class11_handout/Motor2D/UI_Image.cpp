@@ -3,7 +3,7 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-UI_Image::UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool act, bool drag, int new_id) : UI_element(type, detection_box, act, drag), Image(img_size), id(new_id) {}
+UI_Image::UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool act, SCROLL_TYPE drag, int new_id) : UI_element(type, detection_box, act, drag), Image(img_size), id(new_id) {}
 
 UI_Image::UI_Image(const UI_Image* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), Image(other->Image), id(other->id) {}
 

@@ -16,7 +16,7 @@ public:
 	SDL_Texture* text_texture;
 
 public:
-	UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool active = true, bool draggable = true);
+	UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_String(const UI_String* other);
 
 	

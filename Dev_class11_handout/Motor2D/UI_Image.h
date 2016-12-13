@@ -12,7 +12,7 @@ public:
 	
 
 public:
-	UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool active = true, bool draggable = true, int id = -1);
+	UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL, int id = -1);
 	UI_Image(const UI_Image* other);
 
 	bool Update();
