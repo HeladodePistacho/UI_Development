@@ -96,6 +96,9 @@ bool j1Scene::Start()
 	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
 	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50, 50, 11, 148 }, slider, scroll_image, true, NO_SCROLL));
 
+	scroll->Camera_elements.add(banner);
+
+
 	bool lol = slider->active;
 
 	return true;
