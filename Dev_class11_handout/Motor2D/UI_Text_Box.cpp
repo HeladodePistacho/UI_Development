@@ -1,4 +1,4 @@
-
+#include "j1Textures.h"
 #include "UI_Text_Box.h"
 #include "j1App.h"
 #include "j1Fonts.h"
@@ -24,7 +24,7 @@ bool UI_Text_Box::Update_Draw()
 	if (active)
 	{
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), (Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &background.Image);
-		text.Update_Draw();
+		App->render->Blit(text.text_texture, (Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y));
 		Child_Update();
 
 		if (SDL_IsTextInputActive())
@@ -35,23 +35,22 @@ bool UI_Text_Box::Update_Draw()
 	return true;
 }
 
-const char * UI_Text_Box::get_string_pos(int cursor)
+const char* UI_Text_Box::get_string_pos(int cursor)
 {
-	const char* lol = text.text.Get_Char(cursor, cursor);
-	
-
-	return lol;
+	return text.text.Get_Char(cursor, cursor);
 }
 
 void UI_Text_Box::Insert_Char(int position, const char * new_char)
 {
 	text.text.Insert_Char(position, new_char);
+	App->tex->UnLoad(text.text_texture);
 	text.text_texture = App->font->Print(text.text.GetString());
 }
 
 void UI_Text_Box::Delete_Char(int position)
 {
 	text.text.Erase_Char(position);
+	App->tex->UnLoad(text.text_texture);
 	text.text_texture = App->font->Print(text.text.GetString());
 }
 

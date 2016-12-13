@@ -95,6 +95,7 @@
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_element.cpp" />
     <ClCompile Include="UI_Image.cpp" />
+    <ClCompile Include="UI_scroll.cpp" />
     <ClCompile Include="UI_String.cpp" />
     <ClCompile Include="UI_Text_Box.cpp" />
   </ItemGroup>

@@ -9,6 +9,7 @@ class UI_Image;
 class UI_Button;
 class UI_Interactive_String;
 class UI_String;
+class UI_Scroll;
 class UI_Text_Box;
 class GuiText;
 
@@ -62,6 +63,10 @@ private:
 
 	UI_Image* text_box_image;
 	UI_Text_Box* insertar;
+
+	UI_Scroll* scroll;
+	UI_Image* slider;
+	UI_Image* scroll_image;
 	
 };
 

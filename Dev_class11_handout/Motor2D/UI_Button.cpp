@@ -4,7 +4,10 @@
 #include "UI_Button.h"
 
 
-UI_Button::UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image, bool act, bool drag) : UI_element(type, detection_box, act, drag), Button_image(start_image) {}
+UI_Button::UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image, bool act, bool drag) : UI_element(type, detection_box, act, drag), Button_image(start_image)
+{
+	Button_image.active = true;
+}
 
 UI_Button::UI_Button(const UI_Button* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), Button_image(other->Button_image)
 {
@@ -35,6 +38,8 @@ bool UI_Button::Update()
 
 	if (App->gui->element_selected == this && draggable)
 		Drag_element();
+
+	Child_Update();
 
 	return true;
 }

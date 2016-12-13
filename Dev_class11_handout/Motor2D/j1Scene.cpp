@@ -12,6 +12,7 @@
 #include "UI_element.h"
 #include "UI_Image.h"
 #include "UI_Text_Box.h"
+#include "UI_scroll.h"
 #include "UI_Button.h"
 #include "UI_String.h"
 #include "j1Scene.h"
@@ -89,7 +90,13 @@ bool j1Scene::Start()
 	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
 
 	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
-	insertar = (UI_Text_Box*)screen->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
+	insertar = (UI_Text_Box*)Button_1->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
+
+	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
+	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,17,17 }, { 1001,882,17,17}, false));
+	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50,50, 11, 148 }, slider, scroll_image, Y_SCROLL, true, false));
+
+	bool lol = scroll_image->active;
 
 	return true;
 }
