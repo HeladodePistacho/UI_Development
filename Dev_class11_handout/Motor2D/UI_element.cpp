@@ -3,9 +3,10 @@
 #include "UI_Text_Box.h"
 #include "UI_Button.h"
 #include "j1Gui.h"
+#include "UI_scroll.h"
 #include "j1App.h"
 
-UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box, bool act, bool drag) : element_type(type), Interactive_box(detection_box), active(act), draggable(drag)
+UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box, bool act, SCROLL_TYPE drag) : element_type(type), Interactive_box(detection_box), active(act), draggable(drag)
 {
 
 }
@@ -23,6 +24,7 @@ UI_element* UI_element::AddChild(const UI_element* new_child)
 	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_child); break;
 	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_child); break;
 	case UI_TYPE::TEXT_BOX:					ret = new UI_Text_Box((UI_Text_Box*)new_child); break;
+	case UI_TYPE::SCROLL:					ret = new UI_Scroll((UI_Scroll*)new_child); break;
 	}
 
 	ret->Set_Parent(this);
@@ -89,7 +91,9 @@ void UI_element::Child_Update()
 {
 	int childs_number = Childs.count();
 	for (int i = 0; i < childs_number; i++)
+	{
 		Childs[i]->Update();
+	}
 }
 
 void UI_element::Check_state()

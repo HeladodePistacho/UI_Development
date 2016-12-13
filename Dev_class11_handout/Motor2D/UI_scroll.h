@@ -4,21 +4,24 @@
 #include "UI_element.h"
 #include "UI_Image.h"
 
+
 class UI_Scroll : public UI_element
 {
 public:
 
-	UI_Image Slider;
+	UI_Image* Slider;
+	UI_Image* Slide_box;
 	SDL_Rect Camera_Scroll;
 	p2List<UI_element*> Camera_elements;
 
 public:
 
-	UI_Scroll(UI_TYPE type, SDL_Rect detection_box, const UI_Image& slider);
+	UI_Scroll(UI_TYPE type, SDL_Rect detection_box, const UI_Image* slider, const UI_Image* slide_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Scroll(const UI_Scroll* other);
 
 	 bool Update();
 	 bool Update_Draw();
+	 void Slide();
 	
 	 
 

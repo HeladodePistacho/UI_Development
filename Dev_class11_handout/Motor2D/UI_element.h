@@ -14,7 +14,8 @@ enum UI_TYPE
 	IMAGE_NOT_IN_ATLAS,
 	STRING,
 	BUTTON,
-	TEXT_BOX
+	TEXT_BOX,
+	SCROLL
 };
 
 enum INTERACTIVE_STATE
@@ -23,6 +24,15 @@ enum INTERACTIVE_STATE
 	OVER_ELEMENT,
 	CLICK_ELEMENT
 };
+
+enum SCROLL_TYPE
+{
+	NO_SCROLL = 0,
+	FREE_SCROLL,
+	Y_SCROLL,
+	X_SCROLL
+};
+
 
 
 class UI_element
@@ -40,11 +50,11 @@ public:
 	uint layer = 1;
 
 	bool active;
-	bool draggable;
+	SCROLL_TYPE draggable;
 
 public:
 
-	UI_element(UI_TYPE type, SDL_Rect detection_box, bool active = true, bool draggable = true);
+	UI_element(UI_TYPE type, SDL_Rect detection_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_element(const UI_element* other_element);
 	
 	virtual bool Update();
