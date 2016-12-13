@@ -46,5 +46,12 @@ bool UI_Scroll::Update_Draw()
 
 void UI_Scroll::Slide()
 {
+	if (App->gui->element_selected == Slider && Slider->Interactive_box.y < Interactive_box.y)
+		Slider->Interactive_box.y = Interactive_box.y;
 	
+
+	if (App->gui->element_selected == Slider && (Slider->Interactive_box.y + Slider->Interactive_box.h) > (Interactive_box.y + Interactive_box.h))
+		Slider->Interactive_box.y = (Interactive_box.y + Interactive_box.h) - Slider->Interactive_box.h;
+	
+
 }
