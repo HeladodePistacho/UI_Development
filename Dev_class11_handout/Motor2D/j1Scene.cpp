@@ -54,28 +54,13 @@ bool j1Scene::Start()
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
-	/*
-	UI_Image lol({ 30,30 }, UI_TYPE::IMAGE, { 485, 829, 328, 103 }, true);
-
-	banner = (UI_Image*)App->gui->CreateElement((UI_element*)&lol);
-
-
-	button_image = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 2,112,228,67 }, false)));
-	button_over = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 413,168,228,67 }, false)));
-	clicked_Button = (UI_Image*)App->gui->CreateElement((UI_element*)&(UI_Image({ 0,0 }, UI_TYPE::IMAGE, { 644,168,228,67 }, false)));
-	
-	Button = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,100 }, UI_TYPE::BUTTON, { 100, 100, 228, 67 }, button_image)));
-	Button_1 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,200 }, UI_TYPE::BUTTON, { 100, 200, 228, 67 }, button_image)));
-	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
-
-	texto_de_ejemplo = (UI_Interactive_String*)App->gui->CreateElement((UI_element*)&(UI_Interactive_String({ 270, 400 }, UI_TYPE::INTERACTIVE_STRING, "texto de ejemplo", { 270, 400, 100, 20 })));
-	
 
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
+	
 	banner = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true));
 	texto_de_ejemplo = (UI_String*)screen->AddChild((UI_element*)&UI_String(STRING, { 30, 30, 10, 10 }, nullptr, true, NO_SCROLL));
-
+	/*
 	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
 	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));
 	clicked_Button = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false)));
@@ -90,15 +75,19 @@ bool j1Scene::Start()
 
 	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
 	insertar = (UI_Text_Box*)Button_1->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
-
-	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,17,17 }, { 1001,882,17,17 }, false, Y_SCROLL));
-	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
-	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50, 50, 11, 148 }, slider, scroll_image, true, NO_SCROLL));
-
-	scroll->Camera_elements.add(banner);
 	*/
+
+	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 1001,882,17,17 }, false));
+	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
+	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 0, 0, 17, 17 }, slider, scroll_image, true, Y_SCROLL));
+	scroll->Set_Stop_Box({ 50,50,11,148 });
+	
+	
+	scroll->Set_Camera({ 70, 50, 100, 100 });
+	
 	//Exam
 
+	/*
 	screen_exam = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 788, 579 }));
 	background = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 0, 0, 788, 579 }, { 970, 1844, 768, 579 }, true, NO_SCROLL));
 
@@ -107,8 +96,6 @@ bool j1Scene::Start()
 
 	player_1_image = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 24, 61, 0, 0 }, { 925, 605, 168, 279 }));
 	player_2_image = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 543, 61, 0, 0 }, { 925, 605, 168, 279 }));
-
-
 
 	player = selector_p1;
 	position_player_1 = { 0,0 };
@@ -122,7 +109,7 @@ bool j1Scene::Start()
 	characters[1][1] = { 311, 172 };
 	characters[2][1] = { 383, 172 };
 	characters[3][1] = { 455, 172 };
-
+	*/
 	return true;
 }
 

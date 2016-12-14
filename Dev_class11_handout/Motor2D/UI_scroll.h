@@ -8,17 +8,15 @@
 
 class UI_Scroll : public UI_element
 {
-public:
+private:
 
 	UI_Image* Slider;
 	UI_Image* Slide_box;
-	SDL_Rect true_Slider;
-	SDL_Rect Camera_Scroll;
+	SDL_Rect Stop_box;
+	SDL_Rect Camera;
 	p2List<UI_element*> Camera_elements;
-	iPoint Scroll_ant_pos;
-	iPoint new_pos;
+	iPoint Pos;
 
-	bool lol = false;
 public:
 
 	UI_Scroll(UI_TYPE type, SDL_Rect detection_box, const UI_Image* slider, const UI_Image* slide_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
@@ -28,8 +26,13 @@ public:
 	 bool Update_Draw();
 	// bool Handle_input();
 
+	 void Set_Stop_Box(SDL_Rect new_box);
+	 void Set_Camera(SDL_Rect new_box);
+
 	 void Stop();
-	 //void Move_elements();
+	 void Move_elements();
+
+	 
 
 };
 
