@@ -20,7 +20,6 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
-	
 
 }
 
@@ -70,7 +69,7 @@ bool j1Scene::Start()
 	Button_2 = (UI_Button*)App->gui->CreateElement((UI_element*)&(UI_Button({ 100 ,300 }, UI_TYPE::BUTTON, { 100, 300, 228, 67 }, button_image)));
 
 	texto_de_ejemplo = (UI_Interactive_String*)App->gui->CreateElement((UI_element*)&(UI_Interactive_String({ 270, 400 }, UI_TYPE::INTERACTIVE_STRING, "texto de ejemplo", { 270, 400, 100, 20 })));
-	*/
+	
 
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
@@ -97,9 +96,32 @@ bool j1Scene::Start()
 	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 50, 50, 11, 148 }, slider, scroll_image, true, NO_SCROLL));
 
 	scroll->Camera_elements.add(banner);
+	*/
+	//Exam
+
+	screen_exam = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 788, 579 }));
+	background = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 0, 0, 788, 579 }, { 970, 1844, 768, 579 }, true, NO_SCROLL));
+
+	selector_p1 = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 239, 78, 0, 0 }, { 1485, 110, 72, 109 }, true, NO_SCROLL));
+	selector_p2 = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 239, 78, 0, 0 }, { 1560, 110, 72, 109 }, true, NO_SCROLL));
+
+	player_1_image = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 24, 61, 0, 0 }, { 925, 605, 168, 279 }));
+	player_2_image = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 543, 61, 0, 0 }, { 925, 605, 168, 279 }));
 
 
-	bool lol = slider->active;
+
+	player = selector_p1;
+	position_player_1 = { 0,0 };
+	position_player_2 = { 0,0 };
+
+	characters[0][0] = { 239, 78 };
+	characters[1][0] = { 311, 78 };
+	characters[2][0] = { 383, 78 };
+	characters[3][0] = { 455, 78 };
+	characters[0][1] = { 239, 172 };
+	characters[1][1] = { 311, 172 };
+	characters[2][1] = { 383, 172 };
+	characters[3][1] = { 455, 172 };
 
 	return true;
 }
@@ -138,9 +160,114 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	// Gui ---
-	
-	// -------
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	{
+		
+		if (player == selector_p1)
+		{
+			if (position_player_1.y)
+			{
+				position_player_1.y--;
+				player->Interactive_box.y = characters[position_player_1.x][position_player_1.y].y;
+				player_1_image->Image.y -= player_1_image->Image.h;
+			}
+		}
+		else
+		{
+			if (position_player_2.y)
+			{
+				position_player_2.y--;
+				player->Interactive_box.y = characters[position_player_2.x][position_player_2.y].y;
+				player_2_image->Image.y -= player_2_image->Image.h;
+			}
+		}
+	}
 
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+	{
+		if (player == selector_p1)
+		{
+			if (!position_player_1.y)
+			{
+				position_player_1.y++;
+
+				player->Interactive_box.y = characters[position_player_1.x][position_player_1.y].y;
+				player_1_image->Image.y += player_1_image->Image.h;
+			}
+		}
+		else
+		{
+			if (!position_player_2.y)
+			{
+				position_player_2.y++;
+
+				player->Interactive_box.y = characters[position_player_2.x][position_player_2.y].y;
+				player_2_image->Image.y += player_2_image->Image.h;
+			}
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		if (player == selector_p1)
+		{
+			if (position_player_1.x < 3)
+			{
+				position_player_1.x++;
+
+				player->Interactive_box.x = characters[position_player_1.x][position_player_1.y].x;
+				player_1_image->Image.x += player_1_image->Image.w;
+			}
+		}
+		else
+		{
+			if (position_player_2.x < 3)
+			{
+				position_player_2.x++;
+
+				player->Interactive_box.x = characters[position_player_2.x][position_player_2.y].x;
+				player_2_image->Image.x += player_2_image->Image.w;
+			}
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		if (player == selector_p1)
+		{
+			if (position_player_1.x)
+			{
+				position_player_1.x--;
+
+				player->Interactive_box.x = characters[position_player_1.x][position_player_1.y].x;
+				player_1_image->Image.x -= player_1_image->Image.w;
+			}
+		}
+		else
+		{
+			if (position_player_2.x)
+			{
+				position_player_2.x--;
+
+				player->Interactive_box.x = characters[position_player_2.x][position_player_2.y].x;
+				player_2_image->Image.x -= player_2_image->Image.w;
+			}
+		}
+	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		if (player == selector_p1)
+			player = selector_p2;
+			
+		else player = selector_p1;
+	}
+	
+
+
+
+	// -------
+	/*
 	if (SDL_IsTextInputActive() == false)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -160,7 +287,9 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			App->render->camera.x -= floor(200.0f * dt);
+		
 	}
+	
 	App->map->Draw();
 
 	int x, y;
@@ -197,7 +326,7 @@ bool j1Scene::Update(float dt)
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::CLICK_ELEMENT) texto_de_ejemplo->Set_String("wow me pulsan");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
 	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("tocame_wapo");
-	
+	*/
 	
 	
 	

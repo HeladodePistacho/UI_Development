@@ -26,12 +26,10 @@ public:
 
 	 bool Update();
 	 bool Update_Draw();
-	 bool Handle_input();
+	// bool Handle_input();
 
-	 bool Mouse_in_rect(const iPoint& mouse_pos);
-	 void Drag_rect();
 	 void Stop();
-	 void Move_elements();
+	 //void Move_elements();
 
 };
 

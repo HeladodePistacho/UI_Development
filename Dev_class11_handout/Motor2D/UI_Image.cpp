@@ -33,3 +33,8 @@ bool UI_Image::Update()
 
 	return true;
 }
+
+void UI_Image::change_image(SDL_Rect new_image)
+{
+	Image = new_image;
+}

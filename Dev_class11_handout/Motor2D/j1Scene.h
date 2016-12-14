@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 class UI_element;
@@ -12,6 +13,7 @@ class UI_String;
 class UI_Scroll;
 class UI_Text_Box;
 class GuiText;
+
 
 class j1Scene : public j1Module
 {
@@ -67,7 +69,24 @@ private:
 	UI_Scroll* scroll;
 	UI_Image* slider;
 	UI_Image* scroll_image;
+
+	//Exam 
+
+	UI_element* screen_exam;
+	UI_Image* background;
+
+	UI_Image* player_1_image;
+	UI_Image* player_2_image;
+
+
+	UI_Image* selector_p1;
+	UI_Image* selector_p2;
 	
+	iPoint characters[4][2];
+	iPoint position_player_1;
+	iPoint position_player_2;
+
+	UI_element* player;
 };
 
 #endif // __j1SCENE_H__

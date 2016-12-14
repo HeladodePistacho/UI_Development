@@ -17,6 +17,7 @@ public:
 
 	bool Update();
 	bool Update_Draw();
+	void change_image(SDL_Rect new_image);
 };
 
 

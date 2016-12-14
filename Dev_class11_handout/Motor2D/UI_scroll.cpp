@@ -26,7 +26,7 @@ bool UI_Scroll::Update()
 	if (App->gui->element_selected == this && draggable)
 		Drag_element();
 
-	Slide();
+	Stop();
 
 	return true;
 }
@@ -44,7 +44,7 @@ bool UI_Scroll::Update_Draw()
 	return true;
 }
 
-void UI_Scroll::Slide()
+void UI_Scroll::Stop()
 {
 	if (App->gui->element_selected == Slider && Slider->Interactive_box.y < Interactive_box.y)
 		Slider->Interactive_box.y = Interactive_box.y;
