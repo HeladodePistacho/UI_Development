@@ -43,10 +43,16 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
-	if (Elemento_padre)
+	int num_screens = Screen_elements.count();
+
+	if (num_screens)
 	{
-		Elemento_padre->Update();
-		Elemento_padre->Handle_input();
+		for(int i = 0; i < num_screens; i++)
+		{
+			Screen_elements[i]->Update();
+			Screen_elements[i]->Handle_input();
+		}
+		
 	}
 
 
@@ -57,8 +63,13 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
-	if (Elemento_padre)
-		Elemento_padre->Update_Draw();
+	
+	int num_screens = Screen_elements.count();
+	if (num_screens)
+	{
+		for (int i = 0; i < num_screens; i++)
+			Screen_elements[i]->Update_Draw();
+	}
 
 	return true;
 }
@@ -68,17 +79,22 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
-	for (int i = 0; i < UI_elements_List.count(); i++)
-		UI_elements_List.del(UI_elements_List.At(i));
+	for (int i = 0; i < Screen_elements.count(); i++)
+		Screen_elements.del(Screen_elements.At(i));
 	
-	UI_elements_List.clear();
+	Screen_elements.clear();
 
 	return true;
 }
 
 UI_element * j1Gui::CreateScreen(UI_element * new_element)
 {
-	return Elemento_padre = new UI_element(*new_element);
+	UI_element* ret = new UI_element(*new_element);
+
+	if (ret)
+		Screen_elements.add(ret);
+
+	return ret;
 }
 
 // const getter for atlas

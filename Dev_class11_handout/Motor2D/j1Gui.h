@@ -52,6 +52,7 @@ private:
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 	p2List<SDL_Texture*> Other_images;
+	p2List<UI_element*> Screen_elements;
 
 	UI_element* Elemento_padre;
 	
