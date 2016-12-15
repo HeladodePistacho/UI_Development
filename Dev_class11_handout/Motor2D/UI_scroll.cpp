@@ -44,7 +44,12 @@ bool UI_Scroll::Update_Draw()
 	}
 
 	SDL_RenderSetViewport(App->render->renderer, &Camera);
-	
+	p2List_item<UI_element*>* scroll_items = Camera_elements.start;
+	while (scroll_items != nullptr)
+	{
+		scroll_items->data->Update_Draw();
+		scroll_items = scroll_items->next;
+	}
 
 	SDL_RenderSetViewport(App->render->renderer, nullptr);
 	
@@ -88,5 +93,10 @@ void UI_Scroll::Move_elements()
 			Camera_elements[i]->Interactive_box.y += Pos.y;
 		}
 	}
+}
+
+void UI_Scroll::Add_Camera_element(UI_element * new_item)
+{
+	Camera_elements.add(new_item);
 }
 

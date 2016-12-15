@@ -32,6 +32,8 @@ public:
 	 void Stop();
 	 void Move_elements();
 
+	 void Add_Camera_element(UI_element* new_item);
+
 	 
 
 };

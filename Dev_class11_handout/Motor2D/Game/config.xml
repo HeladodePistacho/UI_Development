@@ -15,7 +15,7 @@
   </fonts>
 
   <gui>
-    <atlas file="gui/sf2.png"/>
+    <atlas file="gui/atlas.png"/>
   </gui>
     
   <window>
