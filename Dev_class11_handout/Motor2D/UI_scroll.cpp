@@ -16,6 +16,14 @@ UI_Scroll::UI_Scroll(const UI_Scroll* other) : UI_element(other->element_type, o
 	Interactive_box.y = other->Slide_box->Interactive_box.y;
 }
 
+UI_Scroll::~UI_Scroll()
+{
+	int num = Camera_elements.count();
+	for (int i = 0; i < num; i++)
+		Camera_elements.del(Camera_elements.At(i));
+
+}
+
 bool UI_Scroll::Update()
 {
 	Check_state();

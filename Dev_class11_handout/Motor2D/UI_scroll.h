@@ -21,6 +21,7 @@ public:
 
 	UI_Scroll(UI_TYPE type, SDL_Rect detection_box, const UI_Image* slider, const UI_Image* slide_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Scroll(const UI_Scroll* other);
+	~UI_Scroll();
 
 	 bool Update();
 	 bool Update_Draw();

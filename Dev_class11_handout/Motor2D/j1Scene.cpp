@@ -89,7 +89,6 @@ bool j1Scene::Start()
 	screen->AddChild(slider);
 	screen->AddChild(scroll_image);
 	screen->AddChild(scroll);
-	screen->AddChild(banner);
 
 	
 	
