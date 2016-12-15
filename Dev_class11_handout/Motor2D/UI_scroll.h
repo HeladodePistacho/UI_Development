@@ -15,6 +15,7 @@ private:
 	SDL_Rect Stop_box;
 	SDL_Rect Camera;
 	p2List<UI_element*> Camera_elements;
+	float Move = 0.0f;
 	iPoint Pos;
 
 public:

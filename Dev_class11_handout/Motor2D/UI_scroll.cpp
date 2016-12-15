@@ -46,7 +46,7 @@ bool UI_Scroll::Update_Draw()
 	{	
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Stop_box.x - App->render->camera.x, Stop_box.y - App->render->camera.y, &Slide_box->Image);
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Slider->Image);
-		
+		App->render->DrawQuad(Camera, 255, 255, 0);
 
 		Child_Update_Draw();
 	}
@@ -92,13 +92,13 @@ void UI_Scroll::Move_elements()
 	Pos.x -= Interactive_box.x;
 	Pos.y -= Interactive_box.y;
 
-	if (Pos.x || Pos.y)
+	if (Pos.x || Pos.y && Move)
 	{
 		int num = Camera_elements.count();
 		for (int i = 0; i < num; i++)
 		{
-			Camera_elements[i]->Interactive_box.x += Pos.x;
-			Camera_elements[i]->Interactive_box.y += Pos.y;
+			Camera_elements[i]->Interactive_box.x += (Pos.x * Move);
+			Camera_elements[i]->Interactive_box.y += (Pos.y * Move);
 		}
 	}
 }
@@ -106,5 +106,22 @@ void UI_Scroll::Move_elements()
 void UI_Scroll::Add_Camera_element(UI_element * new_item)
 {
 	Camera_elements.add(new_item);
+
+	if (draggable == Y_SCROLL)
+	{
+		if ((new_item->Interactive_box.y + new_item->Interactive_box.h) > Camera.h)
+		{
+			float length;
+			if (Camera.h < Stop_box.h)
+				length = (new_item->Interactive_box.y + new_item->Interactive_box.h + (Stop_box.h - Camera.h)) / (float)Stop_box.h;
+			else  length = (new_item->Interactive_box.y + new_item->Interactive_box.h) / (float)Stop_box.h;
+
+			int parte_entera = length;
+
+			if (length > Move)
+				Move = length;
+		}
+
+	}
 }
 

@@ -58,7 +58,7 @@ bool j1Scene::Start()
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
 	
-	banner = new UI_Image(IMAGE, { 30, 10, 328,103 }, { 485, 829, 328, 103 }, true);
+	banner = new UI_Image(IMAGE, { 30, 150, 328,103 }, { 485, 829, 328, 103 }, true);
 	texto_de_ejemplo = new UI_String(STRING, { 30, 70, 10, 10 }, "lol", true, NO_SCROLL);
 	
 	/*
@@ -82,7 +82,7 @@ bool j1Scene::Start()
 	scroll_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false);
 	scroll = new UI_Scroll(SCROLL, { 0, 0, 17, 17 }, slider, scroll_image, true, Y_SCROLL);
 	scroll->Set_Stop_Box({ 50,50,11,148 });
-	scroll->Set_Camera({ 70, 50, 300, 300 });
+	scroll->Set_Camera({ 70, 50, 300, 180 });
 	scroll->Add_Camera_element(banner);
 	scroll->Add_Camera_element(texto_de_ejemplo);
 
