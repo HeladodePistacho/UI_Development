@@ -73,23 +73,30 @@ bool j1Scene::Start()
 	
 	Button_1 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 200, 228, 67 }, button_image)));
 	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
-
-	text_box_image = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false)));
-	insertar = (UI_Text_Box*)Button_1->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
 	*/
+
+	text_box_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false);
+	insertar = new UI_Text_Box(TEXT_BOX, { 250,100, 342, 58 }, "Inserte algo", text_box_image);
+	
 
 	slider = new UI_Image(IMAGE, { 0,0,0,0 }, { 1001,882,17,17 }, false);
 	scroll_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false);
 	scroll = new UI_Scroll(SCROLL, { 0, 0, 17, 17 }, slider, scroll_image, true, Y_SCROLL);
+	
+	
 	scroll->Set_Stop_Box({ 50,50,11,148 });
 	scroll->Set_Camera({ 70, 50, 300, 180 });
 	scroll->Add_Camera_element(banner);
 	scroll->Add_Camera_element(texto_de_ejemplo);
 
+	scroll->Add_to_Tab();
+	insertar->Add_to_Tab();
+
 	screen->AddChild(slider);
 	screen->AddChild(scroll_image);
 	screen->AddChild(scroll);
-
+	screen->AddChild(insertar);
+	screen->AddChild(text_box_image);
 	
 	
 	//Exam
@@ -154,112 +161,6 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	// Gui ---
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
-	{
-		
-		if (player == selector_p1)
-		{
-			if (position_player_1.y)
-			{
-				position_player_1.y--;
-				player->Interactive_box.y = characters[position_player_1.x][position_player_1.y].y;
-				player_1_image->Image.y -= player_1_image->Image.h;
-			}
-		}
-		else
-		{
-			if (position_player_2.y)
-			{
-				position_player_2.y--;
-				player->Interactive_box.y = characters[position_player_2.x][position_player_2.y].y;
-				player_2_image->Image.y -= player_2_image->Image.h;
-			}
-		}
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
-	{
-		if (player == selector_p1)
-		{
-			if (!position_player_1.y)
-			{
-				position_player_1.y++;
-
-				player->Interactive_box.y = characters[position_player_1.x][position_player_1.y].y;
-				player_1_image->Image.y += player_1_image->Image.h;
-			}
-		}
-		else
-		{
-			if (!position_player_2.y)
-			{
-				position_player_2.y++;
-
-				player->Interactive_box.y = characters[position_player_2.x][position_player_2.y].y;
-				player_2_image->Image.y += player_2_image->Image.h;
-			}
-		}
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-	{
-		if (player == selector_p1)
-		{
-			if (position_player_1.x < 3)
-			{
-				position_player_1.x++;
-
-				player->Interactive_box.x = characters[position_player_1.x][position_player_1.y].x;
-				player_1_image->Image.x += player_1_image->Image.w;
-			}
-		}
-		else
-		{
-			if (position_player_2.x < 3)
-			{
-				position_player_2.x++;
-
-				player->Interactive_box.x = characters[position_player_2.x][position_player_2.y].x;
-				player_2_image->Image.x += player_2_image->Image.w;
-			}
-		}
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	{
-		if (player == selector_p1)
-		{
-			if (position_player_1.x)
-			{
-				position_player_1.x--;
-
-				player->Interactive_box.x = characters[position_player_1.x][position_player_1.y].x;
-				player_1_image->Image.x -= player_1_image->Image.w;
-			}
-		}
-		else
-		{
-			if (position_player_2.x)
-			{
-				position_player_2.x--;
-
-				player->Interactive_box.x = characters[position_player_2.x][position_player_2.y].x;
-				player_2_image->Image.x -= player_2_image->Image.w;
-			}
-		}
-	}
-	
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
-	{
-		if (player == selector_p1)
-			player = selector_p2;
-			
-		else player = selector_p1;
-	}
-	
-
-
-
 	// -------
 	/*
 	if (SDL_IsTextInputActive() == false)

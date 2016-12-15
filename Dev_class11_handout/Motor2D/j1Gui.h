@@ -31,6 +31,8 @@ public:
 	// Called before all Updates
 	bool PreUpdate();
 
+	bool Update();
+
 	// Called after all Updates
 	bool PostUpdate();
 
@@ -40,12 +42,17 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	UI_element* CreateElement(UI_element* new_element); //old
-
 	UI_element* CreateScreen(UI_element* new_element);
 	const SDL_Texture* GetAtlas() const;
 	const SDL_Texture* Get_Other_Textures(uint id) const;
+
 	UI_element* element_selected;
+	UI_element* focus_element;
+
+	int Get_tabs() const;
+	void Actualize_tabs();
+	void Go_Next_Tab();
+	void Look_for(const UI_element* looked_element);
 
 private:
 
@@ -53,11 +60,9 @@ private:
 	p2SString atlas_file_name;
 	p2List<SDL_Texture*> Other_images;
 	p2List<UI_element*> Screen_elements;
-
-	UI_element* Elemento_padre;
 	
+	int num_of_tabs = 0;
 
-	p2List<UI_element*> UI_elements_List; //old
 
 };
 

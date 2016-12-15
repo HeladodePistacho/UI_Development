@@ -86,6 +86,11 @@ bool j1Input::PreUpdate()
 			mouse_buttons[i] = KEY_IDLE;
 	}
 
+	//if (App->gui->element_selected && App->gui->element_selected->element_type == TEXT_BOX)
+		//SDL_StartTextInput();
+	
+	
+
 	while(SDL_PollEvent(&event) != 0)
 	{
 		switch(event.type)
@@ -135,6 +140,12 @@ bool j1Input::PreUpdate()
 
 				break;
 			}
+
+			case SDL_MOUSEWHEEL:
+				mouse_motion_y = event.wheel.y;
+
+				break;
+			
 			case SDL_TEXTINPUT:
 			
 				//LOG("estoy escribiendo");

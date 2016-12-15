@@ -103,6 +103,7 @@ void UI_element::Check_state()
 				else
 				{
 					App->gui->element_selected = this;
+					App->gui->focus_element = this;
 					state = CLICK_ELEMENT;
 				}
 
@@ -147,6 +148,18 @@ void UI_element::Drag_element()
 
 	for (int i = 0; i < childs_number; i++)
 		Childs[i]->Drag_element();
+}
+
+void UI_element::Add_to_Tab()
+{
+	tab_order = App->gui->Get_tabs() + 1;
+	App->gui->Actualize_tabs();
+
+	if (App->gui->element_selected == nullptr)
+	{
+		//App->gui->element_selected = this;
+		App->gui->focus_element = this;
+	}
 }
 
 

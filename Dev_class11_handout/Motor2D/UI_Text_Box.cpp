@@ -108,27 +108,48 @@ void UI_Text_Box::text_box_state()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (Mouse_is_in({ x, y }))
+	if(App->gui->focus_element != this || App->gui->element_selected == nullptr)
+	{ 
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			App->gui->element_selected = this;
-			SDL_StartTextInput();
-
+			if (Mouse_is_in({ x, y }))
+			{
+				App->gui->element_selected = this;
+				cursor_virtual_pos = text.text.Length() - 1;
+				int width;
+				App->font->CalcSize(text.text.GetString(), width, height);
+				cursor_pos = width + Interactive_box.x;
+				SDL_StartTextInput();
+				state = CLICK_ELEMENT;
+			}
+			else
+			{
+				App->gui->element_selected = nullptr;
+				SDL_StopTextInput();
+				state = NOTHING;
+			}
+		}
+	}	
+	else
+	{
+		if (state == OVER_ELEMENT)
+		{
 			cursor_virtual_pos = text.text.Length() - 1;
 			int width;
 			App->font->CalcSize(text.text.GetString(), width, height);
 			cursor_pos = width + Interactive_box.x;
-
+			SDL_StartTextInput();
 			state = CLICK_ELEMENT;
 		}
-		else
+
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
-			SDL_StopTextInput();
-			App->gui->element_selected = nullptr;
-			state = NOTHING;
+			if (!Mouse_is_in({ x, y }))
+			{
+				App->gui->element_selected = nullptr;
+				SDL_StopTextInput();
+				state = NOTHING;
+			}
 		}
-		
 	}
 }

@@ -48,6 +48,7 @@ public:
 	const UI_element* Parent = nullptr;
 
 	uint layer = 1;
+	int tab_order = 0;
 
 	bool active;
 	SCROLL_TYPE draggable;
@@ -70,6 +71,8 @@ public:
 	bool Mouse_is_in(const iPoint& mouse_pos);
 	void Check_state();
 	void Drag_element();
+
+	void Add_to_Tab();
 
 	UI_element* get_higher_child();
 

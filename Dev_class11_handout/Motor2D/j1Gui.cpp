@@ -43,8 +43,10 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
-	int num_screens = Screen_elements.count();
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+		Go_Next_Tab();
 
+	int num_screens = Screen_elements.count();
 	if (num_screens)
 	{
 		for(int i = 0; i < num_screens; i++)
@@ -56,7 +58,13 @@ bool j1Gui::PreUpdate()
 	}
 
 
+	return true;
+}
 
+bool j1Gui::Update()
+{
+	
+	
 	return true;
 }
 
@@ -111,29 +119,72 @@ const SDL_Texture* j1Gui::Get_Other_Textures(uint id) const
 	return nullptr;	
 }
 
+int j1Gui::Get_tabs() const
+{
+	return num_of_tabs;
+}
+
+void j1Gui::Actualize_tabs()
+{
+	num_of_tabs++;
+}
+
+void j1Gui::Go_Next_Tab()
+{
+	if (focus_element != nullptr)
+	{
+		p2List_item<UI_element*>* screens = Screen_elements.start;
+		while (screens)
+		{
+			Look_for(screens->data);
+			screens = screens->next;
+		}
+
+	}
+
+}
+
+void j1Gui::Look_for(const UI_element* looked_element)
+{
+	int childs_num = looked_element->Childs.count();
+	p2List_item<UI_element*>* childs_looker = looked_element->Childs.start;
+
+	while (childs_looker)
+	{
+		if (focus_element->tab_order < num_of_tabs)
+		{
+			if (childs_looker->data->tab_order == focus_element->tab_order + 1)
+			{
+				element_selected = childs_looker->data;
+				focus_element = childs_looker->data;
+				childs_looker->data->state = INTERACTIVE_STATE::OVER_ELEMENT;
+				break;
+			}
+		}
+		else
+		{
+			if(childs_looker->data->tab_order == 1)
+			{
+				element_selected = childs_looker->data;
+				focus_element = childs_looker->data;
+				childs_looker->data->state = INTERACTIVE_STATE::OVER_ELEMENT;
+				break;
+			}
+		}
+
+		childs_looker = childs_looker->next;
+	}
+
+	if (childs_looker == nullptr)
+	{
+		for (int i = 0; i < childs_num; i++)
+			Look_for(looked_element->Childs[i]);
+	
+	}
+
+
+}
+
 // class Gui ---------------------------------------------------
 
 
-//old factory
-UI_element* j1Gui::CreateElement(UI_element* new_element)
-{
-	UI_element* ret = new_element;
-
-	if (ret == nullptr)
-		return ret;
-
-	switch (new_element->element_type)
-	{
-	case UI_TYPE::IMAGE:					ret = new UI_Image((UI_Image*)new_element); break;
-	case UI_TYPE::IMAGE_NOT_IN_ATLAS:		ret = new UI_Image((UI_Image*)new_element); break;
-	case UI_TYPE::STRING:					ret = new UI_String((UI_String*)new_element); break;
-	case UI_TYPE::BUTTON:					ret = new UI_Button((UI_Button*)new_element); break;
-	}
-
-		if (ret != nullptr)
-			UI_elements_List.add(ret);
-
-		return ret;
-
-	
-}
