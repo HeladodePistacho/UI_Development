@@ -147,6 +147,7 @@ void j1Gui::Go_Next_Tab()
 void j1Gui::Look_for(const UI_element* looked_element)
 {
 	int childs_num = looked_element->Childs.count();
+
 	p2List_item<UI_element*>* childs_looker = looked_element->Childs.start;
 
 	while (childs_looker)

@@ -60,20 +60,15 @@ bool j1Scene::Start()
 	
 	banner = new UI_Image(IMAGE, { 30, 150, 328,103 }, { 485, 829, 328, 103 }, true);
 	texto_de_ejemplo = new UI_String(STRING, { 30, 70, 10, 10 }, "lol", true, NO_SCROLL);
-	
-	/*
-	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
-	button_over = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false)));
-	clicked_Button = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false)));
 
-	window = (UI_Image*)screen->AddChild((UI_element*)&(UI_Image(IMAGE, { 300, 100, 455, 497 }, { 15,512,455,497 }, true)));
-	title = (UI_String*)window->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "TEXTO DE EJEMPLO"));
-	Button = (UI_Button*)window->AddChild((UI_element*)&(UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image, true, NO_SCROLL)));
-	vaya_vaya = (UI_String*)Button->AddChild((UI_element*)&UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa"));
-	
-	Button_1 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 200, 228, 67 }, button_image)));
-	Button_2 = (UI_Button*)screen->AddChild((UI_element*)&(UI_Button(BUTTON, { 100, 300, 228, 67 }, button_image)));
-	*/
+	button_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false);
+	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false);
+	clicked_Button = new UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false);
+
+	window = new UI_Image(IMAGE, { 300, 100, 455, 497 }, { 15,512,455,497 }, true);
+	title = new UI_String(STRING, { 150, 30, 100, 100 }, "TEXTO DE EJEMPLO");
+	Button = new UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image, true);
+	vaya_vaya = new UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa");
 
 	text_box_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false);
 	insertar = new UI_Text_Box(TEXT_BOX, { 250,100, 342, 58 }, "Inserte algo", text_box_image);
@@ -91,12 +86,20 @@ bool j1Scene::Start()
 
 	scroll->Add_to_Tab();
 	insertar->Add_to_Tab();
+	Button->Add_to_Tab();
 
 	screen->AddChild(slider);
 	screen->AddChild(scroll_image);
 	screen->AddChild(scroll);
 	screen->AddChild(insertar);
 	screen->AddChild(text_box_image);
+	screen->AddChild(button_image);
+	screen->AddChild(button_over);
+	screen->AddChild(clicked_Button);
+	screen->AddChild(window);
+	window->AddChild(title);
+	window->AddChild(Button);
+	Button->AddChild(vaya_vaya);
 	
 	
 	//Exam
@@ -203,12 +206,12 @@ bool j1Scene::Update(float dt)
 
 	 App->input->GetMousePosition(x, y);
 
-	
+	*/
 	 if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
 	 if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
 	 if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
 
-	 
+	 /*
 	 if (Button_1->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_1->Change_image_to(clicked_Button);
 	 if (Button_1->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_1->Change_image_to(button_over);
 	 if (Button_1->state == INTERACTIVE_STATE::NOTHING) Button_1->Change_image_to(button_image);
