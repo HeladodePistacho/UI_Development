@@ -58,8 +58,8 @@ bool j1Scene::Start()
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
 	
-	banner = new UI_Image(IMAGE, { 30,30, 328,103 }, { 485, 829, 328, 103 }, true);
-	texto_de_ejemplo = new UI_String(STRING, { 30, 30, 10, 10 }, nullptr, true, NO_SCROLL);
+	banner = new UI_Image(IMAGE, { 30, 10, 328,103 }, { 485, 829, 328, 103 }, true);
+	texto_de_ejemplo = new UI_String(STRING, { 30, 70, 10, 10 }, "lol", true, NO_SCROLL);
 	
 	/*
 	button_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false));
@@ -78,13 +78,20 @@ bool j1Scene::Start()
 	insertar = (UI_Text_Box*)Button_1->AddChild((UI_element*)&(UI_Text_Box(TEXT_BOX, { 30,100, 342, 58 }, "Inserte algo", text_box_image)));
 	*/
 
-	slider = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 1001,882,17,17 }, false));
-	scroll_image = (UI_Image*)screen->AddChild((UI_element*)&UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false));
-	scroll = (UI_Scroll*)screen->AddChild((UI_element*)&UI_Scroll(SCROLL, { 0, 0, 17, 17 }, slider, scroll_image, true, Y_SCROLL));
+	slider = new UI_Image(IMAGE, { 0,0,0,0 }, { 1001,882,17,17 }, false);
+	scroll_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false);
+	scroll = new UI_Scroll(SCROLL, { 0, 0, 17, 17 }, slider, scroll_image, true, Y_SCROLL);
 	scroll->Set_Stop_Box({ 50,50,11,148 });
 	scroll->Set_Camera({ 70, 50, 300, 300 });
 	scroll->Add_Camera_element(banner);
 	scroll->Add_Camera_element(texto_de_ejemplo);
+
+	screen->AddChild(slider);
+	screen->AddChild(scroll_image);
+	screen->AddChild(scroll);
+	screen->AddChild(banner);
+
+	
 	
 	//Exam
 
