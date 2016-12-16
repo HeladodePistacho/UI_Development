@@ -15,7 +15,12 @@ private:
 	SDL_Rect Stop_box;
 	SDL_Rect Camera;
 	p2List<UI_element*> Camera_elements;
-	float Move = 0.0f;
+	float Move_x = 0.0f;
+	float Move_y = 0.0f;
+
+	UI_element* Bottom_element;
+	int Max_move_x = 0;
+	int Max_move_y = 0;
 	iPoint Pos;
 
 public:
@@ -35,6 +40,7 @@ public:
 	 void Move_elements();
 
 	 void Add_Camera_element(UI_element* new_item);
+	 SDL_Rect Get_Stop_Box() const;
 
 	 
 

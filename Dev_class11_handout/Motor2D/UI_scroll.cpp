@@ -31,12 +31,17 @@ bool UI_Scroll::Update()
 	Pos.x = Interactive_box.x;
 	Pos.y = Interactive_box.y;
 
+	//Exercise 2 The scroll slider logic 
+	//[====================================================
 	if (App->gui->element_selected == this && draggable)
 		Drag_element();
 
 	Stop();
-	Move_elements();
+	//====================================================]
 
+	//Exercise 3 The scroll Camera logic
+	Move_elements();
+	
 	return true;
 }
 
@@ -46,11 +51,12 @@ bool UI_Scroll::Update_Draw()
 	{	
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Stop_box.x - App->render->camera.x, Stop_box.y - App->render->camera.y, &Slide_box->Image);
 		App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y, &Slider->Image);
-		App->render->DrawQuad(Camera, 255, 255, 0);
+		
 
 		Child_Update_Draw();
 	}
 
+	//Exercise 3 The scroll Camera view
 	SDL_RenderSetViewport(App->render->renderer, &Camera);
 	p2List_item<UI_element*>* scroll_items = Camera_elements.start;
 	while (scroll_items != nullptr)
@@ -68,8 +74,13 @@ bool UI_Scroll::Update_Draw()
 void UI_Scroll::Set_Stop_Box(SDL_Rect new_box)
 {
 	Stop_box = new_box;
-	Interactive_box.x = Stop_box.x;
-	Interactive_box.y = Stop_box.y;
+
+	if (Parent)
+	{
+		Interactive_box.x = Stop_box.x;
+		Interactive_box.y = Stop_box.y;
+	}
+	
 }
 
 void UI_Scroll::Set_Camera(SDL_Rect new_camera)
@@ -85,6 +96,13 @@ void UI_Scroll::Stop()
 	if (App->gui->element_selected == this && (Interactive_box.y + Interactive_box.h) > (Stop_box.y + Stop_box.h))
 		Interactive_box.y = (Stop_box.y + Stop_box.h) - Interactive_box.h;
 
+	if (App->gui->element_selected == this && Interactive_box.x < Stop_box.x)
+		Interactive_box.x = Stop_box.x;
+
+	if(App->gui->element_selected == this && (Interactive_box.x + Interactive_box.w) > (Stop_box.x + Stop_box.w))
+		Interactive_box.x = (Stop_box.x + Stop_box.w) - Interactive_box.w;
+
+
 }
 
 void UI_Scroll::Move_elements()
@@ -92,36 +110,87 @@ void UI_Scroll::Move_elements()
 	Pos.x -= Interactive_box.x;
 	Pos.y -= Interactive_box.y;
 
-	if (Pos.x || Pos.y && Move)
+	if (Pos.x || Pos.y && (Move_y || Move_x))
 	{
 		int num = Camera_elements.count();
 		for (int i = 0; i < num; i++)
 		{
-			Camera_elements[i]->Interactive_box.x += (Pos.x * Move);
-			Camera_elements[i]->Interactive_box.y += (Pos.y * Move);
+			Camera_elements[i]->Interactive_box.x += (Pos.x * Move_x);
+			Camera_elements[i]->Interactive_box.y += (Pos.y * Move_y);
 		}
 	}
 }
 
 void UI_Scroll::Add_Camera_element(UI_element * new_item)
 {
-	Camera_elements.add(new_item);
-
-	if (draggable == Y_SCROLL)
+	if (new_item)
 	{
-		if ((new_item->Interactive_box.y + new_item->Interactive_box.h) > Camera.h)
+		Camera_elements.add(new_item);
+
+		switch (draggable)
 		{
-			float length;
-			if (Camera.h < Stop_box.h)
-				length = (new_item->Interactive_box.y + new_item->Interactive_box.h + (Stop_box.h - Camera.h)) / (float)Stop_box.h;
-			else  length = (new_item->Interactive_box.y + new_item->Interactive_box.h) / (float)Stop_box.h;
+		case Y_SCROLL:
+			if ((new_item->Interactive_box.y + new_item->Interactive_box.h) > Camera.h)
+			{
+				float length;
+				if (Camera.h < Stop_box.h)
+					length = (new_item->Interactive_box.y + new_item->Interactive_box.h + (Stop_box.h - Camera.h)) / (float)Stop_box.h;
+				else  length = (new_item->Interactive_box.y + new_item->Interactive_box.h) / (float)Stop_box.h;
 
-			int parte_entera = length;
+				if (length > Move_y)
+					Move_y = floor(length);
+			}
+			break;
 
-			if (length > Move)
-				Move = length;
+		case X_SCROLL:
+			if ((new_item->Interactive_box.x + new_item->Interactive_box.w) > Camera.w)
+			{
+				float length;
+				if (Camera.w < Stop_box.w)
+					length = (new_item->Interactive_box.x + new_item->Interactive_box.w + (Stop_box.w - Camera.w)) / (float)Stop_box.w;
+				else  length = (new_item->Interactive_box.x + new_item->Interactive_box.w) / (float)Stop_box.w;
+
+				if (length > Move_x)
+					Move_x = floor(length);
+			}
+			break;
+
+		case FREE_SCROLL:
+			if ((new_item->Interactive_box.y + new_item->Interactive_box.h) > Camera.h)
+			{
+				float length;
+				if (Camera.h < Stop_box.h)
+					length = (new_item->Interactive_box.y + new_item->Interactive_box.h + (Stop_box.h - Camera.h)) / (float)Stop_box.h;
+				else  length = (new_item->Interactive_box.y + new_item->Interactive_box.h) / (float)Stop_box.h;
+
+				if (length > Move_y)
+					Move_y = floor(length);
+			}
+			if ((new_item->Interactive_box.x + new_item->Interactive_box.w) > Camera.w)
+			{
+				float length;
+				if (Camera.w < Stop_box.w)
+					length = (new_item->Interactive_box.x + new_item->Interactive_box.w + (Stop_box.w - Camera.w)) / (float)Stop_box.w;
+				else  length = (new_item->Interactive_box.x + new_item->Interactive_box.w) / (float)Stop_box.w;
+
+				if (length > Move_x)
+					Move_x = floor(length);
+			}
+			break;
 		}
+	
+		
+
+		
 
 	}
+
+	
+
+}
+
+SDL_Rect UI_Scroll::Get_Stop_Box() const
+{
+	return Stop_box;
 }
 

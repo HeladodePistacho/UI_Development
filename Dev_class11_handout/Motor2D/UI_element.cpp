@@ -97,8 +97,12 @@ void UI_element::Check_state()
 		{
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				if(get_higher_child() != nullptr)
+
+				if (get_higher_child() != nullptr)
+				{
 					state = OVER_ELEMENT;
+				}
+					
 
 				else
 				{
@@ -176,7 +180,9 @@ UI_element* UI_element::get_higher_child()
 			if (Childs[i]->state == OVER_ELEMENT && Childs[i]->layer >= this->layer)
 			{
 				temp = Childs[i];
+				temp->state = CLICK_ELEMENT;
 				App->gui->element_selected = temp;
+				App->gui->focus_element = temp;
 			}
 		}
 

@@ -45,48 +45,25 @@ public:
 private:
 	SDL_Texture* debug_tex;
 	
-	UI_element* screen;
-	UI_Image* banner;
-	UI_String* texto_de_ejemplo;
-	
+	//Exam 
+
+	UI_element* Exam_screen;
+	UI_Image* Background;
 
 	UI_Image* button_image;
 	UI_Image* button_over;
 	UI_Image* clicked_Button;
 
-
-	UI_Button* Button_1;
-	UI_Button* Button_2;
-
 	UI_Image* window;
 	UI_String* title;
 	UI_Button* Button;
-	UI_String* vaya_vaya;
+	UI_String* Button_Label;
 
-	UI_Image* text_box_image;
-	UI_Text_Box* insertar;
-
-	UI_Scroll* scroll;
-	UI_Image* slider;
-	UI_Image* scroll_image;
-
-	//Exam 
-
-	UI_element* screen_exam;
-	UI_Image* background;
-
-	UI_Image* player_1_image;
-	UI_Image* player_2_image;
-
-
-	UI_Image* selector_p1;
-	UI_Image* selector_p2;
-	
-	iPoint characters[4][2];
-	iPoint position_player_1;
-	iPoint position_player_2;
-
-	UI_element* player;
+	UI_Scroll* Heroe_selector;
+	UI_Image* Slider_image;
+	UI_Image* Heroe_images;
+	UI_Image* Big_heroe_image;
+		
 };
 
 #endif // __j1SCENE_H__

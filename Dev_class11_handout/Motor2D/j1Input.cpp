@@ -141,11 +141,7 @@ bool j1Input::PreUpdate()
 				break;
 			}
 
-			case SDL_MOUSEWHEEL:
-				mouse_motion_y = event.wheel.y;
-
-				break;
-			
+		
 			case SDL_TEXTINPUT:
 			
 				//LOG("estoy escribiendo");

@@ -54,7 +54,7 @@ bool j1Scene::Start()
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
-
+	/*
 	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
 
 	
@@ -65,7 +65,7 @@ bool j1Scene::Start()
 	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false);
 	clicked_Button = new UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false);
 
-	window = new UI_Image(IMAGE, { 300, 100, 455, 497 }, { 15,512,455,497 }, true);
+	
 	title = new UI_String(STRING, { 150, 30, 100, 100 }, "TEXTO DE EJEMPLO");
 	Button = new UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image, true);
 	vaya_vaya = new UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa");
@@ -100,33 +100,48 @@ bool j1Scene::Start()
 	window->AddChild(title);
 	window->AddChild(Button);
 	Button->AddChild(vaya_vaya);
-	
+	*/
 	
 	//Exam
 
-	/*
-	screen_exam = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 788, 579 }));
-	background = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 0, 0, 788, 579 }, { 970, 1844, 768, 579 }, true, NO_SCROLL));
+	//Exercise 1 -> Setting all the elements
+	Background = new UI_Image(IMAGE, { 0,0,0,0 }, { 0, 1600, 1024, 576 }, true, NO_SCROLL);
 
-	selector_p1 = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 239, 78, 0, 0 }, { 1485, 110, 72, 109 }, true, NO_SCROLL));
-	selector_p2 = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 239, 78, 0, 0 }, { 1560, 110, 72, 109 }, true, NO_SCROLL));
+	window = new UI_Image(IMAGE, { 50, 60, 455, 497 }, { 15,512,455,497 }, true, NO_SCROLL);
+	title = new UI_String(STRING, { 120,50,0,0 }, "Select Your Character");
 
-	player_1_image = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 24, 61, 0, 0 }, { 925, 605, 168, 279 }));
-	player_2_image = (UI_Image*)screen_exam->AddChild((UI_element*)&UI_Image(IMAGE, { 543, 61, 0, 0 }, { 925, 605, 168, 279 }));
+	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false);
+	clicked_Button = new UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false);
+	button_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false);
 
-	player = selector_p1;
-	position_player_1 = { 0,0 };
-	position_player_2 = { 0,0 };
+	Button = new UI_Button(BUTTON, { 120, 380, 228, 67 }, button_image, true, NO_SCROLL);
+	Button_Label = new UI_String(STRING, { 50, 20, 0, 0 }, "Continue");
 
-	characters[0][0] = { 239, 78 };
-	characters[1][0] = { 311, 78 };
-	characters[2][0] = { 383, 78 };
-	characters[3][0] = { 455, 78 };
-	characters[0][1] = { 239, 172 };
-	characters[1][1] = { 311, 172 };
-	characters[2][1] = { 383, 172 };
-	characters[3][1] = { 455, 172 };
-	*/
+	Big_heroe_image = new UI_Image(IMAGE, { 0,0,1025,574 }, { 0, 1024, 1025, 574 }, true, NO_SCROLL);
+	Slider_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 900, 314, 68, 54 } , false);
+	Heroe_images = new UI_Image(IMAGE, { 0, 0, 0,0 }, { 0, 290, 300, 169 }, false);
+	Heroe_selector = new UI_Scroll(SCROLL, { 130, 200, 68, 54 }, Slider_image, Heroe_images, true);
+
+	
+	Exam_screen = App->gui->CreateScreen(&UI_element(SCREEN, { 0, 0, 1024, 576 }));
+
+	Exam_screen->AddChild(Background);
+	Exam_screen->AddChild(window);
+	Exam_screen->AddChild(button_image);
+	Exam_screen->AddChild(button_over);
+	Exam_screen->AddChild(clicked_Button);
+
+	window->AddChild(title);
+	window->AddChild(Button);
+	window->AddChild(Heroe_selector);
+
+	Button->AddChild(Button_Label);
+
+	//Exercise 2 Setting the scroll elements
+	Heroe_selector->Set_Stop_Box({ 130, 200, 300, 169 });
+	Heroe_selector->Set_Camera({ 592, 151, 339, 271 });
+	Heroe_selector->Add_Camera_element(Big_heroe_image);
+
 	return true;
 }
 
@@ -163,69 +178,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	// Gui ---
-	// -------
-	/*
-	if (SDL_IsTextInputActive() == false)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-			App->LoadGame("save_game.xml");
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			App->SaveGame("save_game.xml");
-
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			App->render->camera.y += floor(200.0f * dt);
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			App->render->camera.y -= floor(200.0f * dt);
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			App->render->camera.x += floor(200.0f * dt);
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			App->render->camera.x -= floor(200.0f * dt);
-		
-	}
 	
-	App->map->Draw();
+	if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
+	if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
+	if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(),
-					map_coordinates.x, map_coordinates.y);
-
-	//App->win->SetTitle(title.GetString());
-
-	// UI FUNCIONALITY ------------------------------
-	
-
-	 App->input->GetMousePosition(x, y);
-
-	*/
-	 if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
-	 if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
-	 if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
-
-	 /*
-	 if (Button_1->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_1->Change_image_to(clicked_Button);
-	 if (Button_1->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_1->Change_image_to(button_over);
-	 if (Button_1->state == INTERACTIVE_STATE::NOTHING) Button_1->Change_image_to(button_image);
-
-	 if (Button_2->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button_2->Change_image_to(clicked_Button);
-	 if (Button_2->state == INTERACTIVE_STATE::OVER_ELEMENT) Button_2->Change_image_to(button_over);
-	 if (Button_2->state == INTERACTIVE_STATE::NOTHING) Button_2->Change_image_to(button_image);
-	
-	 
-	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::CLICK_ELEMENT) texto_de_ejemplo->Set_String("wow me pulsan");
-	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::OVER_ELEMENT) texto_de_ejemplo->Set_String("en la cara no pls");
-	 if (texto_de_ejemplo->state == INTERACTIVE_STATE::NOTHING) texto_de_ejemplo->Set_String("tocame_wapo");
-	*/
-	
 	
 	
 	return true;
