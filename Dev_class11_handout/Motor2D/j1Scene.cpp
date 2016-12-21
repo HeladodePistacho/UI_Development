@@ -54,53 +54,7 @@ bool j1Scene::Start()
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
-	/*
-	screen = App->gui->CreateScreen((UI_element*)&UI_element(SCREEN, { 0, 0, 780, 600 }));
-
 	
-	banner = new UI_Image(IMAGE, { 30, 150, 328,103 }, { 485, 829, 328, 103 }, true);
-	texto_de_ejemplo = new UI_String(STRING, { 30, 70, 10, 10 }, "lol", true, NO_SCROLL);
-
-	button_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false);
-	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false);
-	clicked_Button = new UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false);
-
-	
-	title = new UI_String(STRING, { 150, 30, 100, 100 }, "TEXTO DE EJEMPLO");
-	Button = new UI_Button(BUTTON, { -100, 100, 228, 67 }, button_image, true);
-	vaya_vaya = new UI_String(STRING, { 150, 30, 100, 100 }, "aqui no hay playa");
-
-	text_box_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 490,571,342,58 }, false);
-	insertar = new UI_Text_Box(TEXT_BOX, { 250,100, 342, 58 }, "Inserte algo", text_box_image);
-	
-
-	slider = new UI_Image(IMAGE, { 0,0,0,0 }, { 1001,882,17,17 }, false);
-	scroll_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 986,874,11,148 }, false);
-	scroll = new UI_Scroll(SCROLL, { 0, 0, 17, 17 }, slider, scroll_image, true, Y_SCROLL);
-	
-	
-	scroll->Set_Stop_Box({ 50,50,11,148 });
-	scroll->Set_Camera({ 70, 50, 300, 180 });
-	scroll->Add_Camera_element(banner);
-	scroll->Add_Camera_element(texto_de_ejemplo);
-
-	scroll->Add_to_Tab();
-	insertar->Add_to_Tab();
-	Button->Add_to_Tab();
-
-	screen->AddChild(slider);
-	screen->AddChild(scroll_image);
-	screen->AddChild(scroll);
-	screen->AddChild(insertar);
-	screen->AddChild(text_box_image);
-	screen->AddChild(button_image);
-	screen->AddChild(button_over);
-	screen->AddChild(clicked_Button);
-	screen->AddChild(window);
-	window->AddChild(title);
-	window->AddChild(Button);
-	Button->AddChild(vaya_vaya);
-	*/
 	
 	//Exam
 
