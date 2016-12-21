@@ -5,6 +5,17 @@
 
 class j1Console : public j1Module
 {
+public:
+
+	j1Console();
+
+	bool Awake(pugi::xml_node&);
+	bool Start();
+	bool Update();
+	bool CleanUp();
+
+public:
+
 
 };
 
