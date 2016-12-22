@@ -5,6 +5,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Console.h"
 #include "UI_Text_Box.h"
 #include "j1Gui.h"
 #include "SDL/include/SDL.h"
@@ -86,10 +87,6 @@ bool j1Input::PreUpdate()
 			mouse_buttons[i] = KEY_IDLE;
 	}
 
-	//if (App->gui->element_selected && App->gui->element_selected->element_type == TEXT_BOX)
-		//SDL_StartTextInput();
-	
-	
 
 	while(SDL_PollEvent(&event) != 0)
 	{
@@ -141,6 +138,15 @@ bool j1Input::PreUpdate()
 				break;
 			}
 
+			case SDL_KEYDOWN:
+				if (event.key.keysym.scancode == SDL_SCANCODE_GRAVE)
+				{
+					if (App->console->active)
+						App->console->active = false;
+					else App->console->active = true;
+				}
+
+				break;
 		
 			case SDL_TEXTINPUT:
 			

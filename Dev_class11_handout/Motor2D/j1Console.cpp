@@ -12,7 +12,7 @@ j1Console::j1Console()
 bool j1Console::Awake(pugi::xml_node& config)
 {
 	LOG("Setting Console features");
-
+	
 	console_screen.x = config.child("Position").attribute("x").as_int();
 	console_screen.y = config.child("Position").attribute("y").as_int();
 	console_screen.w = config.child("Size").attribute("width").as_int();
@@ -22,6 +22,9 @@ bool j1Console::Awake(pugi::xml_node& config)
 	Background.g = config.child("Color").attribute("g").as_int();
 	Background.b = config.child("Color").attribute("b").as_int();
 	Background.a = config.child("Color").attribute("a").as_int();
+
+	LOG("Desactivating console");
+	active = false;
 
 	return true;
 }
