@@ -36,8 +36,7 @@
 
   <console>
     <Position x="0" y="0"/>
-    <Size width="1000" height="300"/>
-    <Color r="255" g="255" b="255"/>
+    <Size width="1024" height="300"/>
   </console>
 
 </config>

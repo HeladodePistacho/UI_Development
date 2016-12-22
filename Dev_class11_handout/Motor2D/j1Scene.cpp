@@ -132,11 +132,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	
+	/*
 	if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
 	if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
 	if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
-
+	*/
 	
 	
 	return true;
