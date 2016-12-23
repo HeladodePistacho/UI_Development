@@ -27,10 +27,10 @@ bool j1Console::Awake(pugi::xml_node& config)
 
 	LOG("Setting console text box");
 
-	int width, height;
+	int width;
 	App->font->CalcSize("Set", width, height, Console_font);
 
-	Input_text = new UI_Text_Box(UI_TYPE::TEXT_BOX, { console_screen.x, (console_screen.y + console_screen.h) - height, console_screen.w, 100 }, "", nullptr);
+	Input_text = new UI_Text_Box(UI_TYPE::TEXT_BOX, { console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height }, "", nullptr);
 
 	LOG("Desactivating console");
 	active = false;
@@ -40,6 +40,13 @@ bool j1Console::Awake(pugi::xml_node& config)
 
 bool j1Console::Start()
 {
+	int num_labels = Labels.Count();
+
+	for (int i = 0; i < num_labels; i++)
+		Labels[i]->Start();
+	
+	
+
 	return true;
 }
 
@@ -47,12 +54,30 @@ bool j1Console::Update(float dt)
 {
 	Input_text->Update();
 	Input_text->Handle_input();
+
 	return true;
 }
 
 bool j1Console::PostUpdate()
 {
 	App->render->DrawQuad(console_screen, Background.r, Background.g, Background.b, Background.a);
+	App->render->DrawQuad(Input_text->Interactive_box, 0, 0, 255, Background.a);
+
+	//Change viewport
+	SDL_RenderSetViewport(App->render->renderer, &console_screen);
+
+	int espaciado = 0;
+	int num_labels = Labels.Count();
+	for (int i = 0; i < num_labels; i++)
+	{
+		App->render->Blit(Labels[i]->text_texture, console_screen.x, console_screen.y + espaciado);
+		espaciado += height;
+	}
+
+	SDL_RenderSetViewport(App->render->renderer, nullptr);
+
+	
+
 	Input_text->Update_Draw();
 	return true;
 }
@@ -76,5 +101,13 @@ void j1Console::Active_console()
 		App->gui->element_selected = Input_text;
 		SDL_StartTextInput();
 	}
+}
+
+void j1Console::Add_Label(const char * new_text)
+{
+	UI_String* new_label = new UI_String(UI_TYPE::STRING, { 0,0,0,0 }, (char*)new_text);
+	
+	if (new_label)
+		Labels.PushBack(new_label);
 }
 

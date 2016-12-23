@@ -32,9 +32,8 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 	else
 	{
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
-		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
+		int size = conf.child("default_font").attribute("size").as_int();
 		default = Load(path, size);
-		Load(path, 25);
 	}
 
 	return ret;
@@ -67,8 +66,9 @@ TTF_Font* const j1Fonts::Load(const char* path, int size)
 	}
 	else
 	{
-		LOG("Successfully loaded font %s size %d", path, size);
 		fonts.add(font);
+		LOG("Successfully loaded font %s size %d", path, size);
+		
 	}
 
 	return font;
@@ -82,7 +82,7 @@ SDL_Texture* j1Fonts::Print(const char* text, SDL_Color color, TTF_Font* font)
 
 	if(surface == NULL)
 	{
-		LOG("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+		//LOG("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	}
 	else
 	{
