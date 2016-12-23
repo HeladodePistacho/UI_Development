@@ -137,6 +137,9 @@ bool j1Input::PreUpdate()
 
 				break;
 			}
+			case SDL_MOUSEWHEEL:
+				mouse_wheel = event.wheel.y;
+				break;
 
 			case SDL_KEYDOWN:
 
