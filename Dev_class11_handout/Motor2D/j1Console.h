@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "UI_Text_Box.h"
+#include "p2DynArray.h"
 #include "SDL\include\SDL_rect.h"
 
 struct _TTF_Font;
@@ -27,6 +28,7 @@ public:
 	SDL_Color Background;
 	UI_Text_Box* Input_text;
 	_TTF_Font* Console_font;
+	p2DynArray<UI_String*> Labels;
 
 };
 
