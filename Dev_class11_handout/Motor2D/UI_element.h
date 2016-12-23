@@ -58,6 +58,7 @@ public:
 	UI_element(UI_TYPE type, SDL_Rect detection_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_element(const UI_element* other_element);
 	
+	virtual bool Start() { return true; };
 	virtual bool Update();
 	virtual bool Update_Draw();
 	virtual bool Handle_input();
