@@ -10,13 +10,13 @@ class UI_Text_Box : public UI_element
 public:
 
 	UI_String text;
-	UI_Image background;
+	const UI_Image* background;
 	int cursor_pos, height;
 	int cursor_virtual_pos;
 
 public:
 
-	UI_Text_Box(UI_TYPE type, SDL_Rect detection_box, char* new_text, const UI_Image& start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
+	UI_Text_Box(UI_TYPE type, SDL_Rect detection_box, char* new_text, const UI_Image* start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Text_Box(const UI_Text_Box* other);
 
 	void text_box_state();

@@ -139,12 +139,9 @@ bool j1Input::PreUpdate()
 			}
 
 			case SDL_KEYDOWN:
-				if (event.key.keysym.scancode == SDL_SCANCODE_GRAVE)
-				{
-					if (App->console->active)
-						App->console->active = false;
-					else App->console->active = true;
-				}
+
+				if(event.key.keysym.scancode == SDL_SCANCODE_GRAVE)
+					App->console->Active_console();
 
 				break;
 		
