@@ -4,10 +4,7 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
-UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag), text(new_text)
-{
-	text_texture = App->font->Print(new_text);
-}
+UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag), text(new_text) {}
 
 UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text) 
 {
@@ -25,6 +22,11 @@ bool UI_String::Update_Draw()
 	Child_Update_Draw();
 
 	return true;
+}
+
+bool UI_String::Start()
+{
+	return text_texture = App->font->Print(text.GetString());
 }
 
 bool UI_String::Update()

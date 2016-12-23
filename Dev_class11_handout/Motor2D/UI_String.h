@@ -12,7 +12,7 @@ class UI_String : public UI_element
 public:
 	p2SString text;
 	int text_size;
-	_TTF_Font* text_font;
+	_TTF_Font* text_font = nullptr;
 	SDL_Texture* text_texture;
 
 public:
@@ -22,6 +22,7 @@ public:
 	
 	bool Set_String(char* new_text);
 	
+	bool Start();
 	bool Update();
 	bool Update_Draw();
 };
