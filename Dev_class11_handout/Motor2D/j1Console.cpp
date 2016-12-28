@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "UI_Image.h"
 #include "p2Log.h"
 #include "j1Render.h"
 
@@ -31,6 +32,7 @@ bool j1Console::Awake(pugi::xml_node& config)
 	App->font->CalcSize("Set", width, height, Console_font);
 
 	Input_text = new UI_Text_Box(UI_TYPE::TEXT_BOX, { console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height }, "", nullptr);
+	
 
 	LOG("Desactivating console");
 	active = false;
@@ -45,7 +47,7 @@ bool j1Console::Start()
 	for (int i = 0; i < num_labels; i++)
 		Labels[i]->Start();
 	
-	Create_texture();
+	Big_texture = Create_image();
 
 	return true;
 }
@@ -54,6 +56,11 @@ bool j1Console::Update(float dt)
 {
 	Input_text->Update();
 	Input_text->Handle_input();
+
+	check_state();
+
+	if (state == MOUSE_OVER)
+		drag_console();
 
 	return true;
 }
@@ -66,7 +73,7 @@ bool j1Console::PostUpdate()
 	//Change viewport
 	SDL_RenderSetViewport(App->render->renderer, &console_screen);
 
-	App->render->Blit(Labels_pre_update_phase, 0, 0);
+	Big_texture->Update_Draw();
 	
 	SDL_RenderSetViewport(App->render->renderer, nullptr);
 
@@ -106,14 +113,14 @@ void j1Console::Add_Label(const char * new_text)
 		Labels.PushBack(new_label);
 }
 
-void j1Console::Create_texture()
+UI_Image* j1Console::Create_image()
 {
 	
 	int num_of_labels = Labels.Count();
 
 	if (num_of_labels)
 	{
-		Labels_pre_update_phase = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, console_screen.w, height * num_of_labels);
+		Labels_pre_update_phase = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, console_screen.w, height * num_of_labels);
 		SDL_SetRenderTarget(App->render->renderer, Labels_pre_update_phase);
 
 
@@ -127,12 +134,36 @@ void j1Console::Create_texture()
 			temp.y += height;
 		}
 		SDL_SetRenderTarget(App->render->renderer, nullptr);
-
+		
 		for (int i = 0; i < num_of_labels; i++)
 		{
 			UI_String* vaya;
 			Labels.Pop(vaya);
 		}
+
+		UI_Image* ret = new UI_Image(UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0,0,0,0 }, { 0,0,console_screen.w, temp.y }, true, NO_SCROLL, App->gui->AddTexture(Labels_pre_update_phase));
+		return ret;
 	}
+	return nullptr;
+}
+
+void j1Console::check_state()
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	if (((x > console_screen.x) && (x <= (console_screen.x + console_screen.w)) && (y > console_screen.y) && (y <= (console_screen.y + console_screen.h))))
+		state = MOUSE_OVER;
+	else state = MOUSE_NOT_OVER;
+	
+}
+
+void j1Console::drag_console()
+{
+	int y;
+	App->input->GetMouseWheel(y);
+
+	Big_texture->Interactive_box.y += y;
+
 }
 

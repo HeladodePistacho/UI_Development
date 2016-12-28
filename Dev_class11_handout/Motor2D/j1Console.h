@@ -8,7 +8,14 @@
 
 struct _TTF_Font;
 struct UI_String;
-struct UI_Scroll;
+struct UI_Image;
+
+enum CONSOLE_STATE
+{
+	MOUSE_OVER,
+	MOUSE_NOT_OVER
+};
+
 
 class j1Console : public j1Module
 {
@@ -29,8 +36,10 @@ public:
 
 	SDL_Rect console_screen;
 	SDL_Color Background;
-	UI_Text_Box* Input_text;
+	CONSOLE_STATE state;
 
+	UI_Text_Box* Input_text;
+	UI_Image* Big_texture;
 	
 	_TTF_Font* Console_font;
 	p2DynArray<UI_String*> Labels;
@@ -38,7 +47,9 @@ public:
 private:
 	int height;
 	SDL_Texture* Labels_pre_update_phase;
-	void Create_texture();
+	UI_Image* Create_image();
+	void check_state();
+	void drag_console();
 
 };
 
