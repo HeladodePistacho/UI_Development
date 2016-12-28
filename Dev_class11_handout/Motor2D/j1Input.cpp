@@ -59,6 +59,7 @@ bool j1Input::PreUpdate()
 
 	mouse_motion_x = 0;
 	mouse_motion_y = 0;
+	mouse_wheel = 0;
 
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{
@@ -138,7 +139,7 @@ bool j1Input::PreUpdate()
 				break;
 			}
 			case SDL_MOUSEWHEEL:
-				mouse_wheel = event.wheel.y;
+				mouse_wheel = event.wheel.y * 10;
 				break;
 
 			case SDL_KEYDOWN:
@@ -200,4 +201,9 @@ void j1Input::GetMouseMotion(int& x, int& y)
 	x = mouse_motion_x;
 	y = mouse_motion_y;
 
+}
+
+void j1Input::GetMouseWheel(int& y)
+{
+	y = mouse_wheel;
 }
