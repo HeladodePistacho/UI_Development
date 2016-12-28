@@ -31,11 +31,14 @@ public:
 	SDL_Color Background;
 	UI_Text_Box* Input_text;
 
+	
 	_TTF_Font* Console_font;
 	p2DynArray<UI_String*> Labels;
 
 private:
 	int height;
+	SDL_Texture* Labels_pre_update_phase;
+	void Create_texture();
 
 };
 

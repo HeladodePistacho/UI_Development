@@ -45,7 +45,7 @@ bool j1Console::Start()
 	for (int i = 0; i < num_labels; i++)
 		Labels[i]->Start();
 	
-	
+	Create_texture();
 
 	return true;
 }
@@ -66,17 +66,12 @@ bool j1Console::PostUpdate()
 	//Change viewport
 	SDL_RenderSetViewport(App->render->renderer, &console_screen);
 
-	int espaciado = 0;
-	int num_labels = Labels.Count();
-	for (int i = 0; i < num_labels; i++)
-	{
-		App->render->Blit(Labels[i]->text_texture, console_screen.x, console_screen.y + espaciado);
-		espaciado += height;
-	}
-
+	App->render->Blit(Labels_pre_update_phase, 0, 0);
+	
 	SDL_RenderSetViewport(App->render->renderer, nullptr);
 
 	
+
 
 	Input_text->Update_Draw();
 	return true;
@@ -109,5 +104,30 @@ void j1Console::Add_Label(const char * new_text)
 	
 	if (new_label)
 		Labels.PushBack(new_label);
+}
+
+void j1Console::Create_texture()
+{
+	
+	int num_of_labels = Labels.Count();
+
+	Labels_pre_update_phase = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, console_screen.w, height * num_of_labels);
+	SDL_SetRenderTarget(App->render->renderer, Labels_pre_update_phase);
+	
+
+	SDL_Rect temp = { 0,0,0, height };
+	for (int i = 0; i < num_of_labels; i++)
+	{
+		int width;
+		App->font->CalcSize(Labels[i]->text.GetString(), width, height);
+		temp.w = width;
+		int lol = SDL_RenderCopy(App->render->renderer, Labels[i]->text_texture, nullptr, &temp);
+		temp.y += height;
+	}
+	
+	
+
+	SDL_SetRenderTarget(App->render->renderer, nullptr);
+
 }
 
