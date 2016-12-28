@@ -111,23 +111,28 @@ void j1Console::Create_texture()
 	
 	int num_of_labels = Labels.Count();
 
-	Labels_pre_update_phase = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, console_screen.w, height * num_of_labels);
-	SDL_SetRenderTarget(App->render->renderer, Labels_pre_update_phase);
-	
-
-	SDL_Rect temp = { 0,0,0, height };
-	for (int i = 0; i < num_of_labels; i++)
+	if (num_of_labels)
 	{
-		int width;
-		App->font->CalcSize(Labels[i]->text.GetString(), width, height);
-		temp.w = width;
-		int lol = SDL_RenderCopy(App->render->renderer, Labels[i]->text_texture, nullptr, &temp);
-		temp.y += height;
+		Labels_pre_update_phase = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, console_screen.w, height * num_of_labels);
+		SDL_SetRenderTarget(App->render->renderer, Labels_pre_update_phase);
+
+
+		SDL_Rect temp = { 0,0,0, height };
+		for (int i = 0; i < num_of_labels; i++)
+		{
+			int width;
+			App->font->CalcSize(Labels[i]->text.GetString(), width, height);
+			temp.w = width;
+			int lol = SDL_RenderCopy(App->render->renderer, Labels[i]->text_texture, nullptr, &temp);
+			temp.y += height;
+		}
+		SDL_SetRenderTarget(App->render->renderer, nullptr);
+
+		for (int i = 0; i < num_of_labels; i++)
+		{
+			UI_String* vaya;
+			Labels.Pop(vaya);
+		}
 	}
-	
-	
-
-	SDL_SetRenderTarget(App->render->renderer, nullptr);
-
 }
 
