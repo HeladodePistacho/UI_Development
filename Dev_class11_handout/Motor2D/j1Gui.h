@@ -43,8 +43,10 @@ public:
 	// Gui creation functions
 
 	UI_element* CreateScreen(UI_element* new_element);
+
 	const SDL_Texture* GetAtlas() const;
 	const SDL_Texture* Get_Other_Textures(uint id) const;
+	int AddTexture(SDL_Texture* new_text);
 
 	UI_element* element_selected;
 	UI_element* focus_element;

@@ -127,6 +127,14 @@ const SDL_Texture* j1Gui::Get_Other_Textures(uint id) const
 	return nullptr;	
 }
 
+int j1Gui::AddTexture(SDL_Texture * new_text)
+{
+	if(new_text)
+		Other_images.add(new_text);
+
+	return Other_images.find(new_text);
+}
+
 int j1Gui::Get_tabs() const
 {
 	return num_of_tabs;
