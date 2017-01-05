@@ -39,17 +39,20 @@ public:
 	CONSOLE_STATE state;
 
 	UI_Text_Box* Input_text;
-	UI_Image* Big_texture;
 	
 	_TTF_Font* Console_font;
 	p2DynArray<UI_String*> Labels;
 
 private:
+
 	int height;
-	SDL_Texture* Labels_pre_update_phase;
-	UI_Image* Create_image();
+	int num_of_labels = 0;
+	int labels_loaded = 0;
+
 	void check_state();
 	void drag_console();
+	void Load_labels();
+	void Load_Update_labels();
 
 };
 

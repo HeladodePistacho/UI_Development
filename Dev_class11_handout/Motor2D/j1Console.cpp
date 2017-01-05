@@ -42,18 +42,14 @@ bool j1Console::Awake(pugi::xml_node& config)
 
 bool j1Console::Start()
 {
-	int num_labels = Labels.Count();
-
-	for (int i = 0; i < num_labels; i++)
-		Labels[i]->Start();
+	Load_labels();
 	
-	Big_texture = Create_image();
-
 	return true;
 }
 
 bool j1Console::Update(float dt)
 {
+	Load_Update_labels();
 	Input_text->Update();
 	Input_text->Handle_input();
 
@@ -73,11 +69,15 @@ bool j1Console::PostUpdate()
 	//Change viewport
 	SDL_RenderSetViewport(App->render->renderer, &console_screen);
 
-	Big_texture->Update_Draw();
-	
+	int salto_de_linea = 0;
+	for (int i = 0; i < num_of_labels; i++)
+	{
+		Labels[i]->Draw_console(salto_de_linea);
+		salto_de_linea += height;
+	}
 	SDL_RenderSetViewport(App->render->renderer, nullptr);
 
-	
+
 
 
 	Input_text->Update_Draw();
@@ -111,41 +111,11 @@ void j1Console::Add_Label(const char * new_text)
 	
 	if (new_label)
 		Labels.PushBack(new_label);
+
+	num_of_labels++;
 }
 
-UI_Image* j1Console::Create_image()
-{
-	
-	int num_of_labels = Labels.Count();
 
-	if (num_of_labels)
-	{
-		Labels_pre_update_phase = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, console_screen.w, height * num_of_labels);
-		SDL_SetRenderTarget(App->render->renderer, Labels_pre_update_phase);
-
-
-		SDL_Rect temp = { 0,0,0, height };
-		for (int i = 0; i < num_of_labels; i++)
-		{
-			int width;
-			App->font->CalcSize(Labels[i]->text.GetString(), width, height);
-			temp.w = width;
-			int lol = SDL_RenderCopy(App->render->renderer, Labels[i]->text_texture, nullptr, &temp);
-			temp.y += height;
-		}
-		SDL_SetRenderTarget(App->render->renderer, nullptr);
-		
-		for (int i = 0; i < num_of_labels; i++)
-		{
-			UI_String* vaya;
-			Labels.Pop(vaya);
-		}
-
-		UI_Image* ret = new UI_Image(UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0,0,0,0 }, { 0,0,console_screen.w, temp.y }, true, NO_SCROLL, App->gui->AddTexture(Labels_pre_update_phase));
-		return ret;
-	}
-	return nullptr;
-}
 
 void j1Console::check_state()
 {
@@ -163,7 +133,25 @@ void j1Console::drag_console()
 	int y;
 	App->input->GetMouseWheel(y);
 
-	Big_texture->Interactive_box.y += y;
+	for(int i = 0; i < num_of_labels; i++)
+		Labels[i]->Interactive_box.y += y;
 
+}
+
+void j1Console::Load_labels()
+{
+	
+	for (int i = labels_loaded; i < num_of_labels; i++)
+	{
+		Labels[i]->Load_text_texture();
+		labels_loaded++;
+	}
+	
+}
+
+void j1Console::Load_Update_labels()
+{
+	if (num_of_labels != labels_loaded)
+		Load_labels();
 }
 

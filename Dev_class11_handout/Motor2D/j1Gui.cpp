@@ -37,12 +37,6 @@ bool j1Gui::Start()
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	Other_images.add(App->tex->Load("gui/login_background.png"));
 
-	int num_screens = Screen_elements.count();
-	if (num_screens)
-	{
-		for (int i = 0; i < num_screens; i++)
-			Screen_elements[i]->Start();	
-	}
 
 	return true;
 

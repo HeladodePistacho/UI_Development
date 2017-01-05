@@ -67,7 +67,9 @@ TTF_Font* const j1Fonts::Load(const char* path, int size)
 	else
 	{
 		fonts.add(font);
-		LOG("Successfully loaded font %s size %d", path, size);
+
+		if(this->default != nullptr)
+			LOG("Successfully loaded font %s size %d", path, size);
 		
 	}
 

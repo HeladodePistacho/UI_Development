@@ -15,19 +15,22 @@ UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, o
 bool UI_String::Update_Draw()
 {
 	if (active)
-	{
 		App->render->Blit(text_texture, Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y);
 
-	}
 	Child_Update_Draw();
 
 	return true;
 }
 
-bool UI_String::Start()
+bool UI_String::Draw_console(int height)
 {
-	return text_texture = App->font->Print(text.GetString());
+	if(active)
+		App->render->Blit(text_texture, Interactive_box.x - App->render->camera.x, Interactive_box.y - App->render->camera.y + height);
+
+
+	return true;
 }
+
 
 bool UI_String::Update()
 {
@@ -40,5 +43,10 @@ bool UI_String::Set_String(char* new_text)
 {
 	text = new_text;
 	return (text != nullptr) ? true : false;
+}
+
+void UI_String::Load_text_texture()
+{
+	text_texture = App->font->Print(text.GetString());
 }
 

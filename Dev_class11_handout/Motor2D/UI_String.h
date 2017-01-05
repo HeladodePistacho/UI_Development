@@ -21,10 +21,12 @@ public:
 
 	
 	bool Set_String(char* new_text);
+	void Load_text_texture();
 	
-	bool Start();
 	bool Update();
 	bool Update_Draw();
+	
+	bool Draw_console(int height);
 };
 
 #endif // ! _UI_STRING_H_
