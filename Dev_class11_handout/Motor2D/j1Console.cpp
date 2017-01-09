@@ -32,7 +32,7 @@ bool j1Console::Awake(pugi::xml_node& config)
 	App->font->CalcSize("Set", width, height, Console_font);
 
 	Input_text = new UI_Text_Box(UI_TYPE::TEXT_BOX, { console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height }, "", nullptr);
-	
+	Input_text->setmodule(this);
 
 	LOG("Desactivating console");
 	active = false;

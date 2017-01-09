@@ -12,8 +12,11 @@ UI_Text_Box::UI_Text_Box(const UI_Text_Box* other) : UI_element(other->element_t
 
 bool UI_Text_Box::Update()
 {
-	text_box_state();
 	
+	Handle_input();
+
+	Text_management();
+
 	Child_Update();
 
 	return true;
@@ -55,6 +58,61 @@ void UI_Text_Box::Delete_Char(int position)
 }
 
 bool UI_Text_Box::Handle_input()
+{
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+
+	if (this->Mouse_is_in({ x, y }))
+	{
+		my_module->On_GUI_Callback(this, MOUSE_IN);
+		state = OVER_ELEMENT;
+	}
+	else
+	{
+		my_module->On_GUI_Callback(this, MOUSE_OUT);
+		state = NOTHING;
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (this->Mouse_is_in({ x, y }))
+		{
+			my_module->On_GUI_Callback(this, LEFT_MOUSE_DOWN);
+			App->gui->element_selected = this;
+			App->gui->focus_element = this;
+
+			cursor_virtual_pos = text.text.Length() - 1;
+			int width;
+			App->font->CalcSize(text.text.GetString(), width, height);
+			cursor_pos = width + Interactive_box.x;
+			SDL_StartTextInput();
+
+			state = CLICK_ELEMENT;
+		}
+		else
+		{
+			App->gui->element_selected = nullptr;
+			App->gui->focus_element = nullptr;
+			SDL_StopTextInput();
+			state = NOTHING;
+		}
+	}
+
+	if (App->gui->element_selected == nullptr) return true;
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		my_module->On_GUI_Callback(this, LEFT_MOUSE_REPEAT);
+		state = CLICK_ELEMENT;
+	}
+
+
+	return true;
+}
+
+void UI_Text_Box::Text_management()
 {
 	if (SDL_IsTextInputActive())
 	{
@@ -99,8 +157,6 @@ bool UI_Text_Box::Handle_input()
 
 		}
 	}
-
-	return true;
 }
 
 void UI_Text_Box::text_box_state()

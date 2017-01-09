@@ -31,7 +31,7 @@ public:
 
 	 bool Update();
 	 bool Update_Draw();
-	// bool Handle_input();
+	 bool Handle_input();
 
 	 void Set_Stop_Box(SDL_Rect new_box);
 	 void Set_Camera(SDL_Rect new_box);

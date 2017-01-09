@@ -23,6 +23,7 @@ public:
 
 	bool Update();
 	bool Handle_input();
+	void Text_management();
 	bool Update_Draw();
 
 	const char* get_string_pos(int cursor_pos);

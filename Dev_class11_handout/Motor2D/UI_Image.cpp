@@ -22,9 +22,52 @@ bool UI_Image::Update_Draw()
 	return true;
 }
 
+bool UI_Image::Handle_input()
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+
+	if (this->Mouse_is_in({ x, y }))
+	{
+		my_module->On_GUI_Callback(this, MOUSE_IN);
+		state = OVER_ELEMENT;
+	}
+	else
+	{
+		my_module->On_GUI_Callback(this, MOUSE_OUT);
+		state = NOTHING;
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (this->Mouse_is_in({ x, y }))
+		{
+			my_module->On_GUI_Callback(this, LEFT_MOUSE_DOWN);
+			App->gui->element_selected = this;
+			App->gui->focus_element = this;
+			state = CLICK_ELEMENT;
+		}
+		else
+		{
+			App->gui->element_selected = nullptr;
+			App->gui->focus_element = nullptr;
+			state = NOTHING;
+		}
+	}
+
+	if (App->gui->element_selected == nullptr) return true;
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		my_module->On_GUI_Callback(this, LEFT_MOUSE_REPEAT);
+		state = CLICK_ELEMENT;
+	}
+	return true;
+}
+
 bool UI_Image::Update()
 {
-	Check_state();
+	Handle_input();
 
 	if (App->gui->element_selected == this && draggable)
 		Drag_element();

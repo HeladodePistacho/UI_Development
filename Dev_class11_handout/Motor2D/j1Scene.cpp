@@ -60,23 +60,35 @@ bool j1Scene::Start()
 
 	//Exercise 1 -> Setting all the elements
 	Background = new UI_Image(IMAGE, { 0,0,0,0 }, { 0, 1600, 1024, 576 }, true, NO_SCROLL);
+	Background->setmodule(this);
 
 	window = new UI_Image(IMAGE, { 50, 60, 455, 497 }, { 15,512,455,497 }, true, NO_SCROLL);
+	window->setmodule(this);
 	title = new UI_String(STRING, { 120,50,0,0 }, "Select Your Character");
+	title->setmodule(this);
 
 	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false);
+	button_over->setmodule(this);
 	clicked_Button = new UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false);
+	clicked_Button->setmodule(this);
 	button_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false);
+	button_image->setmodule(this);
 
 	Button = new UI_Button(BUTTON, { 120, 380, 228, 67 }, button_image, true, NO_SCROLL);
 	Button_Label = new UI_String(STRING, { 50, 20, 0, 0 }, "Continue");
+	Button_Label->setmodule(this);
 
 	Big_heroe_image = new UI_Image(IMAGE, { 0,0,1025,574 }, { 0, 1024, 1025, 574 }, true, NO_SCROLL);
 	Slider_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 900, 314, 68, 54 } , false);
 	Heroe_images = new UI_Image(IMAGE, { 0, 0, 0,0 }, { 0, 290, 300, 169 }, false);
 	Heroe_selector = new UI_Scroll(SCROLL, { 130, 200, 68, 54 }, Slider_image, Heroe_images, true);
 
-	
+	Big_heroe_image->setmodule(this);
+	Slider_image->setmodule(this);
+	Heroe_images->setmodule(this);
+	Heroe_selector->setmodule(this);
+
+
 	Exam_screen = App->gui->CreateScreen(&UI_element(SCREEN, { 0, 0, 1024, 576 }));
 
 	Exam_screen->AddChild(Background);

@@ -25,6 +25,7 @@ public:
 	
 	bool Update();
 	bool Update_Draw();
+	bool Handle_input();
 	
 	bool Draw_console(int height);
 };
