@@ -33,7 +33,7 @@ enum SCROLL_TYPE
 	X_SCROLL
 };
 
-
+struct j1Module;
 
 class UI_element
 {
@@ -53,6 +53,8 @@ public:
 	bool active;
 	SCROLL_TYPE draggable;
 
+	j1Module* my_module;
+
 public:
 
 	UI_element(UI_TYPE type, SDL_Rect detection_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
@@ -61,7 +63,7 @@ public:
 	virtual bool Start() { return true; };
 	virtual bool Update();
 	virtual bool Update_Draw();
-	virtual bool Handle_input();
+	virtual bool Handle_input() { return true; };
 
 	UI_element* AddChild(UI_element* new_child);
 	const UI_element* Set_Parent(const UI_element* parent);
@@ -76,9 +78,8 @@ public:
 	void Add_to_Tab();
 
 	UI_element* get_higher_child();
-
+	void setmodule(j1Module* lol);
 };
-
 
 
 #endif // !_UI_ELEMENT_H_

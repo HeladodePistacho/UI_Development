@@ -42,6 +42,8 @@ bool UI_element::Update()
 	for (int i = 0; i < number_of_childs; i++)
 		Childs[i]->Update();
 
+	Handle_input();
+
 	return true;
 }
 
@@ -55,15 +57,6 @@ bool UI_element::Update_Draw()
 	return true;
 }
 
-bool UI_element::Handle_input()
-{
-	int number_of_childs = Childs.count();
-
-	for (int i = 0; i < number_of_childs; i++)
-		Childs[i]->Handle_input();
-
-	return true;
-}
 
 bool UI_element::Mouse_is_in(const iPoint& mouse_pos)
 {
@@ -190,4 +183,9 @@ UI_element* UI_element::get_higher_child()
 	}
 
 	return temp;
+}
+
+void UI_element::setmodule(j1Module* lol)
+{
+	my_module = lol;
 }

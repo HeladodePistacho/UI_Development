@@ -91,6 +91,9 @@ bool j1Scene::Start()
 
 	Button->AddChild(Button_Label);
 
+	Button->setmodule(this);
+	Exam_screen->setmodule(this);
+
 	//Exercise 2 Setting the scroll elements
 	Heroe_selector->Set_Stop_Box({ 130, 200, 300, 169 });
 	Heroe_selector->Set_Camera({ 592, 151, 339, 271 });
@@ -157,6 +160,36 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	return true;
+}
+
+bool j1Scene::On_GUI_Callback(UI_element* elem, GUI_INPUT gui_input)
+{
+
+	switch (gui_input)
+	{
+	case MOUSE_IN:
+		if (elem == Button)
+			Button->Change_image_to(button_over);
+		break;
+
+	case MOUSE_OUT:
+		if (elem == Button)
+			Button->Change_image_to(button_image);
+		break;
+
+	case LEFT_MOUSE_DOWN:
+		if (elem == Button)
+			Button->Change_image_to(clicked_Button);
+		break;
+
+	case LEFT_MOUSE_REPEAT:
+		if (elem == Button)
+			Button->Change_image_to(clicked_Button);
+		break;
+	}
+
 
 	return true;
 }

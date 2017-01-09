@@ -16,7 +16,7 @@ public:
 	void Change_image_to(const UI_Image& new_image);
 	bool Update();
 	bool Update_Draw();
-
+	bool Handle_input();
 };
 
 

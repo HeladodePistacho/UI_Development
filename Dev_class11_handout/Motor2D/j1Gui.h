@@ -10,9 +10,17 @@
 
 struct SDL_Texture;
 
-// TODO 1: Create your structure of classes
+enum GUI_INPUT
+{
+	MOUSE_IN,
+	MOUSE_OUT,	
+	RIGHT_MOUSE_DOWN,
+	RIGHT_MOUSE_REPEAT,
+	LEFT_MOUSE_DOWN,
+	LEFT_MOUSE_REPEAT
 
-// ---------------------------------------------------
+};
+
 class j1Gui : public j1Module
 {
 public:

@@ -10,6 +10,8 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
+struct UI_element;
+enum GUI_INPUT;
 
 class j1Module
 {
@@ -71,6 +73,8 @@ public:
 	{
 		return true;
 	}
+
+	virtual bool On_GUI_Callback(UI_element*, GUI_INPUT) { return true; }
 
 public:
 

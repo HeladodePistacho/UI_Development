@@ -52,10 +52,8 @@ bool j1Gui::PreUpdate()
 	if (num_screens)
 	{
 		for(int i = 0; i < num_screens; i++)
-		{
 			Screen_elements[i]->Update();
-			Screen_elements[i]->Handle_input();
-		}
+		
 		
 	}
 

@@ -42,6 +42,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool On_GUI_Callback(UI_element* elem, GUI_INPUT gui_input);
+
 private:
 	SDL_Texture* debug_tex;
 	
