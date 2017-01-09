@@ -151,7 +151,7 @@ void UI_element::Drag_element()
 
 	for (int i = 0; i < childs_number; i++)
 		Childs[i]->Drag_element();
-
+	
 	draggable = temp;
 
 }

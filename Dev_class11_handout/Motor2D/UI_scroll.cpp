@@ -36,6 +36,9 @@ bool UI_Scroll::Update()
 	if (App->gui->element_selected == this && draggable)
 		Drag_element();
 
+	if (App->gui->element_selected == Parent)
+		Move_stop_box();
+
 	Stop();
 	//====================================================]
 
@@ -169,6 +172,16 @@ void UI_Scroll::Move_elements()
 			Camera_elements[i]->Interactive_box.y += (Pos.y * Move_y);
 		}
 	}
+}
+
+void UI_Scroll::Move_stop_box()
+{
+	int x = 0, y = 0;
+	App->input->GetMouseMotion(x, y);
+
+	Stop_box.x += x;
+	Stop_box.y += y;
+
 }
 
 void UI_Scroll::Add_Camera_element(UI_element * new_item)
