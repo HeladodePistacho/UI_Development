@@ -73,10 +73,10 @@ void UI_element::Child_Update_Draw()
 void UI_element::Child_Update()
 {
 	int childs_number = Childs.count();
+
 	for (int i = 0; i < childs_number; i++)
-	{
 		Childs[i]->Update();
-	}
+	
 }
 
 void UI_element::Check_state()
@@ -124,6 +124,12 @@ void UI_element::Drag_element()
 	int x = 0, y = 0;
 	App->input->GetMouseMotion(x, y);
 
+	SCROLL_TYPE temp = draggable;
+
+	if (Parent)	
+		draggable = Parent->draggable;
+	
+
 	switch (draggable)
 	{
 	case FREE_SCROLL:
@@ -145,6 +151,9 @@ void UI_element::Drag_element()
 
 	for (int i = 0; i < childs_number; i++)
 		Childs[i]->Drag_element();
+
+	draggable = temp;
+
 }
 
 void UI_element::Add_to_Tab()

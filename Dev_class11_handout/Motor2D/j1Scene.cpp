@@ -62,7 +62,7 @@ bool j1Scene::Start()
 	Background = new UI_Image(IMAGE, { 0,0,0,0 }, { 0, 1600, 1024, 576 }, true, NO_SCROLL);
 	Background->setmodule(this);
 
-	window = new UI_Image(IMAGE, { 50, 60, 455, 497 }, { 15,512,455,497 }, true, NO_SCROLL);
+	window = new UI_Image(IMAGE, { 50, 60, 455, 497 }, { 15,512,455,497 }, true);
 	window->setmodule(this);
 	title = new UI_String(STRING, { 120,50,0,0 }, "Select Your Character");
 	title->setmodule(this);

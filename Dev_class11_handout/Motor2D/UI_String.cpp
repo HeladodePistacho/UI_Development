@@ -39,14 +39,21 @@ bool UI_String::Handle_input()
 		state = NOTHING;
 	}
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && App->gui->element_selected == nullptr)
 	{
 		if (this->Mouse_is_in({ x, y }))
 		{
-			my_module->On_GUI_Callback(this, LEFT_MOUSE_DOWN);
-			App->gui->element_selected = this;
-			App->gui->focus_element = this;
-			state = CLICK_ELEMENT;
+			if (get_higher_child() != nullptr)
+			{
+				state = OVER_ELEMENT;
+			}
+			else
+			{
+				my_module->On_GUI_Callback(this, LEFT_MOUSE_DOWN);
+				App->gui->element_selected = this;
+				App->gui->focus_element = this;
+				state = CLICK_ELEMENT;
+			}
 		}
 		else
 		{

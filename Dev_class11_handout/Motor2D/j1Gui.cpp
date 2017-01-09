@@ -57,6 +57,8 @@ bool j1Gui::PreUpdate()
 		
 	}
 
+	if(element_selected != nullptr)
+		LOG("element selected = %s", element_selected->my_module->name.GetString());
 
 	return true;
 }
@@ -65,6 +67,7 @@ bool j1Gui::Update()
 {
 	
 	
+
 	return true;
 }
 

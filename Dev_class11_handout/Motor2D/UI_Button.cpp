@@ -49,7 +49,7 @@ bool UI_Button::Handle_input()
 		state = NOTHING;
 	}
 	
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && App->gui->element_selected == nullptr)
 	{
 		if(this->Mouse_is_in({ x, y }))
 		{
@@ -66,7 +66,7 @@ bool UI_Button::Handle_input()
 		}
 	}
 	
-	if (App->gui->element_selected == nullptr) return true;
+	if (App->gui->element_selected != this) return true;
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
@@ -80,14 +80,13 @@ bool UI_Button::Handle_input()
 
 bool UI_Button::Update()
 {
-	Check_state();
+	Handle_input();
 
 	if (App->gui->element_selected == this && draggable)
 		Drag_element();
 
 	Child_Update();
 
-	Handle_input();
 
 	return true;
 }
