@@ -2,6 +2,7 @@
 #include "UI_String.h"
 #include "j1App.h"
 #include "j1Gui.h"
+#include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Fonts.h"
 
@@ -92,6 +93,9 @@ bool UI_String::Update()
 bool UI_String::Set_String(char* new_text)
 {
 	text = new_text;
+	App->tex->UnLoad(text_texture);
+	text_texture = App->font->Print(text.GetString());
+
 	return (text != nullptr) ? true : false;
 }
 
