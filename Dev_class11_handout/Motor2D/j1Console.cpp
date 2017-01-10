@@ -176,19 +176,12 @@ void j1Console::Load_Update_labels()
 
 void j1Console::Camera_management()
 {
-	const char* lol = Labels[num_of_labels - 1]->text.GetString();
 	int last_label = (Labels[num_of_labels - 1]->Interactive_box.y);
 
 	if (last_label > console_screen.h)
 	{
 		for (int i = 0; i < num_of_labels; i++)
-		{
-			SDL_Rect vaya = Labels[i]->Interactive_box;
 			Labels[i]->Interactive_box.y += console_screen.y - last_label;
-
-			SDL_Rect vayavaya = Labels[i]->Interactive_box;
-			int a = 2;
-		}
 	}
 }
 
