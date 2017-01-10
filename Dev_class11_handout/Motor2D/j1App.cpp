@@ -144,6 +144,8 @@ bool j1App::Start()
 	PERF_PEEK(ptimer);
 
 	quit = console->Add_Command("quit", this, 0, 0, COMMANDS_CALLBACK::QUIT);
+	max_fps = console->Add_Command("max_fps", this, 0, 0, COMMANDS_CALLBACK::MAX_FPS);
+	pause = console->Add_Command("pause", this, 0, 0, COMMANDS_CALLBACK::PAUSE);
 
 	return ret;
 }
@@ -307,6 +309,18 @@ bool j1App::On_Console_Callback(command* com)
 	case QUIT:
 		LOG("Quit");
 		update_stop = false;
+		break;
+
+	case MAX_FPS:
+		LOG("Max Fps: %.2f", 1 / dt);
+		break;
+
+	case PAUSE:
+
+		scene->active = false;
+		map->active = false;
+		pathfinding->active = false;
+		LOG("GAME PAUSED");
 		break;
 	}
 

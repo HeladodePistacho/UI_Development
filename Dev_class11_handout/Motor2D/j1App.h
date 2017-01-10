@@ -84,6 +84,8 @@ private:
 	bool SavegameNow() const;
 
 	command* quit;
+	command* max_fps;
+	command* pause;
 
 public:
 

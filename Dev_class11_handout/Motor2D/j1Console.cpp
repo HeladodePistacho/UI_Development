@@ -190,6 +190,13 @@ void j1Console::Text_management()
 	char* temp = (char*)Input_text->text.text.GetString();
 	char* new_char = strtok(temp, " ");
 
+	p2DynArray<char*> Input;
+
+	while (new_char != nullptr)
+	{
+		Input.PushBack(new_char);
+		new_char = strtok(nullptr, " ");
+	}
 	
 	int num_of_commands = Commands_List.Count();
 	for (int i = 0; i < num_of_commands; i++)
