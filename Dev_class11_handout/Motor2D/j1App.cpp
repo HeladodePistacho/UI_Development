@@ -151,23 +151,23 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
-	
+	bool ret = true;
 	PrepareUpdate();
 
 	if(input->GetWindowEvent(WE_QUIT) == true)
-		update_stop = false;
+		ret = false;
 
-	if(update_stop == true)
-		update_stop = PreUpdate();
+	if(ret == true)
+		ret = PreUpdate();
 
-	if(update_stop == true)
-		update_stop = DoUpdate();
+	if(ret == true)
+		ret = DoUpdate();
 
-	if(update_stop == true)
-		update_stop = PostUpdate();
+	if(ret == true)
+		ret = PostUpdate();
 
 	FinishUpdate();
-	return update_stop;
+	return ret;
 }
 
 // ---------------------------------------------
@@ -296,6 +296,7 @@ bool j1App::PostUpdate()
 		ret = item->data->PostUpdate();
 	}
 
+	ret = update_stop;
 	return ret;
 }
 
