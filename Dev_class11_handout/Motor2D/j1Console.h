@@ -10,12 +10,26 @@ struct _TTF_Font;
 struct UI_String;
 struct UI_Image;
 
+//---------------COMAND-------------------
+//----------------------------------------
+
+struct command
+{
+	const char* name;
+	unsigned int min_arguments;
+	unsigned int max_arguments;
+
+	j1Module* my_module;
+};
+
+//--------------CONSOLE-------------------
+//----------------------------------------
+
 enum CONSOLE_STATE
 {
 	MOUSE_OVER,
 	MOUSE_NOT_OVER
 };
-
 
 class j1Console : public j1Module
 {
@@ -39,9 +53,9 @@ public:
 	CONSOLE_STATE state;
 
 	UI_Text_Box* Input_text;
-	
-	_TTF_Font* Console_font;
+
 	p2DynArray<UI_String*> Labels;
+	p2DynArray<command*> Commands_List;
 
 private:
 
