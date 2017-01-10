@@ -13,6 +13,11 @@ struct UI_Image;
 //---------------COMAND-------------------
 //----------------------------------------
 
+enum COMMANDS_CALLBACK
+{
+	QUIT
+};
+
 struct command
 {
 	const char* name;
@@ -20,6 +25,9 @@ struct command
 	unsigned int max_arguments;
 
 	j1Module* my_module;
+	COMMANDS_CALLBACK callback_type;
+
+	command(const char*, j1Module*, unsigned int, unsigned int, COMMANDS_CALLBACK);
 };
 
 //--------------CONSOLE-------------------
@@ -44,7 +52,9 @@ public:
 	bool CleanUp();
 
 	void Active_console();
-	void Add_Label(const char* new_text);
+	void Add_Label(const char* );
+	command* Add_Command(const char* , j1Module* , uint , uint , COMMANDS_CALLBACK );
+
 
 public:
 
@@ -67,6 +77,9 @@ private:
 	void drag_console();
 	void Load_labels();
 	void Load_Update_labels();
+
+	void Camera_management();
+	void Text_management();
 
 };
 

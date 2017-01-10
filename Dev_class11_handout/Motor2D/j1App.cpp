@@ -143,29 +143,31 @@ bool j1App::Start()
 
 	PERF_PEEK(ptimer);
 
+	quit = console->Add_Command("quit", this, 0, 0, COMMANDS_CALLBACK::QUIT);
+
 	return ret;
 }
 
 // Called each loop iteration
 bool j1App::Update()
 {
-	bool ret = true;
+	
 	PrepareUpdate();
 
 	if(input->GetWindowEvent(WE_QUIT) == true)
-		ret = false;
+		update_stop = false;
 
-	if(ret == true)
-		ret = PreUpdate();
+	if(update_stop == true)
+		update_stop = PreUpdate();
 
-	if(ret == true)
-		ret = DoUpdate();
+	if(update_stop == true)
+		update_stop = DoUpdate();
 
-	if(ret == true)
-		ret = PostUpdate();
+	if(update_stop == true)
+		update_stop = PostUpdate();
 
 	FinishUpdate();
-	return ret;
+	return update_stop;
 }
 
 // ---------------------------------------------
@@ -295,6 +297,19 @@ bool j1App::PostUpdate()
 	}
 
 	return ret;
+}
+
+bool j1App::On_Console_Callback(command* com)
+{
+	switch (com->callback_type)
+	{
+	case QUIT:
+		LOG("Quit");
+		update_stop = false;
+		break;
+	}
+
+	return true;
 }
 
 // Called before quitting

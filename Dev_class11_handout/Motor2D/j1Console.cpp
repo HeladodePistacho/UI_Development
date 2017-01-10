@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "j1Console.h"
 #include "j1App.h"
 #include "j1Gui.h"
@@ -6,6 +7,8 @@
 #include "p2Log.h"
 #include "j1Render.h"
 
+//--------------CONSOLE-------------------
+//----------------------------------------
 
 j1Console::j1Console()
 {
@@ -48,6 +51,7 @@ bool j1Console::Start()
 
 bool j1Console::Update(float dt)
 {
+
 	Load_Update_labels();
 	Input_text->Update();
 	Input_text->Handle_input();
@@ -56,6 +60,12 @@ bool j1Console::Update(float dt)
 
 	if (state == MOUSE_OVER)
 		drag_console();
+
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		Camera_management();
+		Text_management();
+	}
 
 	return true;
 }
@@ -68,12 +78,9 @@ bool j1Console::PostUpdate()
 	//Change viewport
 	SDL_RenderSetViewport(App->render->renderer, &console_screen);
 
-	int salto_de_linea = 0;
 	for (int i = 0; i < num_of_labels; i++)
-	{
-		Labels[i]->Draw_console(salto_de_linea);
-		salto_de_linea += height;
-	}
+		App->render->Blit(Labels[i]->text_texture, Labels[i]->Interactive_box.x - App->render->camera.x, (Labels[i]->Interactive_box.y));
+				
 	SDL_RenderSetViewport(App->render->renderer, nullptr);
 
 
@@ -114,6 +121,16 @@ void j1Console::Add_Label(const char * new_text)
 	num_of_labels++;
 }
 
+command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min_arg, uint max_args, COMMANDS_CALLBACK type)
+{
+	command* lol = new command(comm, callback, min_arg, max_args, type);
+
+	if (lol)
+		Commands_List.PushBack(lol);
+
+	return lol;
+}
+
 
 
 void j1Console::check_state()
@@ -141,8 +158,12 @@ void j1Console::Load_labels()
 {
 	
 	for (; labels_loaded < num_of_labels; labels_loaded++)
+	{
 		Labels[labels_loaded]->Load_text_texture();
-		
+
+		if(labels_loaded > 0)
+			Labels[labels_loaded]->Interactive_box.y = Labels[labels_loaded - 1]->Interactive_box.y + height;
+	}
 	
 	
 }
@@ -153,3 +174,46 @@ void j1Console::Load_Update_labels()
 		Load_labels();
 }
 
+void j1Console::Camera_management()
+{
+	const char* lol = Labels[num_of_labels - 1]->text.GetString();
+	int last_label = (Labels[num_of_labels - 1]->Interactive_box.y);
+
+	if (last_label > console_screen.h)
+	{
+		for (int i = 0; i < num_of_labels; i++)
+		{
+			SDL_Rect vaya = Labels[i]->Interactive_box;
+			Labels[i]->Interactive_box.y += console_screen.y - last_label;
+
+			SDL_Rect vayavaya = Labels[i]->Interactive_box;
+			int a = 2;
+		}
+	}
+}
+
+void j1Console::Text_management()
+{
+	char* temp = (char*)Input_text->text.text.GetString();
+	char* new_char = strtok(temp, " ");
+
+	
+	int num_of_commands = Commands_List.Count();
+	for (int i = 0; i < num_of_commands; i++)
+	{
+		if (strcmp(new_char, Commands_List[i]->name) == 0)
+		{
+			Commands_List[i]->my_module->On_Console_Callback(Commands_List[i]);
+			return;
+		}
+	}
+
+	LOG("ERROR command does not exist");
+
+	
+}
+
+//---------------COMAND-------------------
+//----------------------------------------
+
+command::command(const char* new_com, j1Module* callback, unsigned int min_args, unsigned int max_args, COMMANDS_CALLBACK type) : name(new_com), my_module(callback), min_arguments(min_args), max_arguments(max_args), callback_type(type) {}

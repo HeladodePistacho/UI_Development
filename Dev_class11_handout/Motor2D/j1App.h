@@ -21,7 +21,7 @@ class j1Fonts;
 class j1Gui;
 class j1Console;
 
-class j1App
+class j1App : public j1Module
 {
 public:
 
@@ -77,9 +77,13 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	bool On_Console_Callback(command*);
+
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
+
+	command* quit;
 
 public:
 
@@ -120,6 +124,8 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				dt = 0.0f;
 	int					capped_ms = -1;
+
+	bool				update_stop = true;
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S
