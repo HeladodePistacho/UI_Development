@@ -29,7 +29,7 @@ bool j1Console::Awake(pugi::xml_node& config)
 	LOG("Setting console text box");
 
 	int width;
-	App->font->CalcSize("Set", width, height, Console_font);
+	App->font->CalcSize("Set", width, height, App->font->default);
 
 	Input_text = new UI_Text_Box(UI_TYPE::TEXT_BOX, { console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height }, "", nullptr);
 	Input_text->setmodule(this);
@@ -42,7 +42,6 @@ bool j1Console::Awake(pugi::xml_node& config)
 
 bool j1Console::Start()
 {
-	Load_labels();
 	
 	return true;
 }
@@ -141,11 +140,10 @@ void j1Console::drag_console()
 void j1Console::Load_labels()
 {
 	
-	for (int i = labels_loaded; i < num_of_labels; i++)
-	{
-		Labels[i]->Load_text_texture();
-		labels_loaded++;
-	}
+	for (; labels_loaded < num_of_labels; labels_loaded++)
+		Labels[labels_loaded]->Load_text_texture();
+		
+	
 	
 }
 
