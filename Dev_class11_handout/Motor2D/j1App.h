@@ -77,7 +77,7 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
-	bool On_Console_Callback(command*);
+	bool On_Console_Callback(command*, int);
 
 	// Load / Save
 	bool LoadGameNow();

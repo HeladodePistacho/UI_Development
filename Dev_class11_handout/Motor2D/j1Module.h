@@ -77,7 +77,7 @@ public:
 	}
 
 	virtual bool On_GUI_Callback(UI_element*, GUI_INPUT) { return true; }
-	virtual bool On_Console_Callback(command*) { return true; };
+	virtual bool On_Console_Callback(command*, int) { return true; };
 
 public:
 

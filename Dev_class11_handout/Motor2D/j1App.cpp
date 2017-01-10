@@ -145,7 +145,7 @@ bool j1App::Start()
 
 	quit = console->Add_Command("quit", this, 0, 0, COMMANDS_CALLBACK::QUIT);
 	max_fps = console->Add_Command("max_fps", this, 0, 0, COMMANDS_CALLBACK::MAX_FPS);
-	pause = console->Add_Command("pause", this, 0, 0, COMMANDS_CALLBACK::PAUSE);
+	pause = console->Add_Command("pause", this, 1, 1, COMMANDS_CALLBACK::PAUSE);
 
 	return ret;
 }
@@ -302,7 +302,7 @@ bool j1App::PostUpdate()
 	return ret;
 }
 
-bool j1App::On_Console_Callback(command* com)
+bool j1App::On_Console_Callback(command* com, int argument)
 {
 	switch (com->callback_type)
 	{
@@ -317,10 +317,22 @@ bool j1App::On_Console_Callback(command* com)
 
 	case PAUSE:
 
-		scene->active = false;
-		map->active = false;
-		pathfinding->active = false;
-		LOG("GAME PAUSED");
+		if (argument == 1)
+		{
+			scene->active = false;
+			map->active = false;
+			pathfinding->active = false;
+			LOG("GAME PAUSED");
+		}
+		if (argument == 0)
+		{
+			scene->active = true;
+			map->active = true;
+			pathfinding->active = true;
+			LOG("GAME UNPAUSED");
+		}
+
+		
 		break;
 	}
 

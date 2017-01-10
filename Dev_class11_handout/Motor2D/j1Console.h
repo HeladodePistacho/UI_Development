@@ -15,7 +15,9 @@ struct UI_Image;
 
 enum COMMANDS_CALLBACK
 {
-	QUIT
+	QUIT,
+	MAX_FPS,
+	PAUSE
 };
 
 struct command
@@ -79,7 +81,10 @@ private:
 	void Load_Update_labels();
 
 	void Camera_management();
+
 	void Text_management();
+	
+	void Command_management(p2List<p2SString>);
 
 };
 
