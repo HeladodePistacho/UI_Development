@@ -47,6 +47,8 @@ public:
 private:
 	SDL_Texture* debug_tex;
 	
+	UI_Image* lol;
+
 	//Exam 
 
 	UI_element* Exam_screen;

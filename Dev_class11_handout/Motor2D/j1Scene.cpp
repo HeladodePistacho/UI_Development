@@ -65,6 +65,7 @@ bool j1Scene::Start()
 	window = new UI_Image(IMAGE, { 50, 60, 455, 497 }, { 15,512,455,497 }, true);
 	window->setmodule(this);
 	title = new UI_String(STRING, { 120,50,0,0 }, "Select Your Character");
+	title->Load_text_texture();
 	title->setmodule(this);
 
 	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false);
@@ -77,6 +78,7 @@ bool j1Scene::Start()
 	Button = new UI_Button(BUTTON, { 120, 380, 228, 67 }, button_image, true, NO_SCROLL);
 	Button_Label = new UI_String(STRING, { 50, 20, 0, 0 }, "Continue");
 	Button_Label->setmodule(this);
+	Button_Label->Load_text_texture();
 
 	Big_heroe_image = new UI_Image(IMAGE, { 0,0,1025,574 }, { 0, 1024, 1025, 574 }, true, NO_SCROLL);
 	Slider_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 900, 314, 68, 54 } , false);
@@ -110,6 +112,13 @@ bool j1Scene::Start()
 	Heroe_selector->Set_Stop_Box({ 130, 200, 300, 169 });
 	Heroe_selector->Set_Camera({ 592, 151, 339, 271 });
 	Heroe_selector->Add_Camera_element(Big_heroe_image);
+
+	lol = new UI_Image(UI_TYPE::IMAGE, { 0, 700, 300, 169 }, { 0, 290, 300, 169 }, true);
+	UI_String*	lol2 = new UI_String(STRING, { 0, 900, 0, 20 }, "Select Your Character");
+	lol2->Load_text_texture();
+
+	Heroe_selector->Add_Camera_element(lol);
+	Heroe_selector->Add_Camera_element(lol2);
 
 	return true;
 }

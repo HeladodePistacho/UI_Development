@@ -13,10 +13,13 @@ private:
 	UI_Image* Slider;
 	UI_Image* Slide_box;
 	SDL_Rect Stop_box;
+
 	SDL_Rect Camera;
+	SDL_Rect Camera_inner_box;
+
 	p2List<UI_element*> Camera_elements;
-	float Move_x = 0.0f;
-	float Move_y = 0.0f;
+	p2List<iPoint> Camera_element_position;
+
 
 	UI_element* Bottom_element;
 	int Max_move_x = 0;
