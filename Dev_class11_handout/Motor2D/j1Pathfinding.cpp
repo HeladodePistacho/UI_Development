@@ -157,7 +157,7 @@ int PathNode::Score() const
 int PathNode::CalculateF(const iPoint& destination)
 {
 	g = parent->g + 1;
-	h = pos.DistanceTo(destination);
+	h = pos.DistanceManhattan(destination);
 
 	return g + h;
 }
@@ -169,7 +169,70 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	int ret = -1;
 
-	// Nice try :)
+	if (IsWalkable(origin) == false || IsWalkable(destination) == false)
+		return ret;
+
+	last_path.Clear();
+
+	PathList open_list;
+	PathList close_list;
+
+	open_list.list.add(PathNode(0, origin.DistanceManhattan(destination), origin, nullptr));
+
+	while (open_list.list.count() > 0)
+	{
+		p2List_item<PathNode>* Lowest_score_node = open_list.GetNodeLowestScore();
+		PathList Adjacents;
+
+		close_list.list.add(Lowest_score_node->data);
+		open_list.list.del(Lowest_score_node);
+
+		if (close_list.list.end->data.pos != destination)
+		{
+			close_list.list.end->data.FindWalkableAdjacents(Adjacents);
+
+			for (int i = 0; i < Adjacents.list.count(); i++)
+			{
+				if (close_list.Find(Adjacents.list[i].pos))
+					continue;
+
+				if (p2List_item<PathNode>* temp = open_list.Find(Adjacents.list[i].pos))
+				{
+					Adjacents.list[i].CalculateF(destination);
+					if (Adjacents.list[i].g < temp->data.g)
+						temp->data.parent = Adjacents.list[i].parent;
+					
+				}
+				else
+				{
+					Adjacents.list[i].CalculateF(destination);
+					open_list.list.add(Adjacents.list[i]);
+				}
+			}
+		}
+		else
+		{/*
+			PathNode temp(close_list.list.end->data);
+			while (temp.parent != nullptr)
+			{
+				last_path.PushBack(temp.pos);
+				temp = *temp.parent;
+			}
+			*/
+
+			const PathNode* tem = &close_list.list.end->data;
+			while (tem->parent != nullptr)
+			{
+				last_path.PushBack(tem->pos);
+				tem = tem->parent;
+				ret++;
+			}
+			open_list.list.clear();
+			last_path.Flip();
+
+		}
+
+	}
 
 	return ret;
 }

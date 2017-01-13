@@ -55,7 +55,7 @@ bool j1Scene::Start()
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
 	
-	
+	/*
 	//Exam
 
 	//Exercise 1 -> Setting all the elements
@@ -119,7 +119,7 @@ bool j1Scene::Start()
 
 	Heroe_selector->Add_Camera_element(lol);
 	Heroe_selector->Add_Camera_element(lol2);
-
+	*/
 	return true;
 }
 
@@ -156,11 +156,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	/*
-	if (Button->state == INTERACTIVE_STATE::CLICK_ELEMENT) Button->Change_image_to(clicked_Button);
-	if (Button->state == INTERACTIVE_STATE::OVER_ELEMENT) Button->Change_image_to(button_over);
-	if (Button->state == INTERACTIVE_STATE::NOTHING) Button->Change_image_to(button_image);
-	*/
+	App->map->Draw();
 	
 	
 	return true;
