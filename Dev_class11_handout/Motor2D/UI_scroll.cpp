@@ -173,7 +173,7 @@ void UI_Scroll::Move_elements()
 	int percent_y = ((Interactive_box.y - Stop_box.y) * 100) / (Stop_box.h - Interactive_box.h);
 	int percent_x = ((Interactive_box.x - Stop_box.x) * 100) / (Stop_box.w - Interactive_box.w);
 
-	if ( state == CLICK_ELEMENT || state == OVER_ELEMENT)
+	if (state == CLICK_ELEMENT || state == OVER_ELEMENT)
 	{
 		int num = Camera_elements.count();
 		for (int i = 0; i < num; i++)
