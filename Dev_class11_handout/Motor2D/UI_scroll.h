@@ -42,6 +42,9 @@ public:
 	 void Stop();
 	 void Move_elements();
 	 void Move_stop_box();
+	 void Scroll_Wheel();
+
+	 bool Mouse_inside_Camera_box();
 
 	 void Add_Camera_element(UI_element* new_item);
 	 SDL_Rect Get_Stop_Box() const;

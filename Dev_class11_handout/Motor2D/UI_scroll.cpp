@@ -39,10 +39,16 @@ bool UI_Scroll::Update()
 	if (App->gui->element_selected == Parent)
 		Move_stop_box();
 
-	Stop();
+	
 	//====================================================]
 
 	//Exercise 3 The scroll Camera logic
+
+	if (Mouse_inside_Camera_box())
+		Scroll_Wheel();
+
+	Stop();
+
 	Move_elements();
 	
 	return true;
@@ -81,7 +87,7 @@ bool UI_Scroll::Handle_input()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	if (this->Mouse_is_in({ x, y }))
+	if (this->Mouse_is_in({ x, y }) || this->Mouse_inside_Camera_box())
 	{
 		my_module->On_GUI_Callback(this, MOUSE_IN);
 		state = OVER_ELEMENT;
@@ -146,16 +152,16 @@ void UI_Scroll::Set_Camera(SDL_Rect new_camera)
 
 void UI_Scroll::Stop()
 {
-	if (App->gui->element_selected == this && Interactive_box.y < Stop_box.y)
+	if (Interactive_box.y < Stop_box.y)
 		Interactive_box.y = Stop_box.y;
 	
-	if (App->gui->element_selected == this && (Interactive_box.y + Interactive_box.h) > (Stop_box.y + Stop_box.h))
+	if ((Interactive_box.y + Interactive_box.h) > (Stop_box.y + Stop_box.h))
 		Interactive_box.y = (Stop_box.y + Stop_box.h) - Interactive_box.h;
 
-	if (App->gui->element_selected == this && Interactive_box.x < Stop_box.x)
+	if ( Interactive_box.x < Stop_box.x)
 		Interactive_box.x = Stop_box.x;
 
-	if(App->gui->element_selected == this && (Interactive_box.x + Interactive_box.w) > (Stop_box.x + Stop_box.w))
+	if((Interactive_box.x + Interactive_box.w) > (Stop_box.x + Stop_box.w))
 		Interactive_box.x = (Stop_box.x + Stop_box.w) - Interactive_box.w;
 
 
@@ -163,13 +169,11 @@ void UI_Scroll::Stop()
 
 void UI_Scroll::Move_elements()
 {
-	int x = 0, y = 0;
-	App->input->GetMouseMotion(x, y);
-
+	
 	int percent_y = ((Interactive_box.y - Stop_box.y) * 100) / (Stop_box.h - Interactive_box.h);
 	int percent_x = ((Interactive_box.x - Stop_box.x) * 100) / (Stop_box.w - Interactive_box.w);
 
-	if ((x != 0 || y != 0) && state == CLICK_ELEMENT)
+	if ( state == CLICK_ELEMENT || state == OVER_ELEMENT)
 	{
 		int num = Camera_elements.count();
 		for (int i = 0; i < num; i++)
@@ -189,6 +193,40 @@ void UI_Scroll::Move_stop_box()
 	Stop_box.x += x;
 	Stop_box.y += y;
 
+}
+
+void UI_Scroll::Scroll_Wheel()
+{
+	
+	int y;
+	App->input->GetMouseWheel(y);
+
+	switch (draggable)
+	{
+	case Y_SCROLL || FREE_SCROLL:
+		Interactive_box.y -= y;
+		break;
+
+	case X_SCROLL:
+		Interactive_box.x -= y;
+		break;
+	}
+	
+
+}
+
+bool UI_Scroll::Mouse_inside_Camera_box()
+{
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	
+	if (((x > Stop_box.x) && (x <= (Stop_box.x + Stop_box.w)) && (y > Stop_box.y) && (y <= (Stop_box.y + Stop_box.h))))
+		return true;
+
+	if (((x > Camera.x) && (x <= (Camera.x + Camera.w)) && (y > Camera.y) && (y <= (Camera.y + Camera.h))))
+		return true;
+
+	return false;
 }
 
 void UI_Scroll::Add_Camera_element(UI_element* new_item)
