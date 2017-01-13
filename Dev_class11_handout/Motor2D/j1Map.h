@@ -2,6 +2,7 @@
 #define __j1MAP_H__
 
 #include "PugiXml/src/pugixml.hpp"
+#include "SDL\include\SDL.h"
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
@@ -121,6 +122,8 @@ public:
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	iPoint WorldToMapMouse(int x, int y) const;
+
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
