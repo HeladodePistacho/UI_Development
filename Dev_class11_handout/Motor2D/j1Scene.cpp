@@ -59,41 +59,63 @@ bool j1Scene::Start()
 
 	
 	//Exam
-
+	
 	//Exercise 1 -> Setting all the elements
-	Background = new UI_Image(IMAGE, { 0,0,0,0 }, { 0, 1600, 1024, 576 }, true, NO_SCROLL);
-	Background->setmodule(this);
+	Background = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	Background->Set_Image_Texture({ 0, 1600, 1024, 576 });
+	
+	window = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	window->Set_Interactive_Box({ 50, 60, 455, 497 });
+	window->Set_Image_Texture({ 15,512,455,497 });
+	
+	title = (UI_String*)App->gui->Add_element(UI_TYPE::STRING, this);
+	title->Set_String("Select Your Character");
+	title->Set_Interactive_Box({ 120, 50, 0, 0 });
 
-	window = new UI_Image(IMAGE, { 50, 60, 455, 497 }, { 15,512,455,497 }, true);
-	window->setmodule(this);
-	title = new UI_String(STRING, { 120,50,0,0 }, "Select Your Character");
-	title->Load_text_texture();
-	title->setmodule(this);
-
-	button_over = new UI_Image(IMAGE, { 0,0,0,0 }, { 2,112,228,67 }, false);
-	button_over->setmodule(this);
-	clicked_Button = new UI_Image(IMAGE, { 0,0,0,0 }, { 413,168,228,67 }, false);
-	clicked_Button->setmodule(this);
-	button_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 644,168,228,67 }, false);
-	button_image->setmodule(this);
-
-	Button = new UI_Button(BUTTON, { 120, 380, 228, 67 }, button_image, true, NO_SCROLL);
-	Button_Label = new UI_String(STRING, { 50, 20, 0, 0 }, "Continue");
-	Button_Label->setmodule(this);
-	Button_Label->Load_text_texture();
-
-	Big_heroe_image = new UI_Image(IMAGE, { 0,0,1025,574 }, { 0, 1024, 1025, 574 }, true, NO_SCROLL);
-	Slider_image = new UI_Image(IMAGE, { 0,0,0,0 }, { 900, 314, 68, 54 } , false);
-	Heroe_images = new UI_Image(IMAGE, { 0, 0, 0,0 }, { 0, 290, 300, 169 }, false);
-	Heroe_selector = new UI_Scroll(SCROLL, { 130, 200, 68, 54 }, Slider_image, Heroe_images, true);
-
-	Big_heroe_image->setmodule(this);
-	Slider_image->setmodule(this);
-	Heroe_images->setmodule(this);
-	Heroe_selector->setmodule(this);
+	button_over = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this); 
+	button_over->Set_Image_Texture({ 2,112,228,67 });
+	button_over->Set_Active_state(false);
+	
+	clicked_Button = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	clicked_Button->Set_Image_Texture({ 413,168,228,67 });
+	clicked_Button->Set_Active_state(false);
+	
+	button_image = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	button_image->Set_Image_Texture({ 644,168,228,67 });
+	button_image->Set_Active_state(false);
 
 
-	Exam_screen = App->gui->CreateScreen(&UI_element(SCREEN, { 0, 0, 1024, 576 }));
+	Button = (UI_Button*)App->gui->Add_element(UI_TYPE::BUTTON, this);
+	Button->Set_Drag_Type(NO_SCROLL); 
+	Button->Set_Interactive_Box({ 120, 380, 228, 67 });
+	Button->Set_Button_Image(button_image);
+
+	Button_Label = (UI_String*)App->gui->Add_element(UI_TYPE::STRING, this);
+	Button_Label->Set_String("Continue");
+	Button_Label->Set_Interactive_Box({ 50, 20, 0, 0 });
+
+	Big_heroe_image = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	Big_heroe_image->Set_Image_Texture({ 0, 1024, 1025, 574 });
+	Big_heroe_image->Set_Interactive_Box({ 0,0,1025,574 });
+	Big_heroe_image->Set_Drag_Type(NO_SCROLL);
+
+	Slider_image = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	Slider_image->Set_Active_state(false);
+	Slider_image->Set_Image_Texture({ 900, 314, 68, 54 });
+	
+	Heroe_images = (UI_Image*)App->gui->Add_element(UI_TYPE::IMAGE, this);
+	Heroe_images->Set_Image_Texture({ 0, 290, 300, 169 });
+	Heroe_images->Set_Active_state(false);
+
+	Heroe_selector = (UI_Scroll*)App->gui->Add_element(UI_TYPE::SCROLL, this);
+	Heroe_selector->Set_Interactive_Box({ 130, 200, 68, 54 });
+	Heroe_selector->Set_Stop_Box({ 130, 200, 300, 169 });
+	Heroe_selector->Set_Slider_image(Slider_image);
+	Heroe_selector->Set_Stop_box_image(Heroe_images);
+	Heroe_selector->Set_Camera({ 592, 151, 339, 271 });
+	Heroe_selector->Add_Camera_element(Big_heroe_image);
+
+	Exam_screen = App->gui->CreateScreen(&UI_element(UNDEFINED, { 0, 0, 1024, 576 }));
 
 	Exam_screen->AddChild(Background);
 	Exam_screen->AddChild(window);
@@ -107,21 +129,11 @@ bool j1Scene::Start()
 
 	Button->AddChild(Button_Label);
 
-	Button->setmodule(this);
-	Exam_screen->setmodule(this);
-
 	//Exercise 2 Setting the scroll elements
-	Heroe_selector->Set_Stop_Box({ 130, 200, 300, 169 });
-	Heroe_selector->Set_Camera({ 592, 151, 339, 271 });
-	Heroe_selector->Add_Camera_element(Big_heroe_image);
+	
 
-	lol = new UI_Image(UI_TYPE::IMAGE, { 0, 700, 300, 169 }, { 0, 290, 300, 169 }, true);
-	UI_String*	lol2 = new UI_String(STRING, { 0, 900, 0, 20 }, "Select Your Character");
-	lol2->Load_text_texture();
+	/*
 
-	Heroe_selector->Add_Camera_element(lol);
-	Heroe_selector->Add_Camera_element(lol2);
-	/**/
 
 	soldier0 = (Player*)App->entity_manager->create({ 15, 5 });
 	soldier0->Set_texture({ 3, 2, 28, 36 });
@@ -134,6 +146,8 @@ bool j1Scene::Start()
 
 	soldier3 = (Player*)App->entity_manager->create({ 24,10 });
 	soldier3->Set_texture({ 3, 2, 28, 36 });
+	*/
+	
 
 	return true;
 }
@@ -213,22 +227,22 @@ bool j1Scene::On_GUI_Callback(UI_element* elem, GUI_INPUT gui_input)
 		{
 		case MOUSE_IN:
 			if (elem == Button)
-				Button->Change_image_to(button_over);
+				Button->Set_Button_Image(button_over);
 			break;
 
 		case MOUSE_OUT:
 			if (elem == Button)
-				Button->Change_image_to(button_image);
+				Button->Set_Button_Image(button_image);
 			break;
 
 		case LEFT_MOUSE_DOWN:
 			if (elem == Button)
-				Button->Change_image_to(clicked_Button);
+				Button->Set_Button_Image(clicked_Button);
 			break;
 
 		case LEFT_MOUSE_REPEAT:
 			if (elem == Button)
-				Button->Change_image_to(clicked_Button);
+				Button->Set_Button_Image(clicked_Button);
 			break;
 		}
 

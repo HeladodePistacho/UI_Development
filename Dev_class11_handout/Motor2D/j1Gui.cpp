@@ -6,6 +6,8 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "UI_Text_Box.h"
+#include "UI_scroll.h"
 #include "UI_Image.h"
 #include "UI_Interactive_String.h"
 #include "UI_String.h"
@@ -102,6 +104,36 @@ UI_element * j1Gui::CreateScreen(UI_element * new_element)
 
 	if (ret)
 		Screen_elements.add(ret);
+
+	return ret;
+}
+
+UI_element* j1Gui::Add_element(UI_TYPE TYPE, j1Module* element_module)
+{
+	UI_element* ret = nullptr;
+
+	switch (TYPE)
+	{
+	case UNDEFINED:
+		ret = new UI_element(TYPE, element_module);
+		break;
+	case IMAGE:
+		ret = new UI_Image(TYPE, element_module);
+		break;
+	case STRING:
+		ret = new UI_String(TYPE, element_module);
+		break;
+	case BUTTON:
+		ret = new UI_Button(TYPE, element_module);
+		break;
+	case TEXT_BOX:
+		ret = new UI_Text_Box(TYPE, element_module);
+		break;
+	case SCROLL:
+		ret = new UI_Scroll(TYPE, element_module);
+		break;
+	
+	}
 
 	return ret;
 }

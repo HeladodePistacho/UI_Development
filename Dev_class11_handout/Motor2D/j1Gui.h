@@ -53,6 +53,8 @@ public:
 
 	UI_element* CreateScreen(UI_element* new_element);
 
+	UI_element* Add_element(UI_TYPE, j1Module*);
+
 	const SDL_Texture* GetAtlas() const;
 	const SDL_Texture* Get_Other_Textures(uint id) const;
 	int AddTexture(SDL_Texture* new_text);
