@@ -51,6 +51,8 @@ public:
 	void Add_Label(const char* );
 	command* Add_Command(const char* , j1Module* , uint , uint );
 
+	bool On_GUI_Callback(UI_element*, GUI_INPUT);
+	bool On_Console_Callback(command*, int*);
 
 public:
 

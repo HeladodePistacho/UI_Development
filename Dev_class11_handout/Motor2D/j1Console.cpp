@@ -61,11 +61,6 @@ bool j1Console::Update(float dt)
 	if (state == MOUSE_OVER)
 		drag_console();
 
-	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-	{
-		Camera_management();
-		Text_management();
-	}
 
 	return true;
 }
@@ -129,6 +124,39 @@ command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min
 		Commands_List.PushBack(new_command);
 
 	return new_command;
+}
+
+bool j1Console::On_GUI_Callback(UI_element* ui_element, GUI_INPUT type)
+{
+	switch (type)
+	{
+	case MOUSE_IN:
+		break;
+	case MOUSE_OUT:
+		break;
+	case RIGHT_MOUSE_DOWN:
+		break;
+	case RIGHT_MOUSE_REPEAT:
+		break;
+	case LEFT_MOUSE_DOWN:
+		break;
+	case LEFT_MOUSE_REPEAT:
+		break;
+	case ENTER:
+		if (ui_element == Input_text)
+		{
+			Camera_management();
+			Text_management();
+		}
+		break;
+	}
+
+	return true;
+}
+
+bool j1Console::On_Console_Callback(command *, int *)
+{
+	return true;
 }
 
 void j1Console::check_state()

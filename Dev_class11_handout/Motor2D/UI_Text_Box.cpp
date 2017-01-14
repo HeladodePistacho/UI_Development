@@ -108,6 +108,9 @@ bool UI_Text_Box::Handle_input()
 		state = CLICK_ELEMENT;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		my_module->On_GUI_Callback(this, ENTER);
+
 
 	return true;
 }
