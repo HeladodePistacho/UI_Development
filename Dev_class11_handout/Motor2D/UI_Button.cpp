@@ -16,7 +16,7 @@ UI_Button::UI_Button(const UI_Button* other) : UI_element(other->element_type, o
 	
 }
 
-void UI_Button::Change_image_to(const UI_Image* new_image)
+void UI_Button::Set_Button_Image(const UI_Image* new_image)
 {
 	
 	Button_image = (UI_Image*)new_image;

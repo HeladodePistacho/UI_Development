@@ -21,13 +21,10 @@ private:
 	p2List<iPoint> Camera_element_position;
 
 
-	UI_element* Bottom_element;
-	int Max_move_x = 0;
-	int Max_move_y = 0;
-	iPoint Pos;
 
 public:
 
+	UI_Scroll(UI_TYPE, j1Module*);
 	UI_Scroll(UI_TYPE type, SDL_Rect detection_box, const UI_Image* slider, const UI_Image* slide_box, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Scroll(const UI_Scroll* other);
 	~UI_Scroll();
@@ -35,9 +32,6 @@ public:
 	 bool Update();
 	 bool Update_Draw();
 	 bool Handle_input();
-
-	 void Set_Stop_Box(SDL_Rect new_box);
-	 void Set_Camera(SDL_Rect new_box);
 
 	 void Stop();
 	 void Move_elements();
@@ -49,7 +43,10 @@ public:
 	 void Add_Camera_element(UI_element* new_item);
 	 SDL_Rect Get_Stop_Box() const;
 
-	 
+	 void Set_Slider_image(UI_Image*);
+	 void Set_Stop_box_image(UI_Image*);
+	 void Set_Stop_Box(SDL_Rect new_box);
+	 void Set_Camera(SDL_Rect new_box);
 
 };
 

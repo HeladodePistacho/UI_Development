@@ -3,6 +3,8 @@
 #include "j1App.h"
 #include "j1Render.h"
 
+UI_Scroll::UI_Scroll(UI_TYPE type, j1Module* callback) : UI_element(type, callback), Camera({ 0,0,0,0 }), Camera_inner_box({ 0,0,0,0 }) {}
+
 UI_Scroll::UI_Scroll(UI_TYPE type, SDL_Rect detection_box, const UI_Image* slider, const UI_Image* slide_box, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag), Slider((UI_Image*)slider), Slide_box((UI_Image*)slide_box)
 {
 
@@ -28,8 +30,6 @@ bool UI_Scroll::Update()
 {
 	Handle_input();
 
-	Pos.x = Interactive_box.x;
-	Pos.y = Interactive_box.y;
 
 	//Exercise 2 The scroll slider logic 
 	//[====================================================
@@ -65,8 +65,7 @@ bool UI_Scroll::Update_Draw()
 		Child_Update_Draw();
 	}
 
-	App->render->DrawQuad(Camera_elements[1]->Interactive_box,255,0,0);
-
+	
 	//Exercise 3 The scroll Camera view
 	SDL_RenderSetViewport(App->render->renderer, &Camera);
 	p2List_item<UI_element*>* scroll_items = Camera_elements.start;
@@ -270,5 +269,15 @@ void UI_Scroll::Add_Camera_element(UI_element* new_item)
 SDL_Rect UI_Scroll::Get_Stop_Box() const
 {
 	return Stop_box;
+}
+
+void UI_Scroll::Set_Slider_image(UI_Image* Scroll_img)
+{
+	Slider = Scroll_img;
+}
+
+void UI_Scroll::Set_Stop_box_image(UI_Image* Box_img)
+{
+	Slide_box = Box_img;
 }
 

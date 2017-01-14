@@ -6,6 +6,8 @@
 #include "UI_scroll.h"
 #include "j1App.h"
 
+UI_element::UI_element(UI_TYPE type, j1Module* callback_module) : element_type(type), my_module(callback_module), Interactive_box({ 0,0,0,0 }), active(true), draggable(FREE_SCROLL) {}
+
 UI_element::UI_element(UI_TYPE type, SDL_Rect detection_box, bool act, SCROLL_TYPE drag) : element_type(type), Interactive_box(detection_box), active(act), draggable(drag)
 {
 
@@ -56,7 +58,6 @@ bool UI_element::Update_Draw()
 
 	return true;
 }
-
 
 bool UI_element::Mouse_is_in(const iPoint& mouse_pos)
 {
@@ -194,7 +195,19 @@ UI_element* UI_element::get_higher_child()
 	return temp;
 }
 
-void UI_element::setmodule(j1Module* lol)
+void UI_element::Set_Interactive_Box(SDL_Rect new_rect)
 {
-	my_module = lol;
+	Interactive_box = new_rect;
 }
+
+void UI_element::Set_Active_state(bool act)
+{
+	active = act;
+}
+
+void UI_element::Set_Drag_Type(SCROLL_TYPE type)
+{
+	draggable = type;
+}
+
+

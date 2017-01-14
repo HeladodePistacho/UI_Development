@@ -6,6 +6,8 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 
+UI_Text_Box::UI_Text_Box(UI_TYPE type, j1Module* callback) : UI_element(type, callback), text(type, nullptr), background(nullptr) {}
+
 UI_Text_Box::UI_Text_Box(UI_TYPE type, SDL_Rect detection_box, char* new_text, const UI_Image* start_image, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag),text(UI_TYPE::STRING, detection_box, new_text), background(start_image) {}
 
 UI_Text_Box::UI_Text_Box(const UI_Text_Box* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text), background(other->background) {}
@@ -26,7 +28,10 @@ bool UI_Text_Box::Update_Draw()
 {
 	if (active)
 	{
-		//App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), (Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &background->Image);
+
+		if(background != nullptr)
+			App->render->Blit((SDL_Texture*)App->gui->GetAtlas(), (Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y), &background->Image);
+
 		App->render->Blit(text.text_texture, (Interactive_box.x - App->render->camera.x), (Interactive_box.y - App->render->camera.y));
 		Child_Update();
 
@@ -55,6 +60,11 @@ void UI_Text_Box::Delete_Char(int position)
 	text.text.Erase_Char(position);
 	App->tex->UnLoad(text.text_texture);
 	text.text_texture = App->font->Print(text.text.GetString());
+}
+
+void UI_Text_Box::Set_Background(UI_Image* back_img)
+{
+	background = back_img;
 }
 
 bool UI_Text_Box::Handle_input()

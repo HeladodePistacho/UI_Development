@@ -16,6 +16,7 @@ public:
 
 public:
 
+	UI_Text_Box(UI_TYPE, j1Module*);
 	UI_Text_Box(UI_TYPE type, SDL_Rect detection_box, char* new_text, const UI_Image* start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Text_Box(const UI_Text_Box* other);
 
@@ -29,6 +30,8 @@ public:
 	const char* get_string_pos(int cursor_pos);
 	void Insert_Char(int cursor_pos, const char* new_char);
 	void Delete_Char(int cursor_pos);
+
+	void Set_Background(UI_Image*);
 	
 };
 

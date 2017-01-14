@@ -16,6 +16,8 @@ public:
 	SDL_Texture* text_texture;
 
 public:
+
+	UI_String(UI_TYPE, j1Module*);
 	UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_String(const UI_String* other);
 
@@ -28,6 +30,8 @@ public:
 	bool Handle_input();
 	
 	bool Draw_console(int height);
+
+
 };
 
 #endif // ! _UI_STRING_H_

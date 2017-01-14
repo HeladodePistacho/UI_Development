@@ -15,7 +15,7 @@ public:
 	UI_Button(UI_TYPE type, SDL_Rect detection_box, UI_Image* start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Button(const UI_Button* other);
 
-	void Change_image_to(const UI_Image* new_image);
+	void Set_Button_Image(const UI_Image* new_image);
 	bool Update();
 	bool Update_Draw();
 	bool Handle_input();

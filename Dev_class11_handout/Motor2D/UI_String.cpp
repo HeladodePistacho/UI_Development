@@ -6,6 +6,8 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
+UI_String::UI_String(UI_TYPE type, j1Module* callback) : UI_element(type, callback) {}
+
 UI_String::UI_String(UI_TYPE type, SDL_Rect detection_box, char* new_text, bool act, SCROLL_TYPE drag) : UI_element(type, detection_box, act, drag), text(new_text) {}
 
 UI_String::UI_String(const UI_String* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), text(other->text) 
@@ -93,7 +95,10 @@ bool UI_String::Update()
 bool UI_String::Set_String(char* new_text)
 {
 	text = new_text;
-	App->tex->UnLoad(text_texture);
+
+	if(text_texture)
+		App->tex->UnLoad(text_texture);
+
 	text_texture = App->font->Print(text.GetString());
 
 	return (text != nullptr) ? true : false;

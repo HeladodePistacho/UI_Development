@@ -3,6 +3,8 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
+UI_Image::UI_Image(UI_TYPE type, j1Module* callback) : UI_element(type, callback), Image({ 0,0,0,0 }) {}
+
 UI_Image::UI_Image(UI_TYPE type, SDL_Rect detection_box, SDL_Rect img_size, bool act, SCROLL_TYPE drag, int new_id) : UI_element(type, detection_box, act, drag), Image(img_size), id(new_id) {}
 
 UI_Image::UI_Image(const UI_Image* other) : UI_element(other->element_type, other->Interactive_box, other->active, other->draggable), Image(other->Image), id(other->id) {}
@@ -88,4 +90,9 @@ bool UI_Image::Update()
 void UI_Image::change_image(SDL_Rect new_image)
 {
 	Image = new_image;
+}
+
+void UI_Image::Set_Image_Texture(SDL_Rect tex)
+{
+	Image = tex;
 }
