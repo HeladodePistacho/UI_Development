@@ -215,23 +215,53 @@ void j1Console::Text_management()
 
 		if (command* temp_com = Command_management(temp))
 		{
+			int argument_start = bookmark + 1;
+
 			for (int i = strlen(temp); i < len; i++)
-			{
 				*(temp + i) = *(Input_text->text.text.GetString() + ++bookmark);
-					
-			}
+			
+			Argument_management(temp, argument_start, temp_com);
+			
 		}
 		else return;
 	}
 		
 
-	
+	delete[] temp;
 }
 
-void j1Console::Argument_management(const char* Input_text, int bookmark)
+void j1Console::Argument_management(const char* Input_text, int bookmark, command* this_command)
 {
-	
+	int* args = new int(this_command->max_arguments);
+	int args_count = 0;
 
+	for (args_count; bookmark < strlen(Input_text); bookmark++)
+	{
+		if (*(Input_text + bookmark) == ' ')
+			continue;
+		else
+		{
+			if (args_count <= this_command->max_arguments)
+			{
+				*(args + args_count) = atoi((Input_text + bookmark));
+				args_count++;
+			}
+			else
+			{
+				LOG("ERROR: Too much arguments");
+				return;
+			}
+		}
+	}
+
+	if (args_count < this_command->min_arguments)
+		LOG("ERROR: More arguments needed");
+	else
+	{
+		this_command->my_module->On_Console_Callback(this_command, args);
+	}
+
+	delete[] args;
 }
 
 command* j1Console::Command_management(const char* Input_command)

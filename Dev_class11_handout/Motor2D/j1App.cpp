@@ -321,7 +321,7 @@ bool j1App::PostUpdate()
 	return ret;
 }
 
-bool j1App::On_Console_Callback(command* com, int argument)
+bool j1App::On_Console_Callback(command* com, int* argument)
 {
 	switch (com->callback_type)
 	{
@@ -336,14 +336,14 @@ bool j1App::On_Console_Callback(command* com, int argument)
 
 	case PAUSE:
 
-		if (argument == 1)
+		if (*argument == 1)
 		{
 			scene->active = false;
 			map->active = false;
 			pathfinding->active = false;
 			LOG("GAME PAUSED");
 		}
-		if (argument == 0)
+		if (*argument == 0)
 		{
 			scene->active = true;
 			map->active = true;

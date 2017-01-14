@@ -83,7 +83,7 @@ private:
 	void Camera_management();
 
 	void Text_management();
-	void Argument_management(const char*, int);
+	void Argument_management(const char*, int, command*);
 	command* Command_management(const char*);
 
 };
