@@ -237,6 +237,10 @@ void j1App::FinishUpdate()
 		SDL_Delay(capped_ms - last_frame_ms);
 		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
 	}
+
+	if (logic_dt < LOGICAL_DT)
+		logic_dt += dt;
+
 }
 
 // Call modules before each loop iteration
@@ -269,6 +273,12 @@ bool j1App::DoUpdate()
 	item = modules.start;
 	j1Module* pModule = NULL;
 
+	if (logic_dt >= LOGICAL_DT)
+	{
+		update_logic = true;
+		logic_dt = 0.0f;
+	}
+
 	for(item = modules.start; item != NULL && ret == true; item = item->next)
 	{
 		pModule = item->data;
@@ -277,8 +287,14 @@ bool j1App::DoUpdate()
 			continue;
 		}
 
+		if (update_logic)
+			ret = item->data->UpdateTicks();
+
 		ret = item->data->Update(dt);
 	}
+
+	if (update_logic)
+		update_logic = false;
 
 	return ret;
 }

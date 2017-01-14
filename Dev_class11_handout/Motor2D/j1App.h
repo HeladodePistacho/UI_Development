@@ -7,6 +7,8 @@
 #include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 
+#define LOGICAL_DT 0.1f
+
 // Modules
 class j1Window;
 class j1Input;
@@ -120,6 +122,8 @@ private:
 	mutable p2SString	save_game;
 
 	j1PerfTimer			ptimer;
+	j1PerfTimer			delay_timer;
+
 	uint64				frame_count = 0;
 	j1Timer				startup_time;
 	j1Timer				frame_time;
@@ -130,6 +134,9 @@ private:
 	int					capped_ms = -1;
 
 	bool				update_stop = true;
+
+	float				logic_dt = 0.0f;
+	bool				update_logic = false;
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S

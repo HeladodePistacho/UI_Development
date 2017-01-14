@@ -123,8 +123,17 @@ bool j1Scene::Start()
 	Heroe_selector->Add_Camera_element(lol2);
 	*/
 
-	Player* lol = (Player*)App->entity_manager->create({ 24,0 });
-	lol->Set_texture({ 3, 2, 28, 36 });
+	lol0 = (Player*)App->entity_manager->create({ 15, 5 });
+	lol0->Set_texture({ 3, 2, 28, 36 });
+
+	lol1 = (Player*)App->entity_manager->create({ 24,0 });
+	lol1->Set_texture({ 3, 2, 28, 36 });
+
+	lol2 = (Player*)App->entity_manager->create({ 20,6 });
+	lol2->Set_texture({ 3, 2, 28, 36 });
+
+	lol3 = (Player*)App->entity_manager->create({ 24,10 });
+	lol3->Set_texture({ 3, 2, 28, 36 });
 
 	return true;
 }
@@ -162,6 +171,15 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		App->render->camera.x--;
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		App->render->camera.y--;
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->camera.x++;
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		App->render->camera.y++;
+
 	App->map->Draw();
 	
 	

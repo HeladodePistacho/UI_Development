@@ -48,6 +48,11 @@ public:
 		return true;
 	}
 
+	virtual bool UpdateTicks()
+	{
+		return true;
+	}
+
 	// Called each loop iteration
 	virtual bool Update(float dt)
 	{

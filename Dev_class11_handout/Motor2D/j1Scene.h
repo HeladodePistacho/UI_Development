@@ -13,6 +13,7 @@ class UI_String;
 class UI_Scroll;
 class UI_Text_Box;
 class GuiText;
+class Player;
 
 
 class j1Scene : public j1Module
@@ -67,6 +68,12 @@ private:
 	UI_Image* Slider_image;
 	UI_Image* Heroe_images;
 	UI_Image* Big_heroe_image;
+
+
+	Player* lol0;
+	Player* lol1;
+	Player* lol2;
+	Player* lol3;
 		
 };
 

@@ -30,7 +30,7 @@ bool Player::PreU()
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMapMouse(p.x, p.y);
 	
-	if (path_length == 0 && selected)
+	if (path_length <= 0 && selected)
 	{
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && on_path == false)
 		{
@@ -38,9 +38,13 @@ bool Player::PreU()
 
 			path_length = App->pathfinding->CreatePath(App->map->WorldToMap(position.x, position.y), p);
 
-			for (int i = 0; i < App->pathfinding->GetLastPath()->Count(); i++)
-				path.add(*App->pathfinding->GetLastPath()->At(i));	
-			on_path = true;
+			if (path_length > 0)
+			{
+				for (int i = 0; i < App->pathfinding->GetLastPath()->Count(); i++)
+					path.add(*App->pathfinding->GetLastPath()->At(i));
+
+				on_path = true;
+			}
 		}
 
 	}
@@ -50,18 +54,10 @@ bool Player::PreU()
 
 bool Player::UTicks()
 {
-	
-	
-
-	return true;
-}
-
-bool Player::U(float dt)
-{
 	if (on_path)
 	{
 
-		if (App->map->WorldToMap(position.x, position.y) == path.At(path_length - 1)->data)
+		if (App->map->WorldToMap(position.x, position.y) == path.At(path_length)->data)
 			on_path = false;
 
 		else
@@ -70,6 +66,14 @@ bool Player::U(float dt)
 			last_point++;
 		}
 	}
+	
+
+	return true;
+}
+
+bool Player::U(float dt)
+{
+	
 
 	App->render->Blit(App->entity_manager->Entity_textures, position.x, position.y, &player_text);
 	return true;
