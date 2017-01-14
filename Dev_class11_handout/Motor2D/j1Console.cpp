@@ -187,56 +187,67 @@ void j1Console::Camera_management()
 
 void j1Console::Text_management()
 {
-	char* temp = new char(strlen(Input_text->text.text.GetString()));
-	char* temp2 = new char(strlen(Input_text->text.text.GetString()));
-	strcpy(temp, Input_text->text.text.GetString());
-	temp2 = strtok(temp, " ");
+	int len = strlen(Input_text->text.text.GetString());
+	char* temp = new char(len);
 
-
-	p2List<p2SString> Input;
-
-	while (temp2 != nullptr)
+	//Check if there are spaces before text
+	int  bookmark = 0;
+	for (; bookmark < len; bookmark++)
 	{
-		p2SString temp3(temp2);
-		Input.add(temp3);
-		temp2 = strtok(nullptr, " ");
-		
+		if (*(Input_text->text.text.GetString() + bookmark) != ' ')
+			break;
 
+		else continue;
 	}
-	
-	if (*Input[0].GetString() == '/')
-		Command_management(Input);
+
+	//Check if is a command
+	if (*(Input_text->text.text.GetString() + bookmark) == '/')
+	{
+		for (int i = 0; bookmark < len; bookmark++)
+		{
+			if (*(Input_text->text.text.GetString() + bookmark + 1) != ' ')
+			{
+				*(temp + i) = *(Input_text->text.text.GetString() + bookmark + 1);
+				i++;
+			}
+			else break;
+		}
+
+		if (command* temp_com = Command_management(temp))
+		{
+			for (int i = strlen(temp); i < len; i++)
+			{
+				*(temp + i) = *(Input_text->text.text.GetString() + ++bookmark);
+					
+			}
+		}
+		else return;
+	}
+		
 
 	
 }
 
-void j1Console::Command_management(p2List<p2SString> command)
+void j1Console::Argument_management(const char* Input_text, int bookmark)
 {
-	char* clean_command = new char(strlen(command[0].GetString()));
-	strcpy(clean_command, command[0].GetString());
-	clean_command = strtok(clean_command, "/");
 	
 
+}
+
+command* j1Console::Command_management(const char* Input_command)
+{
+	
 	int num_of_commands = Commands_List.Count();
 	for (int i = 0; i < num_of_commands; i++)
 	{
-		if (strcmp(clean_command, Commands_List[i]->name) != 0)
+		if (strcmp(Input_command, Commands_List[i]->name) != 0)
 			continue;
-		else
-		{
-	
-			if (command.count() - 1 >= Commands_List[i]->min_arguments && command.count() - 1 <= Commands_List[i]->max_arguments)
-				Commands_List[i]->my_module->On_Console_Callback(Commands_List[i], atoi(command[command.count() - 1].GetString()));
-			else LOG("ERROR: Incorrect number of arguments"); 
-
-			return;
-		}
-		
-		
+		else return Commands_List[i];
+			
 	}
 	
 	LOG("ERROR: command does not exist");
-	
+	return nullptr;
 }
 
 //---------------COMAND-------------------

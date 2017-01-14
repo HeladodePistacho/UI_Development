@@ -83,8 +83,8 @@ private:
 	void Camera_management();
 
 	void Text_management();
-	
-	void Command_management(p2List<p2SString>);
+	void Argument_management(const char*, int);
+	command* Command_management(const char*);
 
 };
 
