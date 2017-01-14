@@ -34,8 +34,10 @@ bool j1Console::Awake(pugi::xml_node& config)
 	int width;
 	App->font->CalcSize("Set", width, height, App->font->default);
 
-	Input_text = new UI_Text_Box(UI_TYPE::TEXT_BOX, { console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height }, "", nullptr);
-	Input_text->setmodule(this);
+	Input_text = (UI_Text_Box*)App->gui->Add_element(UI_TYPE::TEXT_BOX, this);
+	Input_text->Set_Interactive_Box({ console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height });
+	Input_text->Set_Drag_Type(NO_SCROLL);
+
 
 	LOG("Desactivating console");
 	active = false;
@@ -67,8 +69,8 @@ bool j1Console::Update(float dt)
 
 bool j1Console::PostUpdate()
 {
-	App->render->DrawQuad(console_screen, Background.r, Background.g, Background.b, Background.a);
-	App->render->DrawQuad(Input_text->Interactive_box, 0, 0, 255, Background.a);
+	App->render->DrawQuad({ console_screen.x - App->render->camera.x, console_screen.y - App->render->camera.y,console_screen.w, console_screen.h }, Background.r, Background.g, Background.b, Background.a);
+	App->render->DrawQuad({ Input_text->Interactive_box.x - App->render->camera.x, Input_text->Interactive_box.y - App->render->camera.y,Input_text->Interactive_box.w, Input_text->Interactive_box.h }, 0, 0, 255, Background.a);
 
 	//Change viewport
 	SDL_RenderSetViewport(App->render->renderer, &console_screen);
@@ -87,6 +89,11 @@ bool j1Console::PostUpdate()
 
 bool j1Console::CleanUp()
 {
+	UI_String* result;
+
+	for (; labels_loaded >= 0; labels_loaded--)
+		Labels.Pop(result);
+
 	delete Input_text;
 	return true;
 }

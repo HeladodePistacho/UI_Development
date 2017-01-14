@@ -36,7 +36,7 @@ bool UI_Text_Box::Update_Draw()
 		Child_Update();
 
 		if (SDL_IsTextInputActive())
-			App->render->DrawQuad({ cursor_pos, Interactive_box.y, 1, height }, 255, 255, 255);
+			App->render->DrawQuad({ cursor_pos - App->render->camera.x, Interactive_box.y - App->render->camera.y, 1, height }, 255, 255, 255);
 		
 	}
 
