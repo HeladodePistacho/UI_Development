@@ -1,10 +1,12 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
+#include "Player.h"
 #include "j1Input.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Render.h"
+#include "Module_entites_manager.h"
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1PathFinding.h"
@@ -39,11 +41,11 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	if(App->map->Load("iso_walk.tmx") == true)
+	if (App->map->Load("iso_walk.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
-		if(App->map->CreateWalkabilityMap(w, h, &data))
+		if (App->map->CreateWalkabilityMap(w, h, &data))
 			App->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
@@ -54,7 +56,7 @@ bool j1Scene::Start()
 	// TODO 3: Create the image (rect {485, 829, 328, 103}) and the text "Hello World" as UI elements
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
-	
+
 	/*
 	//Exam
 
@@ -120,6 +122,10 @@ bool j1Scene::Start()
 	Heroe_selector->Add_Camera_element(lol);
 	Heroe_selector->Add_Camera_element(lol2);
 	*/
+
+	Player* lol = (Player*)App->entity_manager->create({ 24,0 });
+	lol->Set_texture({ 3, 2, 28, 36 });
+
 	return true;
 }
 

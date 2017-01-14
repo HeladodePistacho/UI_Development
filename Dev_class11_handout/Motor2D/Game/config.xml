@@ -34,6 +34,10 @@
     <folder>maps/</folder>
   </map>
 
+  <entity_manager>
+    <entities_texture file ="enemies_sprites.png" />
+  </entity_manager>
+  
   <console>
     <Position x="0" y="0"/>
     <Size width="1024" height="300"/>

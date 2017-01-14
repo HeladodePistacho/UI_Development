@@ -76,10 +76,10 @@
     <ClCompile Include="Module_entities_manager.cpp">
       <Filter>Desenvolupament  ========\Modules\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Desenvolupament  ========\Modules\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Desenvolupament  ========\Modules\Entity</Filter>
     </ClCompile>
   </ItemGroup>
@@ -177,10 +177,10 @@
     <ClInclude Include="Module_entites_manager.h">
       <Filter>Desenvolupament  ========\Modules\H</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Desenvolupament  ========\Modules\H</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Desenvolupament  ========\Modules\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>Desenvolupament  ========\Modules\Entity</Filter>
     </ClInclude>
   </ItemGroup>

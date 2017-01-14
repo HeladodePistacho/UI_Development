@@ -5,6 +5,7 @@
 #include "p2Log.h"
 
 #include "j1Window.h"
+#include "Module_entites_manager.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
@@ -32,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fs = new j1FileSystem();
 	map = new j1Map();
 	pathfinding = new j1PathFinding();
+	entity_manager = new j1EntityManager();
 	font = new j1Fonts();
 	gui = new j1Gui();
 	console = new j1Console();
@@ -51,6 +53,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// scene last
 	AddModule(scene);
+	AddModule(entity_manager);
 	AddModule(console);
 
 	// render last to swap buffer
