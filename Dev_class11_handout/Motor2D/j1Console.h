@@ -13,12 +13,6 @@ struct UI_Image;
 //---------------COMAND-------------------
 //----------------------------------------
 
-enum COMMANDS_CALLBACK
-{
-	QUIT,
-	MAX_FPS,
-	PAUSE
-};
 
 struct command
 {
@@ -27,9 +21,9 @@ struct command
 	unsigned int max_arguments;
 
 	j1Module* my_module;
-	COMMANDS_CALLBACK callback_type;
+	
 
-	command(const char*, j1Module*, unsigned int, unsigned int, COMMANDS_CALLBACK);
+	command(const char*, j1Module*, unsigned int, unsigned int);
 };
 
 //--------------CONSOLE-------------------
@@ -55,7 +49,7 @@ public:
 
 	void Active_console();
 	void Add_Label(const char* );
-	command* Add_Command(const char* , j1Module* , uint , uint , COMMANDS_CALLBACK );
+	command* Add_Command(const char* , j1Module* , uint , uint );
 
 
 public:

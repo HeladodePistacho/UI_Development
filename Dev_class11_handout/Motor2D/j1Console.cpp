@@ -121,17 +121,15 @@ void j1Console::Add_Label(const char * new_text)
 	num_of_labels++;
 }
 
-command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min_arg, uint max_args, COMMANDS_CALLBACK type)
+command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min_arg, uint max_args)
 {
-	command* lol = new command(comm, callback, min_arg, max_args, type);
+	command* new_command = new command(comm, callback, min_arg, max_args);
 
-	if (lol)
-		Commands_List.PushBack(lol);
+	if (new_command)
+		Commands_List.PushBack(new_command);
 
-	return lol;
+	return new_command;
 }
-
-
 
 void j1Console::check_state()
 {
@@ -283,4 +281,4 @@ command* j1Console::Command_management(const char* Input_command)
 //---------------COMAND-------------------
 //----------------------------------------
 
-command::command(const char* new_com, j1Module* callback, unsigned int min_args, unsigned int max_args, COMMANDS_CALLBACK type) : name(new_com), my_module(callback), min_arguments(min_args), max_arguments(max_args), callback_type(type) {}
+command::command(const char* new_com, j1Module* callback, unsigned int min_args, unsigned int max_args) : name(new_com), my_module(callback), min_arguments(min_args), max_arguments(max_args) {}
