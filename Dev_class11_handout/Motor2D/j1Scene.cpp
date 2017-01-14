@@ -57,7 +57,7 @@ bool j1Scene::Start()
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
 
-	/*
+	
 	//Exam
 
 	//Exercise 1 -> Setting all the elements
@@ -121,19 +121,19 @@ bool j1Scene::Start()
 
 	Heroe_selector->Add_Camera_element(lol);
 	Heroe_selector->Add_Camera_element(lol2);
-	*/
+	/**/
 
-	lol0 = (Player*)App->entity_manager->create({ 15, 5 });
-	lol0->Set_texture({ 3, 2, 28, 36 });
+	soldier0 = (Player*)App->entity_manager->create({ 15, 5 });
+	soldier0->Set_texture({ 3, 2, 28, 36 });
 
-	lol1 = (Player*)App->entity_manager->create({ 24,0 });
-	lol1->Set_texture({ 3, 2, 28, 36 });
+	soldier1 = (Player*)App->entity_manager->create({ 24,0 });
+	soldier1->Set_texture({ 3, 2, 28, 36 });
 
-	lol2 = (Player*)App->entity_manager->create({ 20,6 });
-	lol2->Set_texture({ 3, 2, 28, 36 });
+	soldier2 = (Player*)App->entity_manager->create({ 20,6 });
+	soldier2->Set_texture({ 3, 2, 28, 36 });
 
-	lol3 = (Player*)App->entity_manager->create({ 24,10 });
-	lol3->Set_texture({ 3, 2, 28, 36 });
+	soldier3 = (Player*)App->entity_manager->create({ 24,10 });
+	soldier3->Set_texture({ 3, 2, 28, 36 });
 
 	return true;
 }

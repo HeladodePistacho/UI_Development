@@ -70,10 +70,10 @@ private:
 	UI_Image* Big_heroe_image;
 
 
-	Player* lol0;
-	Player* lol1;
-	Player* lol2;
-	Player* lol3;
+	Player* soldier0;
+	Player* soldier1;
+	Player* soldier2;
+	Player* soldier3;
 		
 };
 

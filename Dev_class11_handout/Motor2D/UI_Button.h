@@ -7,13 +7,15 @@
 class UI_Button : public UI_element
 {
 public:
-	UI_Image Button_image;
+	UI_Image* Button_image;
 
 public:
-	UI_Button(UI_TYPE type, SDL_Rect detection_box, const UI_Image& start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
+
+	UI_Button(UI_TYPE , j1Module*);
+	UI_Button(UI_TYPE type, SDL_Rect detection_box, UI_Image* start_image, bool active = true, SCROLL_TYPE draggable = FREE_SCROLL);
 	UI_Button(const UI_Button* other);
 
-	void Change_image_to(const UI_Image& new_image);
+	void Change_image_to(const UI_Image* new_image);
 	bool Update();
 	bool Update_Draw();
 	bool Handle_input();
