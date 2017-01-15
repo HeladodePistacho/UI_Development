@@ -6,6 +6,7 @@
 #include "UI_Image.h"
 #include "p2Log.h"
 #include "j1Render.h"
+#include "CVar_Com.h"
 
 //--------------CONSOLE-------------------
 //----------------------------------------
@@ -39,6 +40,9 @@ bool j1Console::Awake(pugi::xml_node& config)
 	Input_text->Set_Drag_Type(NO_SCROLL);
 
 
+	
+
+
 	LOG("Desactivating console");
 	active = false;
 
@@ -56,7 +60,7 @@ bool j1Console::Update(float dt)
 
 	Load_Update_labels();
 	Input_text->Update();
-	Input_text->Handle_input();
+	//Input_text->Handle_input();
 
 	check_state();
 
@@ -303,7 +307,7 @@ command* j1Console::Command_management(const char* Input_command)
 	int num_of_commands = Commands_List.Count();
 	for (int i = 0; i < num_of_commands; i++)
 	{
-		if (strcmp(Input_command, Commands_List[i]->name) != 0)
+		if (strcmp(Input_command, Commands_List[i]->name.GetString()) != 0)
 			continue;
 		else return Commands_List[i];
 			
@@ -317,3 +321,8 @@ command* j1Console::Command_management(const char* Input_command)
 //----------------------------------------
 
 command::command(const char* new_com, j1Module* callback, unsigned int min_args, unsigned int max_args) : name(new_com), my_module(callback), min_arguments(min_args), max_arguments(max_args) {}
+
+//----------------CVAR--------------------
+//----------------------------------------
+
+CVar::CVar(const char* nam, const char* des, int min_v, int max_v, j1Module* cb, ARGUMENTS_TYPE cvtype, bool ro) : name(nam), description(des), min_value(min_v), max_value(max_v), Callback(cb), Cvar_type(cvtype), read_only(ro) {}

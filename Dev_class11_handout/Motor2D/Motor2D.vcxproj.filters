@@ -183,6 +183,9 @@
     <ClInclude Include="Player.h">
       <Filter>Desenvolupament  ========\Modules\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="CVar_Com.h">
+      <Filter>Desenvolupament  ========\Modules\H</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

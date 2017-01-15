@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "UI_Text_Box.h"
+#include "p2SString.h"
 #include "p2DynArray.h"
 #include "SDL\include\SDL_rect.h"
 
@@ -10,21 +11,6 @@ struct _TTF_Font;
 struct UI_String;
 struct UI_Image;
 
-//---------------COMAND-------------------
-//----------------------------------------
-
-
-struct command
-{
-	const char* name;
-	unsigned int min_arguments;
-	unsigned int max_arguments;
-
-	j1Module* my_module;
-	
-
-	command(const char*, j1Module*, unsigned int, unsigned int);
-};
 
 //--------------CONSOLE-------------------
 //----------------------------------------
