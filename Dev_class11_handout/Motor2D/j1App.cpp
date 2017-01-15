@@ -138,9 +138,9 @@ bool j1App::Awake()
 			p2SString name = cvar.attribute("name").as_string();
 			int i = 0;
 			for (i; i < strlen(start.name()); i++)
-				name.Insert_Char(i, (start.name() + i));
+				name.Insert_Char_beggining(i, (start.name() + i));
 
-			name.Insert_Char(i, ".");
+			name.Insert_Char_beggining(i, ".");
 
 			p2SString description = cvar.attribute("description").as_string();
 			p2SString value = cvar.attribute("value").as_string();

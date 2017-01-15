@@ -74,6 +74,11 @@ private:
 	command* Command_management(const char*);
 	CVar* Cvar_management(const char*);
 
+	command* help;
+	command* CV_list;
+	command* get;
+	command* set;
+
 };
 
 

@@ -52,6 +52,11 @@ bool j1Console::Awake(pugi::xml_node& config)
 bool j1Console::Start()
 {
 	
+	help = Add_Command("help", this, 0, 0, NONE);
+	CV_list = Add_Command("cv_list", this, 0, 0, NONE);
+	get = Add_Command("get", this, 1, 1, CHAR_VAR);
+	set = Add_Command("set", this, 2, 2, CHAR_VAR);
+
 	return true;
 }
 
@@ -174,8 +179,31 @@ bool j1Console::On_GUI_Callback(UI_element* ui_element, GUI_INPUT type)
 	return true;
 }
 
-bool j1Console::On_Console_Callback(command *, int *)
+bool j1Console::On_Console_Callback(command* callabck_com, int* arg)
 {
+
+	if (callabck_com == help)
+	{
+		LOG("-List of commands:");
+		int num_comm = Commands_List.Count() - 1;
+
+		for (; num_comm >= 0; num_comm--)
+			LOG("-/%s   %i values", Commands_List[num_comm]->name.GetString(), Commands_List[num_comm]->max_arguments);
+
+
+	}
+
+	if (callabck_com == CV_list)
+	{
+		LOG("-List of CVars:");
+		int num_cv = CVars_list.Count() - 1;
+
+		for (; num_cv >= 0; num_cv--)
+			LOG("-%s ", CVars_list[num_cv]->Get_name());
+
+	}
+
+
 	return true;
 }
 

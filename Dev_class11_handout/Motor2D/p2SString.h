@@ -387,11 +387,31 @@ public:
 			strcpy_s(str, size, tmp);
 			delete[] tmp;
 		}
+		for (int i = len; i > position; i--)
+			*(str + i + 1) = *(str + i);
+
+		*(str + position + 1) = *new_text;
+	}
+
+	void Insert_Char_beggining(int position, const char* new_text)
+	{
+		int len = Length();
+		position = MIN(position, len - 1);
+		unsigned int need_size = strlen(new_text) + len + 1;
+
+		if (need_size > size)
+		{
+			char* tmp = str;
+			Alloc(need_size);
+			strcpy_s(str, size, tmp);
+			delete[] tmp;
+		}
 		for (int i = len; i >= position; i--)
 			*(str + i + 1) = *(str + i);
 
 		*(str + position) = *new_text;
 	}
+
 
 	void Erase_Char(int position)
 	{
