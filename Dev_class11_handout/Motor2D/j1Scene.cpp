@@ -57,7 +57,7 @@ bool j1Scene::Start()
 	//App->gui->CreateElement({ 0, 0 }, UI_TYPE::IMAGE_NOT_IN_ATLAS, { 0, 0, 1920, 1080 }, 0);
 
 
-	
+	/*
 	//Exam
 	
 	//Exercise 1 -> Setting all the elements
@@ -132,7 +132,7 @@ bool j1Scene::Start()
 	//Exercise 2 Setting the scroll elements
 	
 
-	/*
+	
 
 
 	soldier0 = (Player*)App->entity_manager->create({ 15, 5 });
@@ -185,10 +185,38 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		App->render->camera.y += SDL_ceil(100 * dt);
+
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		App->render->camera.y -= SDL_ceil(100 * dt);
+
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		App->render->camera.x += SDL_ceil(100 * dt);
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->camera.x -= SDL_ceil(100 * dt);
 
 	App->map->Draw();
 	
+	// Debug pathfinding ------------------------------
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p = App->map->MapToWorld(p.x, p.y);
+
+	App->render->Blit(debug_tex, p.x, p.y);
+
 	
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for(uint i = 0; i < path->Count(); ++i)
+	{
+	iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+	App->render->Blit(debug_tex, pos.x, pos.y);
+	}
+
 	return true;
 }
 
