@@ -4,10 +4,14 @@
   <app framerate_cap="">
     <title>Pathfinding Test</title>
     <organization>UPC</organization>
+    <cvars>
+    </cvars>
   </app>
 	
   <renderer>
     <vsync value="true"/>
+    <cvars>
+    </cvars>
   </renderer>
 
   <fonts>

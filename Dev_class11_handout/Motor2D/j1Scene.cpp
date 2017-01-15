@@ -108,7 +108,7 @@ bool j1Scene::Start()
 	Heroe_images->Set_Active_state(false);
 
 	Heroe_selector = (UI_Scroll*)App->gui->Add_element(UI_TYPE::SCROLL, this);
-	Heroe_selector->Set_Interactive_Box({ 130, 200, 68, 54 });
+	Heroe_selector->Set_Interactive_Box({ 0, 0, 68, 54 });
 	Heroe_selector->Set_Stop_Box({ 130, 200, 300, 169 });
 	Heroe_selector->Set_Slider_image(Slider_image);
 	Heroe_selector->Set_Stop_box_image(Heroe_images);

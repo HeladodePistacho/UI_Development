@@ -48,7 +48,7 @@ class CVar
 
 public:
 
-	CVar(const char* , const char* , int , int , j1Module*, ARGUMENTS_TYPE, bool); 
+	CVar(const char* , const char* , const char*, int , int , j1Module*, ARGUMENTS_TYPE, bool);
 
 	const char* Get_name() const
 	{

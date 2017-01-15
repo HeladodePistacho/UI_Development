@@ -80,6 +80,8 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	j1Module* Find_module(const char*);
+
 	bool On_Console_Callback(command*, int*);
 
 	// Load / Save

@@ -136,6 +136,16 @@ command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min
 	return new_command;
 }
 
+CVar * j1Console::Add_CVar(const char* nam, const char* des, const char* default_v, int min_v, int max_v, j1Module* cb, ARGUMENTS_TYPE cvtype, bool ro)
+{
+	CVar* ret = new CVar(nam, des, default_v, min_v, max_v, cb, cvtype, ro);
+
+	if (ret)
+		CVars_list.PushBack(ret);
+
+	return ret;
+}
+
 bool j1Console::On_GUI_Callback(UI_element* ui_element, GUI_INPUT type)
 {
 	switch (type)
@@ -387,4 +397,4 @@ command::command(const char* new_com, j1Module* callback, unsigned int min_args,
 //----------------CVAR--------------------
 //----------------------------------------
 
-CVar::CVar(const char* nam, const char* des, int min_v, int max_v, j1Module* cb, ARGUMENTS_TYPE cvtype, bool ro) : name(nam), description(des), min_value(min_v), max_value(max_v), Callback(cb), Cvar_type(cvtype), read_only(ro) {}
+CVar::CVar(const char* nam, const char* des, const char* default_v, int min_v, int max_v, j1Module* cb, ARGUMENTS_TYPE cvtype, bool ro) : name(nam), description(des), value(default_v), min_value(min_v), max_value(max_v), Callback(cb), Cvar_type(cvtype), read_only(ro) {}

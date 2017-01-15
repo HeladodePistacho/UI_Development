@@ -22,6 +22,8 @@
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
+
+	name.create("app");
 	PERF_START(ptimer);
 
 	input = new j1Input();
@@ -123,6 +125,58 @@ bool j1App::Awake()
 			item = item->next;
 		}
 	}
+	
+	//load config cvars
+	pugi::xml_node start = config.child("app");
+	while (start != NULL)
+	{
+		pugi::xml_node cvar = start.child("cvars").first_child();
+
+		while (cvar != NULL)
+		{
+
+			p2SString name = cvar.attribute("name").as_string();
+			int i = 0;
+			for (i; i < strlen(start.name()); i++)
+				name.Insert_Char(i, (start.name() + i));
+
+			name.Insert_Char(i, ".");
+
+			p2SString description = cvar.attribute("description").as_string();
+			p2SString value = cvar.attribute("value").as_string();
+
+			p2SString cv_module = start.name();
+			j1Module* callback = Find_module(cv_module.GetString());
+
+			int min_v = cvar.attribute("min").as_int();
+			int max_v = cvar.attribute("max").as_int();
+
+			ARGUMENTS_TYPE type;
+			p2SString type_v = cvar.attribute("type").as_string();
+
+			if (type_v == "int")
+				type = INT_VAR;
+
+			if (type_v == "char")
+				type = CHAR_VAR;
+
+			if (type_v == "bool")
+				type = BOOL_VAR;
+
+			bool read_only = cvar.attribute("read_only").as_bool();
+
+			CVar* new_cvar = console->Add_CVar(name.GetString(), description.GetString(), value.GetString(), min_v, max_v, callback, type, read_only);
+
+			LOG("Loaded CVAR: %s, in Module: %s", new_cvar->Get_name(), callback->name.GetString());
+
+			cvar = cvar.next_sibling();
+		}
+
+		start = start.next_sibling();
+
+	}
+	
+
 
 	PERF_PEEK(ptimer);
 
@@ -319,6 +373,25 @@ bool j1App::PostUpdate()
 
 	ret = update_stop;
 	return ret;
+}
+
+j1Module* j1App::Find_module(const char* mod_name)
+{
+	
+	if (strcmp(mod_name, "app") == 0)
+		return this;
+
+	p2List_item<j1Module*>* ret = modules.start;
+
+	while (ret != nullptr)
+	{
+		if (ret->data->name == mod_name)
+			return ret->data;
+
+		ret = ret->next;
+	}
+
+	return nullptr;
 }
 
 bool j1App::On_Console_Callback(command* com, int* argument)

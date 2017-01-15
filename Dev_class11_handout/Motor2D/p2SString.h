@@ -387,10 +387,10 @@ public:
 			strcpy_s(str, size, tmp);
 			delete[] tmp;
 		}
-		for (int i = len; i > position; i--)
+		for (int i = len; i >= position; i--)
 			*(str + i + 1) = *(str + i);
 
-		*(str + position + 1) = *new_text;
+		*(str + position) = *new_text;
 	}
 
 	void Erase_Char(int position)
