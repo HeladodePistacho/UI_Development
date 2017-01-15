@@ -2,6 +2,7 @@
 #define _J1CONSOLE_H_
 
 #include "j1Module.h"
+#include "CVar_Com.h"
 #include "UI_Text_Box.h"
 #include "p2SString.h"
 #include "p2DynArray.h"
@@ -35,7 +36,8 @@ public:
 
 	void Active_console();
 	void Add_Label(const char* );
-	command* Add_Command(const char* , j1Module* , uint , uint );
+
+	command* Add_Command(const char* , j1Module* , uint , uint, ARGUMENTS_TYPE);
 
 	bool On_GUI_Callback(UI_element*, GUI_INPUT);
 	bool On_Console_Callback(command*, int*);
@@ -50,6 +52,7 @@ public:
 
 	p2DynArray<UI_String*> Labels;
 	p2DynArray<command*> Commands_List;
+	p2DynArray<CVar*> CVars_list;
 
 private:
 
@@ -66,7 +69,9 @@ private:
 
 	void Text_management();
 	void Argument_management(const char*, int, command*);
+
 	command* Command_management(const char*);
+	CVar* Cvar_management(const char*);
 
 };
 

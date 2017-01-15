@@ -146,8 +146,8 @@ bool j1App::Start()
 
 	PERF_PEEK(ptimer);
 
-	quit = console->Add_Command("quit", this, 0, 0);
-	fps = console->Add_Command("fps", this, 0, 0);
+	quit = console->Add_Command("quit", this, 0, 0, ARGUMENTS_TYPE::NONE);
+	fps = console->Add_Command("fps", this, 0, 0, ARGUMENTS_TYPE::NONE);
 
 
 	return ret;

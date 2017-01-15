@@ -60,7 +60,6 @@ bool j1Console::Update(float dt)
 
 	Load_Update_labels();
 	Input_text->Update();
-	//Input_text->Handle_input();
 
 	check_state();
 
@@ -127,9 +126,9 @@ void j1Console::Add_Label(const char * new_text)
 	num_of_labels++;
 }
 
-command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min_arg, uint max_args)
+command* j1Console::Add_Command(const char * comm, j1Module * callback, uint min_arg, uint max_args, ARGUMENTS_TYPE type)
 {
-	command* new_command = new command(comm, callback, min_arg, max_args);
+	command* new_command = new command(comm, callback, min_arg, max_args, type);
 
 	if (new_command)
 		Commands_List.PushBack(new_command);
@@ -269,36 +268,80 @@ void j1Console::Text_management()
 
 void j1Console::Argument_management(const char* Input_text, int bookmark, command* this_command)
 {
-	int* args = new int(this_command->max_arguments);
 	int args_count = 0;
 
-	for (args_count; bookmark < strlen(Input_text); bookmark++)
+	if (this_command->args_type == INT_VAR || this_command->args_type == NONE)
 	{
-		if (*(Input_text + bookmark) == ' ')
-			continue;
+		int* args = new int(this_command->max_arguments);
+
+		for (args_count; bookmark < strlen(Input_text); bookmark++)
+		{
+			if (*(Input_text + bookmark) == ' ')
+				continue;
+			else
+			{
+				if (args_count <= this_command->max_arguments)
+				{
+					*(args + args_count) = atoi((Input_text + bookmark));
+					args_count++;
+				}
+				else
+				{
+					LOG("ERROR: Too much arguments");
+					return;
+				}
+			}
+		}
+
+		if (args_count < this_command->min_arguments)
+			LOG("ERROR: More arguments needed");
 		else
 		{
-			if (args_count <= this_command->max_arguments)
+			this_command->my_module->On_Console_Callback(this_command, args);
+		}
+		delete[] args;
+	}
+
+	if (this_command->args_type == CHAR_VAR)
+	{
+		char* args_c = new char(strlen(Input_text));
+
+		for (int i = 0; bookmark < strlen(Input_text); bookmark++)
+		{
+			if (*(Input_text + bookmark) == ' ')
 			{
-				*(args + args_count) = atoi((Input_text + bookmark));
+				CVar* temp = Cvar_management(args_c);
+				if (temp)
+					temp->Set_value((Input_text + bookmark + 1));
+
 				args_count++;
+
 			}
 			else
 			{
-				LOG("ERROR: Too much arguments");
-				return;
+				if (args_count <= this_command->max_arguments)
+				{
+					*(args_c + i) = *(Input_text + bookmark);
+					i++;
+				}
+				else
+				{
+					LOG("ERROR: Too much arguments");
+					return;
+				}
 			}
 		}
+		if (args_count < this_command->min_arguments)
+			LOG("ERROR: More arguments needed");
+		else
+		{
+			this_command->my_module->On_Console_Callback(this_command, args_c);
+		}
+		delete[] args_c;
 	}
 
-	if (args_count < this_command->min_arguments)
-		LOG("ERROR: More arguments needed");
-	else
-	{
-		this_command->my_module->On_Console_Callback(this_command, args);
-	}
 
-	delete[] args;
+		
 }
 
 command* j1Console::Command_management(const char* Input_command)
@@ -317,10 +360,25 @@ command* j1Console::Command_management(const char* Input_command)
 	return nullptr;
 }
 
+CVar* j1Console::Cvar_management(const char* input_text)
+{
+	
+	int num_cvars = CVars_list.Count();
+	for (int i = 0; i < num_cvars; i++)
+	{
+		if (strcmp(input_text, CVars_list[i]->Get_name()) != 0)
+			continue;
+		else return CVars_list[i];
+	}
+
+	LOG("ERROR: CVar does not exist");
+	return nullptr;
+}
+
 //---------------COMAND-------------------
 //----------------------------------------
 
-command::command(const char* new_com, j1Module* callback, unsigned int min_args, unsigned int max_args) : name(new_com), my_module(callback), min_arguments(min_args), max_arguments(max_args) {}
+command::command(const char* new_com, j1Module* callback, unsigned int min_args, unsigned int max_args, ARGUMENTS_TYPE type) : name(new_com), my_module(callback), min_arguments(min_args), max_arguments(max_args), args_type(type) {}
 
 //----------------CVAR--------------------
 //----------------------------------------

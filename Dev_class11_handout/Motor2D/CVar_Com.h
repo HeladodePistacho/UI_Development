@@ -7,6 +7,7 @@
 
 enum ARGUMENTS_TYPE
 {
+	NONE,
 	INT_VAR,
 	CHAR_VAR,
 	BOOL_VAR
@@ -24,9 +25,9 @@ struct command
 	unsigned int max_arguments;
 
 	j1Module* my_module;
+	ARGUMENTS_TYPE args_type;
 
-
-	command(const char*, j1Module*, unsigned int, unsigned int);
+	command(const char*, j1Module*, unsigned int, unsigned int, ARGUMENTS_TYPE);
 };
 
 //----------------CVAR--------------------
