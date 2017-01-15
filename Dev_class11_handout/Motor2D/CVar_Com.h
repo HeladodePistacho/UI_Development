@@ -41,8 +41,7 @@ class CVar
 	p2SString value;
 
 	int min_value, max_value;
-	j1Module* Callback;
-	ARGUMENTS_TYPE Cvar_type;
+	
 
 	bool read_only;
 
@@ -85,6 +84,19 @@ public:
 		if (!read_only)
 			value = str;
 	}
+
+	int Get_min() const
+	{
+		return min_value;
+	}
+
+	int Get_max() const
+	{
+		return max_value;
+	}
+
+	j1Module* Callback;
+	ARGUMENTS_TYPE Cvar_type;
 };
 
 

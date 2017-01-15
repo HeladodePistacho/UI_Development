@@ -30,15 +30,7 @@ bool j1Console::Awake(pugi::xml_node& config)
 	Background.b = config.child("Color").attribute("b").as_int();
 	Background.a = config.child("Color").attribute("a").as_int();
 
-	LOG("Setting console text box");
-
-	int width;
-	App->font->CalcSize("Set", width, height, App->font->default);
-
-	Input_text = (UI_Text_Box*)App->gui->Add_element(UI_TYPE::TEXT_BOX, this);
-	Input_text->Set_Interactive_Box({ console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height });
-	Input_text->Set_Drag_Type(NO_SCROLL);
-
+	
 
 	
 
@@ -52,10 +44,18 @@ bool j1Console::Awake(pugi::xml_node& config)
 bool j1Console::Start()
 {
 	
+	LOG("Setting console text box");
+
+	int width;
+	App->font->CalcSize("Set", width, height, App->font->default);
+
+	Input_text = (UI_Text_Box*)App->gui->Add_element(UI_TYPE::TEXT_BOX, this);
+	Input_text->Set_Interactive_Box({ console_screen.x, (console_screen.y + console_screen.h), console_screen.w, height });
+	Input_text->Set_Drag_Type(NO_SCROLL);
+
+
 	help = Add_Command("help", this, 0, 0, NONE);
 	CV_list = Add_Command("cv_list", this, 0, 0, NONE);
-	get = Add_Command("get", this, 1, 1, CHAR_VAR);
-	set = Add_Command("set", this, 2, 2, CHAR_VAR);
 
 	return true;
 }
@@ -179,10 +179,10 @@ bool j1Console::On_GUI_Callback(UI_element* ui_element, GUI_INPUT type)
 	return true;
 }
 
-bool j1Console::On_Console_Callback(command* callabck_com, int* arg)
+bool j1Console::On_Console_Callback(command* callback_com, int* arg)
 {
 
-	if (callabck_com == help)
+	if (callback_com == help)
 	{
 		LOG("-List of commands:");
 		int num_comm = Commands_List.Count() - 1;
@@ -193,7 +193,7 @@ bool j1Console::On_Console_Callback(command* callabck_com, int* arg)
 
 	}
 
-	if (callabck_com == CV_list)
+	if (callback_com == CV_list)
 	{
 		LOG("-List of CVars:");
 		int num_cv = CVars_list.Count() - 1;
@@ -205,6 +205,14 @@ bool j1Console::On_Console_Callback(command* callabck_com, int* arg)
 
 
 	return true;
+}
+
+bool j1Console::On_Console_Callback(command* callback_com, char* arg)
+{
+
+	
+
+	return false;
 }
 
 void j1Console::check_state()
@@ -261,7 +269,7 @@ void j1Console::Camera_management()
 
 void j1Console::Text_management()
 {
-	int len = strlen(Input_text->text.text.GetString());
+	int len = strlen(Input_text->text.text.GetString()) + 1;
 	char* temp = new char(len);
 
 	//Check if there are spaces before text
@@ -274,9 +282,10 @@ void j1Console::Text_management()
 		else continue;
 	}
 
-	//Check if is a command
+	//IT IS COMMAND
 	if (*(Input_text->text.text.GetString() + bookmark) == '/')
 	{
+		
 		for (int i = 0; bookmark < len; bookmark++)
 		{
 			if (*(Input_text->text.text.GetString() + bookmark + 1) != ' ')
@@ -303,6 +312,38 @@ void j1Console::Text_management()
 		}
 		else return;
 	}
+	//IT IS CVAR
+	else
+	{
+		for (int i = 0; bookmark < len; bookmark++)
+		{
+			if (*(Input_text->text.text.GetString() + bookmark) != ' ')
+			{
+				*(temp + i) = *(Input_text->text.text.GetString() + bookmark);
+				i++;
+			}
+			else
+			{
+				*(temp + i) = '\0';
+				break;
+			}
+		}
+
+		if (CVar* input_cvar = Cvar_management(temp))
+		{
+			int argument_start = bookmark;
+
+			for (int i = strlen(temp); i < len; i++)
+			{
+				*(temp + i) = *(Input_text->text.text.GetString() + bookmark);
+				bookmark++;
+			}
+			Value_CV_management(temp, argument_start, input_cvar);
+		}
+		
+
+	}
+
 		
 
 	delete[] temp;
@@ -312,7 +353,14 @@ void j1Console::Argument_management(const char* Input_text, int bookmark, comman
 {
 	int args_count = 0;
 
-	if (this_command->args_type == INT_VAR || this_command->args_type == NONE)
+	if (this_command->args_type == NONE)
+	{
+		int* temp = nullptr;
+		this_command->my_module->On_Console_Callback(this_command, temp);
+		return;
+	}
+
+	if (this_command->args_type == INT_VAR)
 	{
 		int* args = new int(this_command->max_arguments);
 
@@ -346,9 +394,10 @@ void j1Console::Argument_management(const char* Input_text, int bookmark, comman
 
 	if (this_command->args_type == CHAR_VAR)
 	{
-		char* args_c = new char(strlen(Input_text));
+		int l = (strlen(Input_text) + 1) - bookmark;
+		char* args_c = new char(l);
 
-		for (int i = 0; bookmark < strlen(Input_text); bookmark++)
+		for (int i = 0; bookmark < strlen(Input_text) + 1; bookmark++)
 		{
 			if (*(Input_text + bookmark) == ' ')
 			{
@@ -373,6 +422,7 @@ void j1Console::Argument_management(const char* Input_text, int bookmark, comman
 				}
 			}
 		}
+		args_count++;
 		if (args_count < this_command->min_arguments)
 			LOG("ERROR: More arguments needed");
 		else
@@ -384,6 +434,43 @@ void j1Console::Argument_management(const char* Input_text, int bookmark, comman
 
 
 		
+}
+
+void j1Console::Value_CV_management(const char* Input_text, int bookmark, CVar* this_cv)
+{
+	int l = strlen(Input_text) + 1;
+
+	if (bookmark != l  && this_cv->Get_RO())
+	{
+		LOG("ERROR: This CVar is for Read Only");
+		return;
+	}
+
+	if (bookmark == l)
+	{
+		const char* ro;
+		if (this_cv->Get_RO())
+			ro = "true";
+		else ro = "false";
+
+		LOG("CVar: %s, Description: %s, Value: %i, Min/Max value: %i/%i, Read Only: %s", this_cv->Get_name(), this_cv->Get_Description(), this_cv->Get_value_Int(), this_cv->Get_min(), this_cv->Get_max(), ro);
+		return;
+	}
+
+	p2SString temp;
+	for (int i = 1; bookmark < l; bookmark++)
+	{
+		temp.Insert_Char(i, Input_text + bookmark);
+		i++;
+	}
+	this_cv->Set_value(temp.GetString());
+
+	if(this_cv->Get_value_Int() >= this_cv->Get_min() && this_cv->Get_value_Int() <= this_cv->Get_max())
+	{
+		this_cv->Callback->On_Console_Callback(this_cv);
+	}
+
+
 }
 
 command* j1Console::Command_management(const char* Input_command)

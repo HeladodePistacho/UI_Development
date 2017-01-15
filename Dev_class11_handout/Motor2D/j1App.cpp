@@ -289,7 +289,7 @@ void j1App::FinishUpdate()
 	{
 		j1PerfTimer t;
 		SDL_Delay(capped_ms - last_frame_ms);
-		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
+		//LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
 	}
 
 	if (logic_dt < LOGICAL_DT)
@@ -405,6 +405,18 @@ bool j1App::On_Console_Callback(command* com, int* argument)
 
 	if (com == fps)
 		LOG("Max Fps: %.2f", 1 / dt);
+
+	return true;
+}
+
+bool j1App::On_Console_Callback(CVar* cvar)
+{
+
+	if (strcmp(cvar->Get_name(), "app.max_fps") == 0)
+	{
+		if (cvar->Cvar_type == INT_VAR)
+			capped_ms = cvar->Get_value_Int();
+	}
 
 	return true;
 }

@@ -13,6 +13,7 @@ class j1App;
 struct UI_element;
 enum GUI_INPUT;
 struct command;
+class CVar;
 
 
 class j1Module
@@ -85,6 +86,7 @@ public:
 
 	virtual bool On_Console_Callback(command*, int*) { return true; };
 	virtual bool On_Console_Callback(command*, char*) { return true; };
+	virtual bool On_Console_Callback(CVar*) { return true; };
 
 public:
 

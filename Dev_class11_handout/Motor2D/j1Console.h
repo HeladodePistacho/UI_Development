@@ -41,7 +41,9 @@ public:
 	CVar* Add_CVar(const char*, const char* , const char*, int , int , j1Module* , ARGUMENTS_TYPE , bool );
 
 	bool On_GUI_Callback(UI_element*, GUI_INPUT);
+
 	bool On_Console_Callback(command*, int*);
+	bool On_Console_Callback(command*, char*);
 
 public:
 
@@ -69,15 +71,16 @@ private:
 	void Camera_management();
 
 	void Text_management();
+
 	void Argument_management(const char*, int, command*);
+	void Value_CV_management(const char*, int, CVar*);
 
 	command* Command_management(const char*);
 	CVar* Cvar_management(const char*);
 
 	command* help;
 	command* CV_list;
-	command* get;
-	command* set;
+	
 
 };
 
