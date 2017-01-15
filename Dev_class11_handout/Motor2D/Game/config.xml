@@ -5,12 +5,14 @@
     <title>Pathfinding Test</title>
     <organization>UPC</organization>
     <cvars>
+      <cvar name ="max_fps" description ="Caps the FPS" value="60" min="0" max="120" type="int" read_only="false"/>
     </cvars>
   </app>
 	
   <renderer>
     <vsync value="true"/>
     <cvars>
+      <cvar name ="vsync" description ="Active/Desactive vsync" value="1" min="0" max="1" type="int" read_only="false"/>
     </cvars>
   </renderer>
 
