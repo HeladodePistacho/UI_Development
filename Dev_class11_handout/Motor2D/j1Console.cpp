@@ -246,7 +246,11 @@ void j1Console::Text_management()
 				*(temp + i) = *(Input_text->text.text.GetString() + bookmark + 1);
 				i++;
 			}
-			else break;
+			else
+			{
+				*(temp + i) = '\0';
+				break;
+			}
 		}
 
 		if (command* temp_com = Command_management(temp))
